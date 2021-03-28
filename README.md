@@ -43,7 +43,10 @@ We are the [Street Science Community](https://streetscience.community), a group 
 
 **You**! In whatever way you can help.
 
-For the development of the prototype we will hire a motivated student in computer science. We will also work with the Galaxy community for the implementation but more important closely with teachers and storytellers, to get direct feedback of a non-researcher's opinion of the usability and gaming factor.
+We are seaching for motivated student in computer science, which can possibliy be payed via a Hiwi contract. 
+We also want to work closly with the Galaxy community, to get ideas for the implementaion ideas an typs.
+We would like to get hints and insparation from teachers and storytellers to impove the appiel of our game for useres. 
+And of corse any direct feedback of a non-researcher's opinion of the usability and gaming factor.
 
 ## Get involved
 
