@@ -8,7 +8,7 @@
 
 Welcome! :tada: Willkommen! :balloon: Grüezi! :confetti_ball: Bienvenue! :balloon::balloon::balloon:
 
-Thank you for visiting the Online microbiome data analysis project repository.
+Thank you for visiting the online microbiome data analysis project repository.
 
 This document (the README file) is a hub to give you some information about the project. Jump straight to one of the sections below, or just scroll down to find out more.
 
@@ -36,7 +36,8 @@ We aim to implement an encouraging and easy-to-understand online game where part
 
 ## Who are we?
 
-We are the [Street Science Community](https://streetscience.community), a group of researchers from the University of Freiburg trying to bring DNA, sequencing, metagenomics and in general the scientific process closer to citizens. We successfully developed the BeerDEcoded project: materials and a series of hands-on workshops for pupils and citizens with the general aim of scientific outreach. During these workshops, we guide participants through the scientific project of the extraction and identification of different yeasts contained in a beer sample. The identification is performed by sequencing the extracted yeast DNA, using our self-developed protocols, and analyzing the sequenced DNA via an easy and straightforward user interface. Analyzing beer via this BeerDEcoded project is a great way for non specialists to visualize DNA and additionally learn about genomics and sequencing. This makes science tangible and accessible
+We are the [Street Science Community](https://streetscience.community), a group of researchers and teachers in Freiburg trying to bring DNA, sequencing, metagenomics and in general the scientific process closer to citizens. Therefore, we already developed the BeerDEcoded project: a series of hands-on workshops for pupils and citizens with the general aim of scientific outreach. During these workshops, we guide participants through the scientific project of the extraction and identification of different yeasts contained in a beer sample. The citicans are prefoming the wohl prosess from opening the beer bottle to the last klick while preforming the datanalysis.
+We generated protocols that lead the citicans thought the extracted yeast DNA, the identification via sequencing the, and analyzing the sequenced DNA via an easy and straightforward user interface. Our aim is to makes science tangible and accessible for everyone. 
 
 
 ## What do we need?
