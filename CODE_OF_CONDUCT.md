@@ -71,7 +71,7 @@ disabilities.
 
 If you experience or witness unacceptable behavior, or have any other concerns,
 please report it by contacting Teresa Müller (tesa2505@gmail.com). To
-report an issue involving Bérénice Batut please email Bérénice Batut (berenice.batut@gmail.com). All reports will be handled with discretion. In your report please include:
+report an issue involving Teresa Müller please email Bérénice Batut (berenice.batut@gmail.com). All reports will be handled with discretion. In your report please include:
 
 - Your contact information.
 

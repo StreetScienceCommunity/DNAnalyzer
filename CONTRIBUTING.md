@@ -18,7 +18,7 @@ then introduce yourself and meet some of our community members.
 
 ## How can I get started with contributing?
 
-This repository stores information and galaxy tours for our data science onlien game.
+This repository stores information and galaxy tours for our data science onlien game. Have a look. Maybe you already get some first ideas. Feel free to contact us if you want to contribute with or without new ideas. 
 
 ## How can I contribute in "advanced" mode?
 
@@ -38,13 +38,13 @@ Requests:
 6. Submit a pull request from that branch to the master repository
 7. If you receive feedback, make changes in your local clone and push them to
    your branch on GitHub: the pull request will update automatically
-8. Pull requests will be merged by the training team members after at least one
-   other person has reviewed the Pull request and approved it.
+8. Pull requests will be merged by the street science community after at least one
+   person has reviewed and approved the pull request.
 
 ## What can I do to help the project?
 
 In issues, you will find lists of issues to fix and features to implement. Feel
-free to work on them! You can check our [roadmap](../../issues/1) for upcomming tasks.
+free to work on them! You can check our [roadmap](../../issues/1) for upcoming tasks.
 And feel free to contact us with new ideas at any time via the [an issue](issues/new) or E-mail.
 
 ## More specific questions and answers
