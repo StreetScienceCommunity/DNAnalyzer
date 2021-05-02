@@ -3,7 +3,7 @@
 :+1::tada: First, thanks for taking the time to contribute! :tada::+1:
 
 You can make this project better by contributing to it. You can report mistakes
-and errors, create more content, etc. Whatever is your background, there is a
+and errors, create more content, etc. Whatever your background is, there is a
 way to contribute: via the GitHub website, via command-line or even without
 dealing with GitHub.
 
@@ -18,7 +18,7 @@ then introduce yourself and meet some of our community members.
 
 ## How can I get started with contributing?
 
-This repository stores information and galaxy tours for our data science onlien game. Have a look. Maybe you already get some first ideas. Feel free to contact us if you want to contribute with or without new ideas. 
+This repository stores information and galaxy tours for our data science online game. Have a look. Maybe you already get some first ideas. Feel free to contact us if you want to contribute with or without new ideas. 
 
 ## How can I contribute in "advanced" mode?
 
