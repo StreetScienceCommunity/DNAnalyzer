@@ -33,15 +33,19 @@ Meet Jeff, he is a Winemaker in the third generation. He and his family live on 
 - Jeff could also be a beer brewer
 
 ### Story 4: crime scene
-https://docs.google.com/presentation/d/1EBU-imiWjsmQxyaVZcWqBx27nCD8HWLFDt5am5ftYoQ/edit?usp=sharing
+
+- [Google Slides](https://docs.google.com/presentation/d/1EBU-imiWjsmQxyaVZcWqBx27nCD8HWLFDt5am5ftYoQ/edit?usp=sharing)
+
 Sam throws a party with all of his friends at his house and everybody has a blast! But after the party, he notices that very expensive jewelry he inherited from his grandmother is missing!! Sam is sure that none of his friends would steal from him, therefore an intruder must have entered the house and stolen it during the party! Sam collects all the hair he finds on the floor and sequences the DNA in the hair roots. Sam recognizes the DNA of all his friends. The one he does not know must be the intruder. Can you help Sam find the intruder's DNA?
 
 
 ### Story 5: Affair
+
 Sam has brown hair and so does Sam’s partner. They both live a happy life and have a good relationship. But Sam’s partner has complained in the past often, that Sam is not invested enough in their relationship. After some time he stopped complaining and Sam started finding blond hair in their bed. Sam suspects their partner to have an affair with a blond person and wants to know who this person is. To find out who is the third person in Sam's relationship, Sam wants to collect the DNA of every blond person the couple knows. Sam secretly collected the DNA samples from all possible relationship intruders. But now Sam needs to find out how to sequence and analyze these DNA samples. Can you help Sam in learning how to perform a DNA data analysis?
 
 
 ### Story 6: good samaritan
+
 Toni was always very close to her grandma.  Both of them spend hours in the living room of her grandma, inventing the greatest stories. The stories were accompanied by the sound the old grandfathers watch in the corner of the living room. Being together with her grandma gave Toni always great comfort and love. The day her grandma died was one of the most sad days in her life. She took the old grandfather's watch into her living room, which feeled a bit like her grandma was still present and being part of her life telling her stories though the sound of the watch. One day the clock stopped working. Toni could not find anyone to repair the watch. To cheer her up her friend gifted her a vacation. When Toni came back from the vacation the watch was working again. She was very surprised and could not believe that this happened without being repaired. She did ask all of her friends if they repaired it. None of them said yes, but she was sure that one of them did repair it. Investigating the watch she found hair, which could not be hers. Based on this hair she would like to get the DNA within the hair root and a collection of hair collected from her friends. Toni would like to perform a datanalysis. Could you help her?
 
 
