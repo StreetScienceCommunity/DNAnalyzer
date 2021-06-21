@@ -29,15 +29,18 @@ Technologies like DNA sequencing are getting cheaper and therefore more accessib
 
 ### The solution
 
-We believe that the integration of society into the scientific process will help citizens get excited for science and deepen their understanding.
-Further we believe that citizens can also help to collect and improve scientific data and results.
-Involving non scientists in this process would help scientists in exploring possibilities of their data analyses. As Galaxy can empower any researcher to analyze their own data, it can also be used to let citizens do their own data analysis and help researchers in their data analysis exploration. We aim to implement a data analysis online game. This game will guide citizens in scientific advancements and help researchers optimize their data analysis results.
-We aim to implement an encouraging and easy-to-understand online game where participants impersonate a scientist that helps an alien to learn and perform metagenomic data analyses. The game, implemented in Galaxy, will consist of several levels. As a start, or beginner level, participants learn in an interactive and fun way about the biological background, in particular DNA and sequencing and how to use the platform. In the intermediate level, they perform their first data analysis. In both levels participants collect points by answering questions or finding treasures after collecting hints. In the next level participants are guided to change and improve their pipeline for data analysis, using different datasets, tools and parameter combinations, and compare their results. They will gain points for each analysis they run, but also for the quality of their results. Within the last level, participants gain additional points by evaluating and ranking the results of others.
+We are implementing an encouraging and easy-to-understand online game for mentagenomcs data analysis, the DNAnalyzer. We have some intersting story, to make the game more exciting. You can see them [here](./Stories/Readme.md) The game, implemented in Galaxy, will consist of several levels: 
+(1) Learning: about biological background (DNA and sequencing) and how to use the platform. 
+(2) Hands on: perform the first guided data analysis.
+(3) Expert: change and improve their pipeline for data analysis.
+Gamer will in the first two levels collect points by answering questions or finding treasures by following hints. In the third level gamer and reseachter will interactively evaluate dataanalysis of otheres and thereby give and get points. We believe that the integration of society into the scientific both will profit. Citizans will get excited for science and they can help to analyze and improve scientific data. 
+
+
 
 ## Who are we?
 
-We are the [Street Science Community](https://streetscience.community), a group of researchers and teachers in Freiburg trying to bring DNA, sequencing, metagenomics and in general the scientific process closer to citizens. Therefore, we already developed the BeerDEcoded project: a series of hands-on workshops for pupils and citizens with the general aim of scientific outreach. During these workshops, we guide participants through the scientific project of the extraction and identification of different yeasts contained in a beer sample. The citizens are performing the whole process from opening the beer bottle to the last klick while performing the datanalysis.
-We generated protocols that lead the citicans through the extraction of yeast DNA, the identification via sequencing the, and analyzing the sequenced DNA via an easy and straightforward user interface. Our aim is to make science tangible and accessible for everyone.
+We are the [Street Science Community](https://streetscience.community), a group of researchers and teachers in Freiburg trying to bring DNA, sequencing, metagenomics and in general the scientific process closer to citizens. Therefore, we already developed the BeerDEcoded project: a series of hands-on workshops for pupils and citizens with the general aim of scientific outreach. During these workshops, we guide participants through the scientific project of the extraction and identification of different yeasts contained in a beer sample. The citizens are performing the whole process from opening the beer bottle to the last klick while performing the data analysis.
+We generated protocols that lead the citizens through the extraction of yeast DNA, the identification via sequencing, and the analyzation of the sequenced DNA via an easy and straightforward user interface. Our aim is to make science tangible and accessible for everyone.
 
 
 ## What do we need?

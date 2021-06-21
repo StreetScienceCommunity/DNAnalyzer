@@ -4,13 +4,16 @@ We are trying to develop an online data analysis game for citizens. The goal is 
 To make it more fun we want to tell the game in a story. We have a few story ideas but we are not sure which is the most capturing. These short stories should get people interested in the game. It would be awesome if you could give us feedback on the stories below. 
 
 
+## Storyes for the microbiome 
 
 ### Story 1: Alien discovering the earth
 
 - [Google Slides](https://docs.google.com/presentation/d/1rhOmXrTEEv7h4ECyFz-zGUFNusMItufe2GqqXX1qySQ/edit?usp=sharing)
 
 During a space exploration, Sam, a curious young alien robot from a faraway galaxy, discovered a little blue planet in the Milky Way. As he approached it, he saw that it was water on top of a rocky planet with an atmosphere of nitrogen and oxygen. But wait, what are these little creatures everywhere? In the water, on the rocks and even flying in the atmosphere! In different shapes and sizes and they are even creating replicates of themselves! Is this called life? Sam had heard of life before but he thought it was a myth.
-Sam wanted to take different specimens home for his terrarium and to show their robot friends, but these fragile life creatures wouldn't make it through the wormholes intact. Sam decided to examine and study how they function so they could build his own self-replicating creatures on his home planet.
+Sam wants to self-replicating the kind of life of the earth on his planet. So he found out that the building plan seem to be the DNA. It has the same building blocks in all organisms but somehow has different ways of implementing life. Sam would like to learn more about this differences.
+
+[//]: #  Sam wanted to take different specimens home for his terrarium and to show their robot friends, but these fragile life creatures wouldn't make it through the wormholes intact. Sam decided to examine and study how they function so they could build his own self-replicating creatures on his home planet.
 Can you help Sam to decipher the DNA?
 
 
@@ -28,9 +31,12 @@ This got her wondering what is a beer microbiome? There are collections of small
 
 - [Google Slides](https://docs.google.com/presentation/d/1A8gAgNDjmQ_DfCuIUIkghRv82mlaVCD_ngB6VQ3CfaA/edit#slide=id.p)
 
-Meet Jeff, he is a Winemaker in the third generation. He and his family live on a beautiful vineyard. His favorite wine is an old family recipe. Since they have many bottles left he never had to produce the wine. Unfortunately, one day there was a fire on the farmhouse and the old family recipe got burned. But there are still some bottles of the wine left. Jeff thought about the ingredients of the wine.  He remembered a lot! But especially, the yeast strains used for fermentation he could not remember! He found out that one can sequence the DNA in wine and find out what yeast strains are inside the wine. Now Jeff wants to learn about microbiome data analysis. Can you help him?
+Meet Jeff, he is a Winemaker in the third generation. He and his family live on a beautiful vineyard. His favorite wine is an old family recipe. Since they have many bottles left he never had to produce the wine. Unfortunately, one day there was a fire on the farmhouse and the old family recipe got burned. But there are still some bottles of the wine left. Jeff thought about the ingredients of the wine. He remembered a lot! But especially, the yeast strains used for fermentation he could not remember! He found out that one can sequence the DNA in wine and find out what yeast strains are inside the wine. Now Jeff wants to learn about microbiome data analysis. Can you help him?
 
 - Jeff could also be a beer brewer
+
+## Storyes for DNA data analysis
+
 
 ### Story 4: crime scene
 
@@ -46,7 +52,7 @@ Sam has brown hair and so does Sam’s partner. They both live a happy life and 
 
 ### Story 6: good samaritan
 
-Toni was always very close to her grandma.  Both of them spend hours in the living room of her grandma, inventing the greatest stories. The stories were accompanied by the sound the old grandfathers watch in the corner of the living room. Being together with her grandma gave Toni always great comfort and love. The day her grandma died was one of the most sad days in her life. She took the old grandfather's watch into her living room, which feeled a bit like her grandma was still present and being part of her life telling her stories though the sound of the watch. One day the clock stopped working. Toni could not find anyone to repair the watch. To cheer her up her friend gifted her a vacation. When Toni came back from the vacation the watch was working again. She was very surprised and could not believe that this happened without being repaired. She did ask all of her friends if they repaired it. None of them said yes, but she was sure that one of them did repair it. Investigating the watch she found hair, which could not be hers. Based on this hair she would like to get the DNA within the hair root and a collection of hair collected from her friends. Toni would like to perform a datanalysis. Could you help her?
+Toni was always very close to her grandma.  Both of them spend hours in the living room of her grandma, inventing the greatest stories. The stories were accompanied by the sound the old grandfathers watch in the corner of the living room. Being together with her grandma gave Toni always great comfort and love. The day her grandma died was one of the most sad days in her life. She took the old grandfather's watch into her living room, which feeled a bit like her grandma was still present and being part of her life telling her stories though the sound of the watch. One day the clock stopped working. Toni could not find anyone to repair the watch. To cheer her up her friend gifted her a vacation. When Toni came back from the vacation the watch was working again. She was very surprised and could not believe that this happened without being repaired. She did ask all of her friends if they repaired it. None of them said yes, but she was sure that one of them did repair it. Investigating the watch she found hair, which could not be hers. Based on this hair she would like to get the DNA within the hair root and a collection of hair collected from her friends. Toni would like to perform a data alysis. Could you help her?
 
 
 ***please help us and and give your [feedback](https://github.com/StreetScienceCommunity/game/issues/6)***
