@@ -1,0 +1,188 @@
+id: beerDEcoded
+name: BeerDEcoded - StreetScienceCommunity
+description: BeerDEcoded - StreetScienceCommunity
+title_default: <b>BeerDEcoded</b>
+steps:
+  - title: <b>BeerDEcoded - StreetScienceCommunity</b>
+    content: >-
+      What is a beer microbiome? There are collections of small living
+      creatures. These small creatures are called bacteria and they are
+      everywhere. In our gut, in the soil, even on vending machines. Some of
+      these bacteria are actually very good for us. And some others can make us
+      very ill. Bacteria come in different shapes and sizes but they have the
+      same components. One crucial component is the DNA, the blueprint of life.
+      The DNA encodes the shape and size and many other things unique for a
+      bacterial species. Because of the encoding information the DNA can be used
+      to identify what kind of bacteria the DNA is from. Therefore, within a
+      sample form soil, our gut or beer one can specify what kind of species are
+      inside the sample. Follow this tour to learn more about this kind of
+      analysis. <br><br> Read and Follow the instructions before clicking
+      <b>'Next'</b>.<br><br> Click <b>'Prev'</b> in case you missed out on any
+      step."
+    backdrop: true
+  - title: <b>Create a new history</b>
+    element: '#history-new-button'
+    intro: >-
+      Let's start by creating a new history.<br>Click on the button <b>'Create
+      new history'</b><br>
+    position: left
+    preclick:
+      - '#center-panel'
+  - title: <b>Rename the history</b>
+    element: '#current-history-panel > div.controls'
+    intro: Change the name of the new history to <b>'BeerDEcoded'</b>.
+    position: left
+  - title: <b>Uploading the input data</b>
+    content: We need to upload data. We will start with a <b>fastq</b> file.
+    backdrop: true
+  - title: <b>Uploading the input data</b>
+    element: .upload-button
+    intro: >-
+      We will import fastq into the history we just created.<br><br> Click
+      <b>'Next'</b> and the tour will open Galaxy Upload Manager and take you to
+      the Upload screen.
+    position: right
+    postclick:
+      - .upload-button
+  - title: <b>Uploading the input data</b>
+    intro: Upload the data by clicking the <b>'Paste/Fetch Data'</b> button.
+  - title: <b>Uploading the input data</b>
+    content: >-
+      Load the data into your history by providing the links or choose your
+      fastq file from your computer. <br>Click on <b>'Start'</b> to upload the
+      data into your Galaxy history.
+  - title: <b>Uploading the input data</b>
+    content: >-
+      The upload may take awhile.<br><br> Hit the <b>Close</b> button when you
+      see that the files are uploaded into your history.
+  - title: <b>Uploading the input data Complete !</b>
+    content: 'Now that your data is ready, let''s use some tools.<br>'
+    backdrop: true
+  - title: <b>Assign taxonomic classifications</b>
+    content: >-
+      One of the key steps in metagenomic data analysis is to identify the taxon
+      to which the individual reads belong. Taxonomic classification tools are
+      based on microbial genome databases to identify the origin of each
+      sequence.<br>
+    backdrop: true
+  - title: <b>Taxonomic classification with Kraken2</b>
+    content: >-
+      To perform the taxonomic classification we will use Kraken2. This tool
+      uses the minimizer method to sample the k-mers (all the read’s
+      subsequences of length k) in a deterministic fashion in order to reduce
+      memory constumption and processing time. In addition, it masks
+      low-complexity sequences from reference sequences by using dustmasker.<br>
+    backdrop: true
+  - title: <b>Taxonomic classification with Kraken2</b>
+    element: .toolMenuContainer
+    intro: Available tools appear here in the <b>tool menu</b>.
+    position: right
+  - title: <b>Taxonomic classification with Kraken2</b>
+    element: '#__BVID__106'
+    content: >-
+      You can use <b>'tool search'</b> to locate tools.<br><br> Search for 
+      <b>'Kraken2'</b> and select it.<br><br> Tools may take a couple of moments
+      to load.
+    placement: right
+  - title: <b>Taxonomic classification with Kraken2</b>
+    element: .toolMenuContainer
+    intro: >-
+      Open <b>'Kraken2'</b> tool<br><br> Click <b>'Next'</b> to continue our
+      tour.
+    position: right
+  - title: <b>Assign taxonomic labels with Kraken2</b>
+    element: 'div[tour_id="use_names"]'
+    intro: Have a look at the tool's parameters of the <b>'Kraken2'</b> tool.
+    placement: right
+  - title: <b>Assign taxonomic labels with Kraken2</b>
+    intro: >-
+      Please select the following parameters:<br><br> <b>'Single or paired
+      reads'</b>: Single <br> <b>'Input sequences'</b>: Uploaded dataset<br>
+      <b>'Print scientific names instead of just taxids'</b>: Yes<br>
+      <b>'Confidence'</b>: 0.0<br> <b>'In “Create Report”'</b>:<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<b>'Print a report with aggregrate counts/clade to
+      file'</b>: Yes<br> &nbsp;&nbsp;&nbsp;&nbsp;<b>'Format report output like
+      Kraken 1’s kraken-mpa-report'</b>: Yes<br> <b>'Select a Kraken2
+      database'</b>: fungi2019-03' <br><br>Click <b>'Next'</b> and the tour will
+      <b>'Execute'</b> the Kraken2 tool for you.'
+    postclick:
+      - '#execute'
+  - title: <b>Assign taxonomic labels with Kraken2</b>
+    element: '#current-history-panel > div.controls'
+    intro: >-
+      Congratulations, you have created two files. It contains Classification
+      and Report file.<br><br> It will remain stored in your history.<br><br>
+      Click the <b>'eye'</b> icon to view the data once the history item turns
+      green.
+    position: left
+  - title: <b>Analyze taxonomic assigment</b>
+    content: >-
+      Once we have assigned the corresponding taxa to the sequence, the next
+      step is to properly visualize the data, for which we will use the Krona
+      pie chart tool (<a href="https://doi.org/10.1186/1471-2105-12-385">Ondov
+      et al. 2011</a>).<br>
+    backdrop: true
+  - title: <b>Adjust dataset format</b>
+    element: '#__BVID__106'
+    intro: >-
+      But before that, we need to adjust the format of the data output from
+      Kraken2.<br><br> Search and select the <b>'Reverse'</b> tool.
+    position: right
+  - title: <b>Adjust dataset format</b>
+    intro: >-
+      You have selected the Reverse tool.<br> Ensure that for <b>'Input tabular
+      dataset'</b> you have selected the report output file from
+      Kraken2.<br><br> <b>'Execute'</b> the Reverse tool when you are ready.
+    position: right
+  - title: <b>Adjust dataset format</b>
+    element: '#__BVID__106'
+    intro: Search and select the <b>'Replace Text'</b> tool.
+    position: right
+  - title: <b>Adjust dataset format</b>
+    intro: >-
+      You have selected the Replace Text tool.<br><br> Please select the
+      following parameters:<br><br> <b>'File to process'</b>: Output dataset
+      'out_file' from 'Reverse' tool<br> <b>'In “Replacements”'</b>:<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<b>'Replacement 1'</b>:<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>'Find pattern'</b>:
+      \|<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>'Replace
+      with:'</b>: \t<br> &nbsp;&nbsp;&nbsp;&nbsp;<b>'Replacement 2'</b>:<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>'Find pattern'</b>:
+      [a-z]__<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>'Replace
+      with:'</b>: Empty <br><br>  <b>'Execute'</b> the Reverse tool when you are
+      ready.
+    position: right
+  - title: <b>Visualize the taxonomical classification with Krona</b>
+    content: >-
+      <b>Krona</b> allows hierarchical data to be explored with zooming,
+      multi-layered pie charts. With this tool, we can easily visualize the
+      composition of the bacterial communities and compare how the populations
+      of microorganisms are modified according to the conditions of the
+      environment.
+    backdrop: true
+  - title: <b>Visualize metagenomics analysis results</b>
+    element: '#__BVID__106'
+    intro: Search and select the <b>'Krona pie chart'</b> tool.
+    position: right
+  - title: <b>Visualize metagenomics analysis results</b>
+    intro: >-
+      You have selected the 'Krona pie chart' tool.<br><br> Please select the
+      following parameters:<br><br> <b>'What is the type of your input
+      data'</b>: Tabular<br> <b>'Input file'</b>: Output dataset 'out_file' from
+      'Replace Text' tool<br> <b>'Provide a name for the basal rank'</b>:
+      Root<br> <b>'Combine data from multiple datasets?'</b>: No<br> <br><br>
+      <b>'Execute'</b> the 'Krona pie chart' tool when you are ready.
+    position: right
+  - title: <b>Visualize metagenomics analysis results</b>
+    element: '#current-history-panel > div.controls'
+    intro: >-
+      Let’s take a look at the result by clicking eye icon. Using the search bar
+      we can check if certain taxa are present.
+    position: left
+    preclick:
+      - '#center-panel'
+  - title: <b>A tour BeerDEcoded</b>
+    intro: >-
+      You have reached the end of the tour.<br><br>Thank you for going through
+      our tutorial.
+    backdrop: true
