@@ -1,0 +1,52 @@
+id: beerdecoded_analysis
+name: Galaxy Tour
+description: This is a new tour created with the Galaxy Tour Builder extension.
+title_default: Galaxy Tour
+
+
+steps:
+  - title: Step 1
+    element: >-
+      #dataset-11ac94870d0bb33ae6e0da3ac829963a .primary-actions
+      a[href$="javascript:void(0);"] .fa.fa-times
+    content: ''
+    placement: left
+  - title: Step 2
+    element: >-
+      #dataset-11ac94870d0bb33a1969fddf2102b0c3 .primary-actions
+      a[href$="javascript:void(0);"] .fa.fa-times
+    content: ''
+    placement: left
+  - title: Step 3
+    element: >-
+      #dataset-11ac94870d0bb33ad80d4ffff431ed85 .details .actions.clear .left
+      a[href$="/tool_runner/rerun?id=11ac94870d0bb33ad80d4ffff431ed85"]
+      .fa.fa-refresh
+    content: ''
+    placement: left
+  - title: Step 4
+    element: >-
+      #dataset-11ac94870d0bb33abb4352933a4306b7 .details .actions.clear .left
+      a[href$="/tool_runner/rerun?id=11ac94870d0bb33abb4352933a4306b7"]
+      .fa.fa-refresh
+    content: ''
+    placement: left
+  - title: Step 5
+    element: >-
+      #dataset-11ac94870d0bb33a083b02578dac5427 .details .actions.clear .left
+      a[href$="/tool_runner/rerun?id=11ac94870d0bb33a083b02578dac5427"]
+      .fa.fa-refresh
+    content: ''
+    placement: left
+  - title: Step 6
+    element: >-
+      #dataset-11ac94870d0bb33ae1035fc44ceda5c5 .details .actions.clear .left
+      a[href$="/tool_runner/rerun?id=11ac94870d0bb33ae1035fc44ceda5c5"]
+      .fa.fa-refresh
+    content: ''
+    placement: left
+  - title: Step 7
+    element: 'div[tour_id="type_of_data|input"]'
+    content: ''
+    placement: right
+
