@@ -1,14 +1,12 @@
-# Online microbiome data analysis
-
+# DNAnalyzer: an online game for DNA data analysis
 
 ***Involve and empower citizens to contribute to science***
-
 
 ## Welcome!
 
 Welcome! :tada: Willkommen! :balloon: Grüezi! :confetti_ball: Bienvenue! :balloon::balloon::balloon:
 
-Thank you for visiting the online microbiome data analysis project repository.
+Thank you for visiting the DNAnalyzer project repository.
 
 This document (the README file) is a hub to give you some information about the project. Jump straight to one of the sections below, or just scroll down to find out more.
 
@@ -26,16 +24,18 @@ Especially in the last years public media is using words like sequencing, DNA, R
 As scientists it is our duty to not only report but also explain our work in an easy to understand way.
 Technologies like DNA sequencing are getting cheaper and therefore more accessible for various applications, e.g. in personalized medicine. This produces more data. Platforms like Galaxy (Afgan et al., Nucl Acids Res , 2018) and the Galaxy training material (Batut et al., Cell syst, 2018) help scientists analyzing their own (complex) data in a user friendly way. However, for each analysis there are several ways to perform it. Experience and knowledge helps to achieve good results, but sometimes one has to test several combinations of different algorithms and parameter settings. This can be exhausting and time consuming.
 
-
 ### The solution
 
-We are implementing an encouraging and easy-to-understand online game for mentagenomcs data analysis, the DNAnalyzer. We have some intersting story, to make the game more exciting. You can see them [here](./Stories/Readme.md) The game, implemented in Galaxy, will consist of several levels: 
-(1) Learning: about biological background (DNA and sequencing) and how to use the platform. 
-(2) Hands on: perform the first guided data analysis.
-(3) Expert: change and improve their pipeline for data analysis.
-Gamer will in the first two levels collect points by answering questions or finding treasures by following hints. In the third level gamer and reseachter will interactively evaluate dataanalysis of otheres and thereby give and get points. We believe that the integration of society into the scientific both will profit. Citizans will get excited for science and they can help to analyze and improve scientific data. 
+We are implementing an encouraging and easy-to-understand online game on DNA data analysis, the DNAnalyzer. 
 
+We have some interesting story, to make the game more exciting. You can see them [here](stories/README.md)
 
+The game, implemented in Galaxy, will consist of several levels: 
+1. Learning: about biological background (DNA and sequencing) and how to use the platform. 
+2. Hands on: perform the first guided data analysis.
+3. Expert: change and improve their pipeline for data analysis.
+
+Gamer will in the first two levels collect points by answering questions or finding treasures by following hints. In the third level gamer and reseachter will interactively evaluate dataanalysis of otheres and thereby give and get points. We believe that the integration of society into the scientific both will profit. Citizens will get excited for science and they can help to analyze and improve scientific data. 
 
 ## Who are we?
 
@@ -54,15 +54,14 @@ And of course any direct feedback of a non-researcher's opinion of the usability
 
 ## Get involved
 
-If you think you can help in any of the areas listed above (and we bet you can) or in any of the many areas that we haven't yet thought of (and here we're *sure* you can) then please check out our [contributors' guidelines](CONTRIBUTING.md) and our [roadmap](../../issues/1).
+If you think you can help in any of the areas listed above (and we bet you can) or in any of the many areas that we haven't yet thought of (and here we're *sure* you can) then please check out our [contributors' guidelines](CONTRIBUTING.md) and our [roadmap](issues/1).
 
 Please note that it's very important to us that we maintain a positive and supportive environment for everyone who wants to participate. When you join us we ask that you follow our [code of conduct](CODE_OF_CONDUCT.md) in all interactions both on and offline.
 
 
 ## Contact us
 
-If you want to report a problem or suggest an enhancement we'd love for you to [open an issue](../../issues) at this github repository because then we can get right on it.
-
+If you want to report a problem or suggest an enhancement we'd love for you to [open an issue](issues) at this github repository because then we can get right on it.
 
 
 ## Thank you
@@ -70,3 +69,42 @@ If you want to report a problem or suggest an enhancement we'd love for you to [
 Thank you very much for visiting our project repository. We hope you feel inspired and welcomed to test or even contribute to our online microbiome data analysis.
 
 
+## How can I generate the website locally?
+
+You need a `ruby` environment (version >= 2.4). Either you have it installed and
+you know how to [Bundler](https://bundler.io/) and
+[Jekyll](https://jekyllrb.com/) or you use
+(mini-)[conda](https://conda.io/docs/index.html), a package management system
+that can install all these tools for you. You can install it by following the
+instructions on this page: https://conda.io/docs/user-guide/install/index.html
+
+In the sequel, we assume you use miniconda.
+
+1. Open a terminal
+2. Clone this GitHub repository:
+
+   ```
+   git clone https://github.com/StreetScienceCommunity/DNAnalyzer
+   ```
+
+3. Navigate to the `DNAnalyzer` folder with `cd`
+4. Set up the conda environment:
+
+   ```
+   make create-env
+   ```
+
+5. Install the project's dependencies:
+
+   ```
+   make install
+   ```
+
+6. Start the website:
+
+   ```
+   make serve
+   ```
+
+7. Open the website in your favorite browser at:
+   [http://127.0.0.1:4000/](http://127.0.0.1:4000/)

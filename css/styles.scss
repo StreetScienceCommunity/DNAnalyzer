@@ -1,0 +1,218 @@
+---
+---
+
+@charset "utf-8";
+
+$beige: #fafaf0;
+$black: #000;
+$dark-red: #820325;
+$dark: #2a2a2a;
+$grey: #323232;
+$red: #E0224C;
+
+$grey-dark: $grey;
+$background-color: #e5e8dd;
+
+// Update bulma colors, globally.
+$white: $beige;
+
+$text: $grey-dark;
+$text-inverted: $white;
+
+$link: $red;
+$link-visited: $link;
+
+$link-hover: $dark-red;
+$link-focus: $link-hover;
+$link-active: $link-hover;
+
+$navbar-background-color: $beige;
+$navbar-item-hover-background-color: $background-color;
+$navbar-dropdown-item-hover-background-color: $background-color;
+
+@import 'bulma/bulma.sass';
+
+.navbar {
+  -webkit-box-shadow: 0 0 12px 0 $grey-dark;
+  -moz-box-shadow: 0 0 12px 0 $grey-dark;
+  box-shadow: 0 0 12px 0 $grey-dark;
+
+  a {
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .navbar-item {
+    img {
+      max-height: 2.5rem;
+    }
+  }
+}
+
+.content {
+  a {
+    border-bottom: 1px solid $link;
+
+    &:hover,
+    &:focus,
+    &:active {
+      border-bottom: 2px solid $link-hover;
+    }
+  }
+}
+
+.footer {
+  background-color: $dark;
+
+  .content {
+    &,
+    & h3 {
+      color: $text-inverted;
+    }
+
+    a {
+      border-bottom: 0;
+    }
+  }
+}
+
+.table {
+  background-color: transparent;
+}
+
+.hero-header {
+  background-clip: border-box;
+  background-color: rgba(0, 0, 0, 0);
+  background-origin: padding-box;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 450px;
+  width: 100%;
+
+  &.no-image {
+    height: auto;
+  }
+
+  @include tablet() {
+    background-attachment: fixed;
+  }
+}
+
+.hero-header-title {
+  padding-top: 160px;
+  text-align: center;
+  text-shadow: 2px 2px 5px $dark;
+
+  h1,
+  p {
+    color: $beige;
+  }
+
+  .no-image & {
+    padding-top: 80px;
+    text-shadow: none;
+
+    h1,
+    p {
+      color: $text;
+    }
+  }
+
+  @include tablet() {
+    padding-top: 20vh;
+  }
+}
+
+.hero-foot {
+  color: $beige;
+
+  .credit {
+    text-align: right;
+    font-size: 0.6em;
+  }
+}
+
+.home {
+  .column {
+    text-align: center;
+
+    .icon svg {
+      height: 4em;
+      width: 4em;
+    }
+  }
+
+  @include mobile() {
+    display: none;
+  }
+}
+
+.people {
+  @include mobile() {
+    .card {
+      margin-bottom: 1em;
+
+      .media-content {
+        overflow-x: initial;
+      }
+      .media-left {
+        display: none;
+      }
+    }
+  }
+
+  @include tablet() {
+    display: grid;
+    grid-gap: 2em;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  }
+}
+
+.event {
+  .event-credits {
+    border-top: 2px solid $red;
+    font-style: italic;
+    margin-top: 3em;
+    padding-top: 1em;
+  }
+
+  .event-twitter-moment {
+    & > p {
+      margin: 0 auto;
+      max-width: 550px;
+      text-align: center;
+    }
+  }
+}
+
+.events {
+  .google-calendar {
+    margin-top: 1em;
+
+    iframe {
+      height: 400px;
+      width: 100%;
+    }
+  }
+}
+
+
+.content blockquote {
+  
+  &.details {
+    background: none;
+    border-left: none;
+    padding-bottom: 1em;
+    padding-top: 0em;
+  }
+
+  &.requirements {
+    border: none;
+    background: $background-color;
+    // box-shadow: 2px 2px $grey;
+  }
+}
+
+.flongle {
+  display: none;
+}
