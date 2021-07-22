@@ -1,24 +1,13 @@
 id: beerDEcoded
 name: BeerDEcoded - StreetScienceCommunity
-description: BeerDEcoded - StreetScienceCommunity
+description: Workflow finds yeast strains contained in a sequenced beer sample.
 title_default: <b>BeerDEcoded</b>
 steps:
   - title: <b>BeerDEcoded - StreetScienceCommunity</b>
     content: >-
-      What is a beer microbiome? There are collections of small living
-      creatures. These small creatures are called bacteria and they are
-      everywhere. In our gut, in the soil, even on vending machines. Some of
-      these bacteria are actually very good for us. And some others can make us
-      very ill. Bacteria come in different shapes and sizes but they have the
-      same components. One crucial component is the DNA, the blueprint of life.
-      The DNA encodes the shape and size and many other things unique for a
-      bacterial species. Because of the encoding information the DNA can be used
-      to identify what kind of bacteria the DNA is from. Therefore, within a
-      sample form soil, our gut or beer one can specify what kind of species are
-      inside the sample. Follow this tour to learn more about this kind of
-      analysis. <br><br> Read and Follow the instructions before clicking
-      <b>'Next'</b>.<br><br> Click <b>'Prev'</b> in case you missed out on any
-      step."
+      Beer contains DNA that comes from its ingredients (hops, malts, yeast) and some hundred microbes. There are 1,000+ yeasts used for brewing and 200+ hop varieties, each one bearing a different DNA and contributing to differentiate its properties.<br>
+      It is easier now to explore the potential of genome sequencing to understand the contribution of various species to product characteristics. The sequencing of the full genome of 157 brewing yeast strains was, for example, recently reported (<a href="https://pubmed.ncbi.nlm.nih.gov/27610566/">Gallone B, Steensels J, Prahl T, et al. 2016</a>).<br>
+      Based on the identification of strains present in beer with desired characteristics, controlled experiments in which the microbial composition of the brew is altered could allow us to investigate if the presence of specific microorganisms affects flavour. The origin of each yeast species can be investigated; i.e. whether they come with the ingredients or from the environment at the production site. Furthermore, plant DNA, such as malt and hop varieties, can be found in beer samples, and the bacterial diversity can be mapped.
     backdrop: true
   - title: <b>Create a new history</b>
     element: '#history-new-button'
@@ -33,7 +22,7 @@ steps:
     intro: Change the name of the new history to <b>'BeerDEcoded'</b>.
     position: left
   - title: <b>Uploading the input data</b>
-    content: We need to upload data. We will start with a <b>fastq</b> file.
+    content: We need to upload data. We will start with a <b>fastq</b> file.<br>FASTQ format is a text-based format for storing both a biological sequence and its corresponding quality scores. Both the sequence letter and the quality score are encoded with a single ASCII character for brevity.<br>A FASTQ file normally uses four lines per sequence.<br><ul type="circle"> <li>Line 1 begins with a '@' character and is followed by a sequence identifier and an optional description.</li><li>Line 2 is the raw sequence letters.</li><li>Line 3 begins with a '+' character and is optionally followed by the same sequence identifier (and any description) again.</li><li>Line 4 encodes the quality values for the sequence in Line 2, and must contain the same number of symbols as letters in the sequence.</li> </ul><br>You can find more info in the <a href="https://en.wikipedia.org/wiki/FASTQ_format">Wikipedia article.</a>
     backdrop: true
   - title: <b>Uploading the input data</b>
     element: .upload-button
@@ -56,22 +45,15 @@ steps:
       The upload may take awhile.<br><br> Hit the <b>Close</b> button when you
       see that the files are uploaded into your history.
   - title: <b>Uploading the input data Complete !</b>
-    content: 'Now that your data is ready, let''s use some tools.<br>'
+    content: 'Now that your data is ready, let''s analyze it!<br>'
     backdrop: true
   - title: <b>Assign taxonomic classifications</b>
     content: >-
-      One of the key steps in metagenomic data analysis is to identify the taxon
-      to which the individual reads belong. Taxonomic classification tools are
-      based on microbial genome databases to identify the origin of each
-      sequence.<br>
+      One of the key steps in metagenomic data analysis is to identify the taxon to which the individual read belongs. Taxonomic classification tools are using microbial genome databases to identify the origin of each sequence.<br>
     backdrop: true
   - title: <b>Taxonomic classification with Kraken2</b>
     content: >-
-      To perform the taxonomic classification we will use Kraken2. This tool
-      uses the minimizer method to sample the k-mers (all the read’s
-      subsequences of length k) in a deterministic fashion in order to reduce
-      memory constumption and processing time. In addition, it masks
-      low-complexity sequences from reference sequences by using dustmasker.<br>
+      To perform the taxonomic classification we will use Kraken2. This tool uses <a href="https://en.wikipedia.org/wiki/K-mer">k-mers</a> (the read’s subsequences of length k) to assign a taxonomic label to the sequence (if possible).<br>The taxonomic label is assigned based on matches of k-mer content of the considering sequence to the k-mer content of reference genome sequence. The result is a classification of the considering sequence to the most likely taxonomic label. If the k-mer content is not similar to any genomic sequence in the database used, it will not assign any taxonomic label.<br>
     backdrop: true
   - title: <b>Taxonomic classification with Kraken2</b>
     element: .toolMenuContainer
@@ -104,7 +86,8 @@ steps:
       file'</b>: Yes<br> &nbsp;&nbsp;&nbsp;&nbsp;<b>'Format report output like
       Kraken 1’s kraken-mpa-report'</b>: Yes<br> <b>'Select a Kraken2
       database'</b>: fungi2019-03' <br><br>Click <b>'Next'</b> and the tour will
-      <b>'Execute'</b> the Kraken2 tool for you.'
+      <b>'Execute'</b> the Kraken2 tool for you.'<br><br><br>      
+      <small>Additional info:<br><b>Parameter ‘Single or paired reads’</b><br>Single-end reads are the fragments sequenced from one side. With paired-end sequencing, the fragments are sequenced from both sides. This approach results in two reads per fragment, with the first read in forward orientation and the second read in reverse-complement orientation. With this technique, we have the advantage to get more information about each DNA fragment compared to reads sequenced by only single-end sequencing<br><b>Parameter ‘Confidence'</b><br>A confidence score of 0.0 means that non-restrictive taxonomic assignation is desired. This value can be increased if a more restrictive taxonomic assignation is desired. For example, a confidence score of 0.1 means that at least 10% of the k-mers should match entries in the database. <br><b>Parameter ‘Select a Kraken2 database’</b><br>We need to identify the taxon to which the individual reads belong. To identify the origin of each sequence, taxonomic classification tools use  microbial genome databases. For this tutorial, we will use the <i>fungi2019-03</i> database.<small/><br>
     postclick:
       - '#execute'
   - title: <b>Assign taxonomic labels with Kraken2</b>
@@ -125,8 +108,7 @@ steps:
   - title: <b>Adjust dataset format</b>
     element: '#__BVID__106'
     intro: >-
-      But before that, we need to adjust the format of the data output from
-      Kraken2.<br><br> Search and select the <b>'Reverse'</b> tool.
+      It can happen, that the output format of the tool needs to be changed in order for the next tool to read the data.Galaxy offers several "manipulation" tools.<br><br>The format of the file created after executing Kraken2 has a tabular format with one column and one line per taxon. Every line contains the information divided by | symbol. In order to make it more readable and usable by next tools we need a tab-delimited format with one line per taxon. The fields of the output, from left-to-right, should be as follows:1) Number of fragments assigned directly to this taxon; 2) A rank code, indicating (U)nclassified, (R)oot, (D)omain, (K)ingdom, (P)hylum, (C)lass, (O)rder, (F)amily, (G)enus, or (S)pecies.<br><br>Here we need to adjust the format of the data output from Kraken2.  <br><br> Search and select the <b>'Reverse'</b> tool.
     position: right
   - title: <b>Adjust dataset format</b>
     intro: >-
