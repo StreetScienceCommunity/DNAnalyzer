@@ -5,8 +5,11 @@ title_default: <b>BeerDEcoded</b>
 steps:
   - title: <b>BeerDEcoded - StreetScienceCommunity</b>
     content: >-
-      Beer contains DNA that comes from its ingredients (hops, malts, yeast) and some hundred microbes. There are 1,000+ yeasts used for brewing and 200+ hop varieties, each one bearing a different DNA and contributing to differentiate its properties.<br>
-      It is easier now to explore the potential of genome sequencing to understand the contribution of various species to product characteristics. The sequencing of the full genome of 157 brewing yeast strains was, for example, recently reported (<a href="https://pubmed.ncbi.nlm.nih.gov/27610566/">Gallone B, Steensels J, Prahl T, et al. 2016</a>).<br>
+      Beer contains DNA that comes from its ingredients and some hundred microbes. There are 1,000+ yeasts used for brewing and 200+ hop varieties, each one bearing a different DNA and contributing to differentiate its properties.<br>
+      Thanks to sequencing it is now easyer to find the different genomes contained in a beer sample and investigate their characteristics. The sequencing of the full genome of 157 brewing yeast strains was, for example, recently reported (<a href="https://pubmed.ncbi.nlm.nih.gov/27610566/">Gallone B, Steensels J, Prahl T, et al. 2016</a>).<br>
+    backdrop: true      
+  - title: <b>BeerDEcoded - StreetScienceCommunity</b>
+    content: >-      
       Based on the identification of strains present in beer with desired characteristics, controlled experiments in which the microbial composition of the brew is altered could allow us to investigate if the presence of specific microorganisms affects flavour. The origin of each yeast species can be investigated; i.e. whether they come with the ingredients or from the environment at the production site. Furthermore, plant DNA, such as malt and hop varieties, can be found in beer samples, and the bacterial diversity can be mapped.
     backdrop: true
   - title: <b>Create a new history</b>
@@ -54,6 +57,7 @@ steps:
   - title: <b>Taxonomic classification with Kraken2</b>
     content: >-
       To perform the taxonomic classification we will use Kraken2. This tool uses <a href="https://en.wikipedia.org/wiki/K-mer">k-mers</a> (the read’s subsequences of length k) to assign a taxonomic label to the sequence (if possible).<br>The taxonomic label is assigned based on matches of k-mer content of the considering sequence to the k-mer content of reference genome sequence. The result is a classification of the considering sequence to the most likely taxonomic label. If the k-mer content is not similar to any genomic sequence in the database used, it will not assign any taxonomic label.<br>
+      <img src="kraken2_simlified.jpg" alt="Kraken2 simlified process image" width="400" height="400">
     backdrop: true
   - title: <b>Taxonomic classification with Kraken2</b>
     element: .toolMenuContainer
