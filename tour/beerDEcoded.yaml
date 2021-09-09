@@ -18,7 +18,7 @@ steps:
     backdrop: true 
   - title: <b>[INFO]</b> Workflow of BeerDEcoded process
     content: >-
-      The beerDeCoded process contains 3 consistent steps. The first step is DNA extraction from beer. Then, this DNA can be sequenced. That means that we can obtain the sequence of nucleotides for this specific DNA. Finally, we have to analyze received data in order to know which organisms this DNA is from.<br><img src="workflow-of-beerDeCoded.png" alt="workflow of beerDeCoded process" width="400" height="400">
+      The beerDeCoded process contains 3 consistent steps. The first step is DNA extraction from beer. Then, this DNA can be sequenced. That means that we can obtain the sequence of nucleotides for this specific DNA. Finally, we have to analyze received data in order to know which organisms this DNA is from.<br><img src="images/workflow-of-beerDeCoded.png" alt="workflow of beerDeCoded process" width="400" height="400">
   - title: <b>[ACTION]</b> Create a new history
     element: '#history-new-button'
     intro: >-
@@ -64,7 +64,7 @@ steps:
   - title: <b>[INFO]</b> Process of taxonomic classification with Kraken2
     content: >-
       To perform the taxonomic classification we will use Kraken2. This tool uses <a href="https://en.wikipedia.org/wiki/K-mer">k-mers</a> (the read’s subsequences of length k) to assign a taxonomic label to the sequence (if possible).<br>The taxonomic label is assigned based on matches of k-mer content of the considering sequence to the k-mer content of reference genome sequence. The result is a classification of the considering sequence to the most likely taxonomic label. If the k-mer content is not similar to any genomic sequence in the database used, it will not assign any taxonomic label.<br>
-      <img src="kraken2_simlified.jpg" alt="Kraken2 simlified process image" width="400" height="400">
+      <img src="images/kraken2_simlified.jpg" alt="Kraken2 simlified process image" width="400" height="400">
     backdrop: true
   - title: <b>[ACTION]</b> Go to the tool menu
     element: .toolMenuContainer
