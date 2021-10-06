@@ -7,3 +7,7 @@ photos:
   name: Karolina Kołodziejczak
   url: https://unsplash.com/photos/YvJS3NJwhjk
 ---
+
+# Let's start the Game!
+
+[Level 1: Introduction]({{ site.baseurl }}{% link stories/alien/level1/slides.html %})
