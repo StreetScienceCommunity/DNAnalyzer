@@ -1,0 +1,21 @@
+---
+layout: default
+---
+
+<!--<div><a href="slides.html">Slides</a></div> -->
+
+<iframe width="500" height="300" src="video.mp4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  
+{% if page.quiz %}
+	<div>
+		{{ page.quiz }}
+	</div>
+{% endif %}
+  
+{% if page.scores %}
+	<div>
+		{{ page.scores }}
+	</div>  
+{% endif %}
+
+{{ content }}

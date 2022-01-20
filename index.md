@@ -10,4 +10,6 @@ photos:
 
 # Let's start the Game!
 
-[Level 1: Introduction]({{ site.baseurl }}{% link stories/alien/level1/slides.html %})
+[**START**]({{ site.baseurl }}{% link game/level1/index.md %})
+
+<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vR7eW6vVlzmGaFtA4p6FcuW6GJzstwMQEqnF5WxI_OHJsGYnItCFUjh9BS5OxQmyFKrvXgASz5XJKAR/pubhtml?gid=605107361&amp;single=true&amp;widget=true&amp;headers=false" width="300" height="300" frameborder="0" marginheight="0" marginwidth="0"></iframe>
