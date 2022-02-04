@@ -37,6 +37,7 @@ create-env: ## create conda environment
 ACTIVATE_ENV = source $(dir ${CONDA})activate ${CONDA_ENV}
 install: clean ## install dependencies
 	$(ACTIVATE_ENV) && \
+		npm install && \
 		gem install bundler && \
 		bundle install
 .PHONY: install
