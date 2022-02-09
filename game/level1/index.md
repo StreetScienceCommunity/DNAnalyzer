@@ -1,7 +1,8 @@
 ---
 layout: level
-title: 'Level 1. Introduction'
+title: DNAnalyzer
+description: 'Level 1. Introduction'
 image: /images/index.jpg
 ---
 
-[**NEXT LEVEL**]({{ site.baseurl }}{% link game/level2/index.md %})
+[**Next level**]({{ site.baseurl }}{% link game/level2/index.md %}){:.button .is-success .is-active .is-link .is-medium}
