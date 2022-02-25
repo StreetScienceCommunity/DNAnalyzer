@@ -75,4 +75,4 @@ we ask that you follow our [code of conduct]({{ site.github.repository_url
 
 Funding
 - [University of Freiburg](https://uni-freiburg.de/)
-- [de.NBI](https://www.denbi.de/), the German Network for Bioinformatics Infrastructure, for the MinION
+- [de.NBI](https://www.denbi.de/)
