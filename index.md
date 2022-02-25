@@ -11,3 +11,5 @@ photos:
 # Let's start the Game!
 
 [Level 1: Introduction]({{ site.baseurl }}{% link stories/alien/level1/slides.html %})
+
+{% include quiz.html file='questions' %}
