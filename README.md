@@ -232,3 +232,9 @@ Quiz is realized with google forms. Results are located in Google Sheets https:/
 - In column “Max level” add new sum term +IF(ISNUMBER(X:X),1,0) in formula, where X is column for new added level
 
 - In column “Final score” change the range of cells, make sure that cells with a new added level are taken into account.
+
+#### Colour codes
+
+#aabeff4b - footer and header colours
+#b1c4ff1a - background colour
+#E5f0f9 - colour used in gforms and gsheets
