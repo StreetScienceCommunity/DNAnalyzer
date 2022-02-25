@@ -8,6 +8,7 @@ SITE_URL=http://${PDF_HOST}:${PORT}
 PROTOCOLS=$(shell find _site/protocols/ -name 'index.html' | sed 's/_site\/protocols\///')
 
 CONDA = $(shell which conda)
+CONDA_ENV_DIR=$(shell dirname $(dir $(CONDA)))
 ifeq ($(CONDA),)
 	CONDA=${HOME}/miniconda3/bin/conda
 endif
@@ -39,6 +40,9 @@ install: clean ## install dependencies
 	$(ACTIVATE_ENV) && \
 		npm install && \
 		gem install bundler && \
+		pushd ${CONDA_ENV_DIR}/envs/${CONDA_ENV}/share/rubygems/bin && \
+		ln -sf ../../../bin/ruby ruby && \
+		popd && \
 		bundle install
 .PHONY: install
 

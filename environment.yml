@@ -3,11 +3,12 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - ruby
+  - ruby=2.6.6
   - nodejs
   - ffmpeg
   - jq
   - sox
   - imagemagick
-  
+  - gxx_linux-64
+
 
