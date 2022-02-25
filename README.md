@@ -146,7 +146,7 @@ In different terminals:
 
 2. In game/levelX:
 
-2.1. Create slides.html using markdown pattern:
+- Create slides.html using markdown pattern:
 
 ```
 ---
@@ -168,11 +168,11 @@ Split by sentence
 
 ```
 
-2.2. Create a folder “images”, put all images used in slides.html for this level there
+- Create a folder “images”, put all images used in slides.html for this level there
 
-2.3. Create index.md using pattern:
+- Create index.md using pattern:
 
-- For NOT last level
+ For NOT last level:
 
 ```
 ---
@@ -187,7 +187,7 @@ scores: <Embed HTML of google sheets used for this level scores>
 [**Next level**]({{ site.baseurl }}{% link game/level<X+1>/index.md %}){:.button .is-link .is-large}
 ```
 
-- For last level
+ For last level:
 
 ```
 ---
@@ -202,33 +202,33 @@ scores: <Embed HTML of google sheets used for this level scores>
 [**Results**](http://streetscience.community/DNAnalyzer/index#results){:.button .is-link .is-large}
 ```
 
-2.4. Generate video (see section “Generate videos”) from slides.html. Add video with name video.mp4
+- Generate video (see section “Generate videos”) from slides.html. Add video with name video.mp4
 
-###How can I create a quiz for a new level?
+### How can I create a quiz for a new level?
 Quiz is realized with google forms. Results are located in Google Sheets https://drive.google.com/drive/folders/19Hiaqqvoue3M2YpA-LePUFe81fmZdNbu 
 
 1. Create google form with questions based on content of slides.html
 
-1.1. First required question is “Your Username (use the same Username at all levels)”
+- First required question is “Your Username (use the same Username at all levels)”
 
-1.2. Turn on the option “Limit to 1 response”
+- Turn on the option “Limit to 1 response”
 
-1.3. Set up correct answers and points for every question
+- Set up correct answers and points for every question
 
 2. Link google form with google sheet 
 
-2.1. Create new page”lvlX”  in google sheet https://docs.google.com/spreadsheets/d/1lPF_mXTmSa4BJDRjnd6_pwXCia7NDxlDJ6VlRMM0K18/edit#gid=906511743
+- Create new page”lvlX”  in google sheet https://docs.google.com/spreadsheets/d/1lPF_mXTmSa4BJDRjnd6_pwXCia7NDxlDJ6VlRMM0K18/edit#gid=906511743
 
-2.2. Link gform with this page responses -> create google sheet -> select existing google sheet
+- Link gform with this page responses -> create google sheet -> select existing google sheet
 
 3. In scores google sheet
 
-3.1. Create page “Level X” which will be cleaned up from unneeded information and shared in game
+- Create page “Level X” which will be cleaned up from unneeded information and shared in game
 
-3.2. Add 2 columns “Username” with formula =’lvlX’!A:A, “Score” with formula =’lvlX’!B:B
+- Add 2 columns “Username” with formula =’lvlX’!A:A, “Score” with formula =’lvlX’!B:B
 
-3.3. In the page “Results” open hidden columns with levels, add level X with formula ==IFERROR(VLOOKUP(A:A,'Level X'!A:B,2,FALSE),"")
+- In the page “Results” open hidden columns with levels, add level X with formula ==IFERROR(VLOOKUP(A:A,'Level X'!A:B,2,FALSE),"")
 
-3.4. In column “Max level” add new sum term +IF(ISNUMBER(X:X),1,0) in formula, where X is column for new added level
+- In column “Max level” add new sum term +IF(ISNUMBER(X:X),1,0) in formula, where X is column for new added level
 
-3.5. In column “Final score” change the range of cells, make sure that cells with a new added level are taken into account.
+- In column “Final score” change the range of cells, make sure that cells with a new added level are taken into account.
