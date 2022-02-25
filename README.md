@@ -26,16 +26,16 @@ Technologies like DNA sequencing are getting cheaper and therefore more accessib
 
 ### The solution
 
-We are implementing an encouraging and easy-to-understand online game on DNA data analysis, the DNAnalyzer. 
+We are implementing an encouraging and easy-to-understand online game on DNA data analysis, the DNAnalyzer.
 
 We have some interesting story, to make the game more exciting. You can see them [here](stories/README.md)
 
-The game, implemented in Galaxy, will consist of several levels: 
-1. Learning: about biological background (DNA and sequencing) and how to use the platform. 
+The game, implemented in Galaxy, will consist of several levels:
+1. Learning: about biological background (DNA and sequencing) and how to use the platform.
 2. Hands on: perform the first guided data analysis.
 3. Expert: change and improve their pipeline for data analysis.
 
-Gamer will in the first two levels collect points by answering questions or finding treasures by following hints. In the third level gamer and reseachter will interactively evaluate dataanalysis of otheres and thereby give and get points. We believe that the integration of society into the scientific both will profit. Citizens will get excited for science and they can help to analyze and improve scientific data. 
+Gamer will in the first two levels collect points by answering questions or finding treasures by following hints. In the third level gamer and reseachter will interactively evaluate dataanalysis of otheres and thereby give and get points. We believe that the integration of society into the scientific both will profit. Citizens will get excited for science and they can help to analyze and improve scientific data.
 
 ## Who are we?
 
@@ -118,7 +118,6 @@ In the sequel, we assume you use miniconda.
 Ubuntu
 
 ```
-$ sudo apt-get install sox
 $ sudo apt-get install libsox-fmt-mp3
 ```
 
@@ -126,14 +125,14 @@ $ sudo apt-get install libsox-fmt-mp3
 
 In different terminals:
 
-1. Run website 
-1. Launch MozillaTTS for speech
+1. Run website
+2. Launch MozillaTTS for speech
 
    ```
    $ docker run -it -p 5002:5002 synesthesiam/mozillatts
    ```
 
-2. Launch scripts
+3. Launch scripts
 
    ```
    $ conda activate dnanalyzer
