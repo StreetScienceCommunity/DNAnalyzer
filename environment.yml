@@ -3,11 +3,22 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - ruby
-  - nodejs
   - ffmpeg
   - jq
   - sox
   - imagemagick
-  
+  - gmp
+  - jemalloc
+  - nodejs
+  - openssl
+  - readline
+  - ruby=2.6.6
+  - yaml
+  - yamllint
+  - zlib
+  - libxml2
+  - pkg-config
+  - pandas
+  - pyyaml
+  - gxx_linux-64
 
