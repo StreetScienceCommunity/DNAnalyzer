@@ -1,4 +1,48 @@
-<nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+      <a class="navbar-item logo" href="{{ site.baseurl }}/">
+          DNAnalyzer
+      </a>
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+          data-target="navbarBasicExample">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+      </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-start">
+          <a href="{{ site.baseurl }}/" class="navbar-item is-active">
+              Home
+          </a>
+
+          <a href="{{ site.baseurl }}/about" class="navbar-item">
+              About us
+          </a>
+          <a class="navbar-item" href="https://streetscience.community/">
+              Street Science Community
+          </a>
+      </div>
+
+      <div class="navbar-end">
+          <div class="navbar-item">
+              <div class="buttons">
+                  <a class="button login" href="{{ site.baseurl }}/game/intro/">
+                      Log in
+                  </a>
+                  <a class="button sign-up" href="{{ site.baseurl }}/game/intro/">
+                      <strong>Sign up</strong>
+                  </a>
+              </div>
+          </div>
+      </div>
+  </div>
+</nav>
+
+
+<!-- Old navbar -->
+<!-- <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
   <div class="container">
     <div class="navbar-brand">
       
@@ -27,4 +71,4 @@
       </div>
     </div>
   </div>
-</nav>
+</nav> -->
