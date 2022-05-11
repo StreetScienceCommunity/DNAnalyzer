@@ -1,0 +1,68 @@
+---
+layout: base
+---
+
+
+
+<section class="section">
+  <div class="container content {{ layout.css }} {{ page.css }}">
+    
+        <!-- section1 START-->
+        <div class="columns section1">
+            <div class="column section1_text ">
+                <p>Hallo! Everybody!</p>
+                <h1>Welcome to our online & interactive game
+                    on DNA data analysis</h1>
+                <p>Learn Bioinformatics online through interesting games! Come join us now!</p>
+                <form action="{{ site.baseurl }}/game/intro/">   
+                    <button type="submit">
+                        Get Started
+                    </button>
+                </form>
+            </div>
+            <div class="column section1_img ">
+                <img src="{{ site.baseurl }}/images/hero_img.png" alt="">
+            </div>
+        </div>
+        <!-- section1 END-->
+
+        <!-- section2 START-->
+        <div class="section2">
+            <div class="section2_text">
+                <p>Games</p>
+                <p>Three exciting levels help you to learn!</p>
+                <p>Rocket your bioinformatics knowledge. Learn, play, enjoy, All at the same time.</p>
+            </div>
+            <div class="columns section2_cards">
+                <div class="column is-one-third section2_card">
+                    <img src="{{ site.baseurl }}/images/alien.png" alt="">
+                    <div class="card_text">
+                        <p class="card_title">Sam, the alien.</p>
+                        <p class="card_description">Sam came to Earth out of loneliness, he is curious about everything
+                            on Earth, and has tons of
+                            questions, can you help him?</p>
+                    </div>
+                </div>
+                <div class="column is-one-third section2_card">
+                    <img src="{{ site.baseurl }}/images/beer.png" alt="">
+                    <div class="card_text">
+                        <p class="card_title">BeerDEcoded</p>
+                        <p class="card_description">Beer is alive! It contains DNA that comes from its ingredient (hops,
+                            malts, yeast). Isn't it fascinating? Let’s use Galaxy to analyze it!</p>
+                    </div>
+                </div>
+                <div class="column is-one-third section2_card">
+                    <img src="{{ site.baseurl }}/images/peer_review.png" alt="">
+                    <div class="card_text">
+                        <p class="card_title">Peer review</p>
+                        <p class="card_description">Feel like you're on board with Galaxy? There's more for you to
+                            explore! Change your dataset,
+                            optimize
+                            your workflow, and rate your peers!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- section2 END-->
+  </div>
+</section>
