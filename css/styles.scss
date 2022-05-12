@@ -32,22 +32,6 @@ $navbar-dropdown-item-hover-background-color: $background-color;
 
 @import 'bulma/bulma.sass';
 
-.navbar {
-  -webkit-box-shadow: 0 0 12px 0 $grey-dark;
-  -moz-box-shadow: 0 0 12px 0 $grey-dark;
-  box-shadow: 0 0 12px 0 $grey-dark;
-
-  a {
-    transition: background-color 0.2s ease-in-out;
-  }
-  
-  .navbar-item {
-    img {
-      max-height: 2.5rem;
-    }
-  }
-}
-
 .content {
   a {
     border-bottom: 1px solid $link;
