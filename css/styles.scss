@@ -9,7 +9,7 @@ $dark-red: #820325;
 $dark: #aabeff4b;
 $grey: #323232;
 $red: #e37de5;
-
+$blue: rgb(6, 6, 173);
 $grey-dark: $grey;
 $background-color: $dark;
 
@@ -19,7 +19,7 @@ $white: $beige;
 $text: $black;
 $text-inverted: $grey;
 
-$link: $red;
+$link: $blue;
 $link-visited: $link;
 
 $link-hover: $dark-red;
@@ -40,21 +40,6 @@ $navbar-dropdown-item-hover-background-color: $background-color;
     &:focus,
     &:active {
       border-bottom: 2px solid $link-hover;
-    }
-  }
-}
-
-.footer {
-  background-color: $dark;
-
-  .content {
-    &,
-    & h3 {
-      color: $text-inverted;
-    }
-
-    a {
-      border-bottom: 0;
     }
   }
 }

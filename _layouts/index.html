@@ -3,34 +3,32 @@ layout: base
 ---
 
 
-
-<section class="section">
+<!-- style="background-color: blue;" -->
   <div class="container content {{ layout.css }} {{ page.css }}">
-    
         <!-- section1 START-->
-        <div class="columns section1">
-            <div class="column section1_text ">
-                <p>Hallo! Everybody!</p>
-                <h1>Welcome to our online & interactive game
+        <div class="columns section1 has-text-centered-mobile is-vcentered is-flex" >
+            <div class="column section1_text">
+                <p class="hallo_text">Hallo! Everybody!</p>
+                <h1 class="is-size-3-mobile welcome_text">Welcome to our online & interactive game
                     on DNA data analysis</h1>
-                <p>Learn Bioinformatics online through interesting games! Come join us now!</p>
+                <p class="come_join_text">Learn Bioinformatics online through interesting games! Come join us now!</p>
                 <form action="{{ site.baseurl }}/game/intro/">   
                     <button type="submit">
                         Get Started
                     </button>
                 </form>
             </div>
-            <div class="column section1_img ">
+            <div class="column section1_img is-hidden-mobile">
                 <img src="{{ site.baseurl }}/images/hero_img.png" alt="">
             </div>
         </div>
         <!-- section1 END-->
 
         <!-- section2 START-->
-        <div class="section2">
+        <div class="section2 has-text-centered-mobile">
             <div class="section2_text">
                 <p>Games</p>
-                <p>Three exciting levels help you to learn!</p>
+                <p class="is-size-3-mobile">Three exciting levels help you to learn!</p>
                 <p>Rocket your bioinformatics knowledge. Learn, play, enjoy, All at the same time.</p>
             </div>
             <div class="columns section2_cards">
@@ -65,4 +63,3 @@ layout: base
         </div>
         <!-- section2 END-->
   </div>
-</section>

@@ -1,3 +1,15 @@
+
+@media (max-width:768px) {
+    .section1{
+        margin: 0 10px;
+    }
+
+    .section2_text {
+        margin: 0 10px;
+    }
+
+}
+
 html, .container, nav, .navbar-burger, .navbar-menu, .login, .logo, .navbar-item, .navbar-start, .navbar-end {
     background: #F6F6F6;
     background-color: #F6F6F6;
@@ -52,17 +64,12 @@ html, .container, nav, .navbar-burger, .navbar-menu, .login, .logo, .navbar-item
     margin-top: 2.875rem;
 }
 
-.section1_text>* {
+/* .section1_text, .section1_img{
+    height: 100%;
+} */
+
+.come_join_text, .welcome_text{
     margin-top: 1.5rem;
-
-}
-
-.section1_text:first-child {
-    margin-top: 2.563rem;
-}
-
-.section1_text:last-child {
-    margin-bottom: 2.563rem;
 }
 
 .section1_text h1 {
@@ -73,7 +80,7 @@ html, .container, nav, .navbar-burger, .navbar-menu, .login, .logo, .navbar-item
 
 .section1_text p {
     font-size: 1.125rem;
-    width: 29.25rem;
+    max-width: 29.25rem;
 }
 
 .section1_text button {
@@ -91,8 +98,8 @@ html, .container, nav, .navbar-burger, .navbar-menu, .login, .logo, .navbar-item
 }
 
 .section1_img img {
-    width: 35.625rem;
-    height: 39.125rem;
+    width: auto;
+    height: auto;
     float: right;
 }
 
@@ -135,11 +142,12 @@ html, .container, nav, .navbar-burger, .navbar-menu, .login, .logo, .navbar-item
 .section2_card {
     background: #FFFFFF;
     max-width: 23.063rem;
-    margin-top: 1rem;
+    margin: 1rem 1rem 0 1rem;
 }
 
 .section2_card img {
-    max-width: 21.563rem;
+    width: auto;
+    height: auto;
 }
 
 .card_text {
