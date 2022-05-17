@@ -139,3 +139,102 @@ In different terminals:
    $ conda activate dnanalyzer
    $ ./bin/ari-make.sh <path to slide>
    ```
+   
+## How can I add a new level to the game?
+
+1. Create a new directory game/levelX, where X is the number of new level. 
+
+2. In game/levelX:
+
+- Create slides.html using markdown pattern:
+
+```
+---
+layout: slides
+title: Level X - <title of level>
+
+---
+### Title
+content of slide
+![alternative text for image] (images/<name of image file>)
+
+[Source/link to original image]
+
+???
+
+Text for the voice
+Split by sentence
+1 sentence starting with “-”
+
+```
+
+- Create a folder “images”, put all images used in slides.html for this level there
+
+- Create index.md using pattern:
+
+ For NOT last level:
+
+```
+---
+layout: level
+title: DNAnalyzer
+description: 'Level X - <name of level>’
+image: /images/index.png
+quiz: <Embed HTML of google form used for this level quiz>
+scores: <Embed HTML of google sheets used for this level scores>
+---
+
+[**Next level**]({{ site.baseurl }}{% link game/level<X+1>/index.md %}){:.button .is-link .is-large}
+```
+
+ For last level:
+
+```
+---
+layout: level
+title: DNAnalyzer
+description: 'Level X - <name of level>’
+image: /images/index.png
+quiz: <Embed HTML of google form used for this level quiz>
+scores: <Embed HTML of google sheets used for this level scores>
+---
+
+[**Results**](http://streetscience.community/DNAnalyzer/index#results){:.button .is-link .is-large}
+```
+
+- Generate video (see section “Generate videos”) from slides.html. Add video with name video.mp4
+
+### How can I create a quiz for a new level?
+Quiz is realized with google forms. Results are located in Google Sheets https://drive.google.com/drive/folders/19Hiaqqvoue3M2YpA-LePUFe81fmZdNbu 
+
+1. Create google form with questions based on content of slides.html
+
+- First required question is “Your Username (use the same Username at all levels)”
+
+- Turn on the option “Limit to 1 response”
+
+- Set up correct answers and points for every question
+
+2. Link google form with google sheet 
+
+- Create new page”lvlX”  in google sheet https://docs.google.com/spreadsheets/d/1lPF_mXTmSa4BJDRjnd6_pwXCia7NDxlDJ6VlRMM0K18/edit#gid=906511743
+
+- Link gform with this page responses -> create google sheet -> select existing google sheet
+
+3. In scores google sheet
+
+- Create page “Level X” which will be cleaned up from unneeded information and shared in game
+
+- Add 2 columns “Username” with formula =’lvlX’!A:A, “Score” with formula =’lvlX’!B:B
+
+- In the page “Results” open hidden columns with levels, add level X with formula ==IFERROR(VLOOKUP(A:A,'Level X'!A:B,2,FALSE),"")
+
+- In column “Max level” add new sum term +IF(ISNUMBER(X:X),1,0) in formula, where X is column for new added level
+
+- In column “Final score” change the range of cells, make sure that cells with a new added level are taken into account.
+
+#### Colour codes
+
+#aabeff4b - footer and header colours
+#b1c4ff1a - background colour
+#E5f0f9 - colour used in gforms and gsheets
