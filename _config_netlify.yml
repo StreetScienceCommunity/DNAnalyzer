@@ -1,0 +1,18 @@
+# Global metadata
+title: DNAnalyzer
+description: >
+  An online & interactive game on DNA data analysis!
+url: "https://streetscience.community"
+baseurl: ""
+
+# Social
+email: hello@streetscience.community
+gitter: usegalaxy-eu/streetscience
+twitter: StreetScienceCo
+instagram: StreetScienceCo
+# See: https://help.github.com/articles/repository-metadata-on-github-pages/
+repository: StreetScienceCommunity/DNAnalyzer
+participation_form: https://docs.google.com/forms/d/e/1FAIpQLScNgEDWoftccrUHXhsAOgLCFiG1FAQzQxsSW44uDTrEKwZ7_A/viewform
+google_group: https://groups.google.com/forum/#!forum/streetsciencecommunity
+
+includes_dir: .
