@@ -9,15 +9,12 @@
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="{{ "/css/styles.css" | prepend: site.baseurl }}"/>
-    <link rel="stylesheet" href="{{ "/css/mystyles.css" | prepend: site.baseurl }}"/>
   </head>
   <body>
     <div class="container">
       {% include _includes/default-header.html %}
 
       {{ content }}
-
-      {% include _includes/default-footer.html %}
     </div>
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <script src="{{ "/js/scripts.js" | prepend: site.baseurl }}"></script>
@@ -25,4 +22,5 @@
       <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     {% endif %}
   </body>
+  {% include _includes/default-footer.html %}
 </html>
