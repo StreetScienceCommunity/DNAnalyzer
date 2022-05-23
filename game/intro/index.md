@@ -3,13 +3,14 @@ layout: default
 title: DNAnalyzer
 description: 'Introduction'
 image: /images/index.jpg
+video_url: https://www.youtube.com/embed/x9o0BIf-Kzs
 ---
 
 # Let's start the Game!
 
 Sam, a curious young alien robot from a faraway galaxy, invites you to discover a little blue planet in the Milky Way. 
 <center>
-<iframe width="900" height="506" src="https://www.youtube.com/embed/x9o0BIf-Kzs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+{% include _includes/embed_video.html%}
 </center>
 Sam will guide you through the game and you will learn about the Earth and life on it with him. Press the button to start.
 
