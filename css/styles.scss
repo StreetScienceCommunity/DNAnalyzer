@@ -4,10 +4,17 @@
 @charset "utf-8";
 
 $color-primary-0: #B4D3EF;	// Main Primary color */
-$color-primary-1: #FAFCFE;
-$color-primary-2: #DCEBF8;
-$color-primary-3: #8CBBE5;
-$color-primary-4: #69A7DE;
+$color-primary-1: #87B3DA;
+$color-primary-2: #5D8EBB;
+$color-primary-3: #1D6CAF;
+$color-primary-4: #3273DC;
+$color-primary-oppsite-0: #03081C;
+$color-primary-oppsite-1: #091654;
+$color-primary-oppsite-2: #0428CF;
+$color-secondary-0: #B0F0D8;	// Main Secondary color*/
+$color-secondary-1: #83DDBB;
+$color-secondary-2: #58C199;
+
 $beige: #b1c4ff1a;
 $beige: #b1c4ff1a;
 $black: #000;
@@ -15,96 +22,11 @@ $dark-red: #820325;
 $dark: #aabeff4b;
 $grey: #323232;
 $red: #e37de5;
-$blue: $color-primary-4;
-$grey-dark: $grey;
-$background-color: $dark;
-
-// Update bulma colors, globally.
-$white: $beige;
-
-$text: $black;
-$text-inverted: $grey;
-
-$link: $red;
-$link-visited: $link;
-
-$link-hover: $dark-red;
-$link-focus: $link-hover;
-$link-active: $link-hover;
-
-$navbar-background-color: $background-color;
-$navbar-item-hover-background-color: $background-color;
-$navbar-dropdown-item-hover-background-color: $background-color;
 
 @import 'bulma/bulma.sass';
 
-.content {
-  a {
-    border-bottom: 1px solid $link;
-
-    &:hover,
-    &:focus,
-    &:active {
-      border-bottom: 2px solid $link-hover;
-    }
-  }
-}
-
 .table {
   background-color: transparent;
-}
-
-.hero-header {
-  background-clip: border-box;
-  background-color: $dark;
-  background-origin: padding-box;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 450px;
-  width: 100%;
-
-  &.no-image {
-    height: auto;
-  }
-
-  @include tablet() {
-    background-attachment: fixed;
-  }
-}
-
-.hero-header-title {
-  padding-top: 160px;
-  text-align: center;
-  text-shadow: none;
-
-  h1,
-  p {
-    color: $black;
-  }
-
-  .no-image & {
-    padding-top: 80px;
-    text-shadow: none;
-
-    h1,
-    p {
-      color: $text;
-    }
-  }
-
-  @include tablet() {
-    padding-top: 20vh;
-  }
-}
-
-.hero-foot {
-  color: $beige;
-
-  .credit {
-    text-align: right;
-    font-size: 0.6em;
-  }
 }
 
 .home {
@@ -183,7 +105,7 @@ $navbar-dropdown-item-hover-background-color: $background-color;
 
   &.requirements {
     border: none;
-    background: $background-color;
+    background: white;
     // box-shadow: 2px 2px $grey;
   }
 }
@@ -192,16 +114,13 @@ $navbar-dropdown-item-hover-background-color: $background-color;
   display: none;
 }
 
-
-
-
 @media (max-width:768px) {
   .section1{
-      margin: 0 10px;
+      margin: 0 0.625rem;
   }
 
   .section2_text {
-      margin: 0 10px;
+      margin: 0 0.625rem;
   }
 
 }
@@ -219,15 +138,41 @@ html, .container, nav, .navbar-burger, .navbar-menu, .login, .logo, .navbar-item
   font-family: sans-serif;
 }
 
+.passed_content{
+  a:not(.button){
+    text-decoration: underline;
+  }
+
+  a.button{
+    color: white;
+    background: $color-primary-3;
+  }
+  a.button:hover{
+    color: black;
+    background: $color-primary-1;
+    border: 1px solid #000000;
+  }
+}
+
 /* navbar START*/
+
+.navbar-menu a:hover{
+  background-color: white;
+  color: black;
+  text-decoration: underline;
+  text-decoration-color: $color-secondary-0;
+  text-decoration-thickness: 0.2rem;
+}
 
 .logo {
   font-weight: 800;
   font-size: 1.875rem;
-  color: #1D6CAF;
+  color: $color-primary-3;
 }
 
-
+.logo:hover{
+  color: $color-primary-4;
+}
 
 .login {
   padding: 0.625rem 1.5rem;
@@ -240,15 +185,18 @@ html, .container, nav, .navbar-burger, .navbar-menu, .login, .logo, .navbar-item
 
 .sign-up {
   padding: 0.625rem 1.5rem;
-  background: #1D6CAF;
-  border: 1px solid #000000;
+  background: $color-primary-1;
   font-size: 1.125rem;
-  color: #FFFFFF;
+  color: white;
+  border: 1px solid $color-primary-1;
+
 }
 
 .sign-up:hover {
-  color: #000000;
-  background-color: #FFFFFF;
+  color: white !important;
+  background: $color-primary-2 !important;
+  border: 1px solid #000000;
+  text-decoration: none !important;
 }
 
 /* navbar END*/
@@ -260,6 +208,9 @@ html, .container, nav, .navbar-burger, .navbar-menu, .login, .logo, .navbar-item
   width: auto;
   height: 39.125rem;
   margin-top: 2.875rem;
+  a{
+    text-decoration: none;
+  }
 }
 
 /* .section1_text, .section1_img{
@@ -309,6 +260,9 @@ html, .container, nav, .navbar-burger, .navbar-menu, .login, .logo, .navbar-item
 
 .section2 {
   margin: 11.5rem auto;
+  a{
+    text-decoration: none;
+  }
 }
 
 .section2_text p:first-of-type {
@@ -360,14 +314,22 @@ html, .container, nav, .navbar-burger, .navbar-menu, .login, .logo, .navbar-item
 
 /* footer START*/
 
-.footer {
+.footer{
   background: #98C2EA;
   padding: 1rem 1rem 4rem 1rem;
+  a{
+    text-decoration: underline;
+    color: $color-primary-oppsite-0;
+  }
+  a:hover{
+    color: #0428CF;
+  }
 }
 
 .footer .container{
   background: #98C2EA;
 }
+
 
 
 /* footer END*/
