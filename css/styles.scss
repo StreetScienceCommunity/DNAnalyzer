@@ -132,6 +132,15 @@ html, .container, nav, .navbar-burger, .navbar-menu, .login, .logo, .navbar-item
   background-color: white;
 }
 
+html, body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+body > footer {
+    margin-top: auto;
+}
+
 .container {
   padding-left: 0%;
   padding-right: 0%;
