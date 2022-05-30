@@ -188,6 +188,14 @@ body > footer {
   font-size: 1.125rem;
   border: 0;
 }
+
+.login:hover {
+  text-decoration: none !important;
+  border-style: solid;
+  border-color: $color-primary-0;
+  border-width: 0.2rem;
+}
+
 .is-active {
   font-weight: bolder;
 }
