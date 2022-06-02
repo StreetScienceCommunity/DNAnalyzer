@@ -234,8 +234,8 @@ body > footer {
   height: 100%;
 } */
 
-.come_join_text, .welcome_text{
-  margin-top: 1.5rem;
+.come_join_text{
+  margin: 2.5rem 0 !important;
 }
 
 .section1_text h1 {
@@ -283,18 +283,13 @@ body > footer {
 }
 
 .section2_text p:first-of-type {
-  font-size: 1.125rem;
-  font-weight: 500;
-}
-
-.section2_text p:nth-of-type(2) {
   font-size: 3rem;
   font-weight: 800;
   margin: 1.5rem 0;
   color: #000000;
 }
 
-.section2_text p:nth-of-type(3) {
+.section2_text p:nth-of-type(2) {
   font-size: 1.125rem;
   font-weight: 400;
   margin: 1.5rem 0;
