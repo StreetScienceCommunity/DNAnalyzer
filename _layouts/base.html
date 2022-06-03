@@ -7,19 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     {% seo %}
     <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="{{ "/css/styles.css" | prepend: site.baseurl }}"/>
   </head>
   <body>
-    {% include _includes/default-header.html %}
-
-    {{ content }}
-
-    {% include _includes/default-footer.html %}
-
+    <div class="container">
+      {% include _includes/default-header.html %}
+      <div class="passed_content">
+        {{ content }}
+      </div>
+    </div>
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <script src="{{ "/js/scripts.js" | prepend: site.baseurl }}"></script>
     {% if page.twitter_moment %}
       <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     {% endif %}
   </body>
+  {% include _includes/default-footer.html %}
 </html>

@@ -1,30 +1,41 @@
-<nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
-  <div class="container">
-    <div class="navbar-brand">
-      
-      <a class="navbar-item" href="{{ site.baseurl }}/">
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+      <a class="navbar-item logo" href="{{ site.baseurl }}/">
           <img src="{{ site.baseurl }}/images/logo.png" alt="DNAnalyzer">
       </a>
-
-      <a
-        role="button"
-        class="navbar-burger burger"
-        aria-label="menu"
-        aria-expanded="false"
-        data-target="top-menu"
-      >
-        <span aria-hidden="true"></span> <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+          data-target="navbarBasicExample">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
       </a>
-    </div>
+  </div>
 
-    <div id="top-menu" class="navbar-menu">
-      <div class="navbar-end">
-        <a class="navbar-item" href="{{ site.baseurl }}/about"> About </a>
-        <a class="navbar-item" href="{{ site.url }}">
-			<img src="{{ site.baseurl }}/images/logo_streetscience.png" alt="Street Science Community">
-		</a>
+  <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-start">
+          <a href="{{ site.baseurl }}/" class="navbar-item is-active">
+              Home
+          </a>
+
+          <a href="{{ site.baseurl }}/about" class="navbar-item">
+              About
+          </a>
+          <a class="navbar-item" href="https://streetscience.community/">
+              <img src="{{ site.baseurl }}/images/logo_streetscience.png" alt="Street Science Community">
+          </a>
       </div>
-    </div>
+
+      <div class="navbar-end">
+          <div class="navbar-item">
+              <div class="buttons">
+                  <a class="button login" href="{{ site.baseurl }}/coming_soon">
+                      Log in
+                  </a>
+                  <a class="button sign-up" href="{{ site.baseurl }}/coming_soon">
+                      <strong>Sign up</strong>
+                  </a>
+              </div>
+          </div>
+      </div>
   </div>
 </nav>
