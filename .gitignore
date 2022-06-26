@@ -8,3 +8,4 @@ videos
 .jekyll-cache
 .idea/
 dnapi/db_config.py
+dnapi/myvenv
