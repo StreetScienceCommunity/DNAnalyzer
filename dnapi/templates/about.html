@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block body%}
+<section class="section">
+	<div class="container content  ">
+		<h3 id="the-problem">The problem</h3>
+		<p>Especially in the last years public media is using words like sequencing, DNA, RNA, mutations, and variants, without easy to understand scientific explanations. Theses key words do not necessarily help informing the audience and sometimes leads to even more confusion. As scientists it is our duty to not only report but also explain our work in an easy to understand way. Technologies like DNA sequencing are getting cheaper and therefore more accessible for various applications, e.g. in personalized medicine. This produces more data. Platforms like Galaxy (Afgan et al., Nucl Acids Res , 2018) and the Galaxy training material (Batut et al., Cell syst, 2018) help scientists analyzing their own (complex) data in a user friendly way. However, for each analysis there are several ways to perform it. Experience and knowledge helps to achieve good results, but sometimes one has to test several combinations of different algorithms and parameter settings. This can be exhausting and time consuming.</p>
+		<h3 id="the-solution">The solution</h3>
+		<p>We are implementing an encouraging and easy-to-understand online game on DNA data analysis, the DNAnalyzer.</p>
+		<p>We have some interesting story, to make the game more exciting. You can see them <a href="/DNAnalyzer/stories/">here</a></p>
+		<p>The game, implemented in Galaxy, will consist of several levels:</p>
+		<ol>
+			<li>Learning: about biological background (DNA and sequencing) and how to use the platform.</li>
+			<li>Hands on: perform the first guided data analysis.</li>
+			<li>Expert: change and improve their pipeline for data analysis.</li>
+		</ol>
+		<p>Gamer will in the first two levels collect points by answering questions or finding treasures by following hints. In the third level gamer and reseachter will interactively evaluate dataanalysis of otheres and thereby give and get points. We believe that the integration of society into the scientific both will profit. Citizens will get excited for science and they can help to analyze and improve scientific data.</p>
+		<h2 id="who-are-we">Who are we?</h2>
+		<p>We are the <a href="https://streetscience.community">Street Science Community</a>, a group of researchers and teachers in Freiburg trying to bring DNA, sequencing, metagenomics and in general the scientific process closer to citizens. Therefore, we already developed the BeerDEcoded project: a series of hands-on workshops for pupils and citizens with the general aim of scientific outreach. During these workshops, we guide participants through the scientific project of the extraction and identification of different yeasts contained in a beer sample. The citizens are performing the whole process from opening the beer bottle to the last klick while performing the data analysis. We generated protocols that lead the citizens through the extraction of yeast DNA, the identification via sequencing, and the analyzation of the sequenced DNA via an easy and straightforward user interface. Our aim is to make science tangible and accessible for everyone.</p>
+		<div class="people">
+			<div class="card">
+				<div class="card-content">
+					<div class="media">
+                        <div class="media-left">
+							<figure class="image is-64x64">
+								<img class="is-rounded" src="https://avatars.githubusercontent.com/bebatut" alt="The GitHub avatar of Bérénice Batut" />
+							  </figure>
+                          </div>
+						<div class="media-content">
+							<p class="title is-4">Bérénice Batut</p>
+							<p class="subtitle is-6"> <i class="fab fa-twitter"></i> <a href="https://twitter.com/bebatut">
+              @bebatut
+            </a> </p>
+						</div>
+					</div>
+					<div class="content">Bérénice is a trained bioinformatician with experience in metagenomics and sequencing data analysis. She is a contributor of the Galaxy community, particularly in the Galaxy Training Network, and also part of the Carpentries and a Mozilla Open Leaders fellow. </div>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-content">
+					<div class="media">
+						<div class="media-left">
+							<figure class="image is-64x64"> <img class="is-rounded" src="https://avatars.githubusercontent.com/masako-kaufmann" alt="The GitHub avatar of Masako Kaufmann" /> </figure>
+						</div>
+						<div class="media-content">
+							<p class="title is-4">Masako Kaufmann</p>
+						</div>
+					</div>
+					<div class="content"></div>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-content">
+					<div class="media">
+						<div class="media-left">
+							<figure class="image is-64x64"> <img class="is-rounded" src="https://avatars.githubusercontent.com/teresa-m" alt="The GitHub avatar of Teresa Müller" /> </figure>
+						</div>
+						<div class="media-content">
+							<p class="title is-4">Teresa Müller</p>
+							<p class="subtitle is-6"> <i class="fab fa-twitter"></i> <a href="https://twitter.com/tesamueller">
+              @tesamueller
+            </a> </p>
+						</div>
+					</div>
+					<div class="content">Teresa is an educated bioinformatician doing a PhD in RNA bioinformatics. </div>
+				</div>
+			</div>
+		</div>
+		<h2 id="our-values">Our values</h2>
+		<p>We have high ethical standards, including:</p>
+		<ul>
+			<li><strong>Education</strong>: Help educate the public about science and biotechnology, their benefits and implications</li>
+			<li><strong>Transparency</strong>: Emphasize transparency and the sharing of ideas, knowledge, data, protocols and results.</li>
+			<li><strong>Open science</strong>: Promote citizen science and decentralized access to science.</li>
+			<li><strong>Modesty</strong> Know you don’t know everything.</li>
+			<li><strong>Community</strong>: Carefully listen to any concerns and questions and respond honestly</li>
+			<li><strong>Respect</strong>: Respect humans and all living systems.</li>
+			<li><strong>Responsibility</strong>: Recognize the complexity and dynamics of living systems and our responsibility towards them.</li>
+		</ul>
+		<h2 id="what-do-we-need">What do we need?</h2>
+		<p><strong>You!</strong> In whatever way you can help.</p>
+		<h2 id="get-involved">Get involved</h2>
+		<p>If you think you can help in any of the areas listed above (and we bet you can) or in any of the many areas that we haven’t yet thought of (and here we’re sure you can) then please check out <a href="https://github.com/StreetScienceCommunity/DNAnalyzer/blob/master/CONTRIBUTING.md">our contributors’
+  guidelines</a> and our <a href="https://github.com/StreetScienceCommunity/DNAnalyzer/blob/master/roadmap.md">roadmap</a>.</p>
+		<p>Please note that it’s very important to us that we maintain a positive and supportive environment for everyone who wants to participate. When you join us we ask that you follow our <a href="https://github.com/StreetScienceCommunity/DNAnalyzer/blob/master/CODE_OF_CONDUCT.md">code of conduct</a> in all interactions both on and offline.</p>
+		<h2 id="current-sponsors">Current Sponsors</h2>
+		<p>Funding</p>
+		<ul>
+			<li><a href="https://uni-freiburg.de/">University of Freiburg</a></li>
+			<li><a href="https://www.denbi.de/">de.NBI</a></li>
+		</ul>
+	</div>
+</section>
+{% endblock %}

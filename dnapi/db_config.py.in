@@ -1,0 +1,5 @@
+DB_CONFIG = {
+    'USERNAME': '',
+    'PASSWORD': '',
+    'DB_NAME': 'dnapi'
+}

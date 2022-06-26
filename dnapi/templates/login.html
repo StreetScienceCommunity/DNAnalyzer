@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="columns is-centered my-6">
+	<div class="column is-half my-6" >
+    <h1 class="title is-1 has-text-centered">Log In</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+          {% for category, message in messages %}
+              <div class="notification is-{{category}}">
+                  {{ message }}
+              </div>
+          {% endfor %}
+      {% endif %}
+  {% endwith %}
+    <form class="box" method="POST">
+      <div class="field my-4">
+        <label class="label">Username</label>
+        <div class="control">
+          <input class="input" type="username" placeholder="username" name="username">
+        </div>
+      </div>
+    
+      <div class="field my-4">
+        <label class="label">Password</label>
+        <div class="control">
+          <input class="input" type="password" placeholder="********" name="password">
+        </div>
+      </div>
+    
+      <button type="submit" class="button is-primary is-fullwidth my-4">Sign in</button>
+      <p>Don't have an account? <a href="/register_page" class="has-text-primary-dark">Create one</a>  </p>
+    </form>
+    
+	</div>
+</div>
+
+{% endblock %}
