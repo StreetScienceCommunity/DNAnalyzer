@@ -94,3 +94,13 @@ def logout():
     logout_user()
     flash('Logged out successfully', category='success')
     return redirect(url_for('dnapi.login'))
+
+@bp.route('/quiz/<chapter_id>')
+@login_required
+def quiz(chapter_id):
+    """
+    view function for quiz page
+    @param chapter_id: the chapter id for showing related quiz questions
+    @return: the template for quiz
+    """
+    return render_template("games/quiz.html")

@@ -257,3 +257,41 @@ body > footer {
 	 background: #98c2ea;
 }
 /* footer END*/
+
+
+/* quiz START */
+
+.wrapper{
+	padding: 1rem;
+	border-radius: 1rem;
+	background: #E5E8EE;
+	margin: 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+input[type='checkbox'].check{
+	appearance: none;
+	-webkit-appearance: none;
+	min-height: 1rem;
+	min-width: 1rem;
+	outline: 3px solid #2E3971;
+	border: none !important;
+	margin-right: 1rem;
+
+}
+
+.choice_text {
+	color: #2E3971;
+	font-weight: bold;
+	font-size: 1.5rem;
+	font-family: 'Poppins', sans-serif;
+}
+
+input[type='checkbox'].check:after{
+	content:"\f00c";
+	font-family:"fontawesome";
+	font-weight:900;
+}
+/* quiz END */
