@@ -299,11 +299,7 @@ input[type='checkbox'].check:after{
 	display: none;
 }
 input[type='checkbox'].check:hover{
-	background-color: #a5a5a5;
-}
-
-input[type='checkbox'].check:checked{
-	background-color: #5bcd3e;
+	background-color: #2E3971;
 }
 
 input[type='checkbox'].check:checked:after{

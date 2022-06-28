@@ -17,10 +17,22 @@
                 <label for="2" class="choice_text"> Checkbox </label>
             </div>
         </div>
+        <input type="checkbox" class="check" id="3">
     </div>
 
 </div>
 
+<script>
+    $('.check').click(function () {
+
+        if ($(this).is(':checked') == true) {
+             $(this).parent().css('background', '#95D6A2');
+        }
+        else{
+            $(this).parent().css('background', '#E5E8EE');
+        }
+    });
+</script>
 
 
 {% endblock %}
