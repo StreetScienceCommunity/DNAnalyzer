@@ -279,7 +279,9 @@ input[type='checkbox'].check{
 	outline: 3px solid #2E3971;
 	border: none !important;
 	margin-right: 1rem;
-
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .choice_text {
@@ -293,5 +295,19 @@ input[type='checkbox'].check:after{
 	content:"\f00c";
 	font-family:"fontawesome";
 	font-weight:900;
+	font-size: 1rem;
+	display: none;
 }
+input[type='checkbox'].check:hover{
+	background-color: #a5a5a5;
+}
+
+input[type='checkbox'].check:checked{
+	background-color: #5bcd3e;
+}
+
+input[type='checkbox'].check:checked:after{
+	display: block;
+}
+
 /* quiz END */
