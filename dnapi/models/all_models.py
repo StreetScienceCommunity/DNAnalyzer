@@ -1,5 +1,7 @@
 from utils import db, ma
 from flask_login import UserMixin
+from marshmallow_sqlalchemy import auto_field
+from marshmallow_sqlalchemy.fields import Nested
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -16,6 +18,20 @@ class Chapter(db.Model):
     level_id = db.Column(db.Integer, db.ForeignKey('level.id'), nullable=False)
     level = db.relationship('Level', backref=db.backref('chapters', lazy=True))
 
+class Choice(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.String(), nullable=False)
+    correctness = db.Column(db.Boolean(), nullable=False)
+    question_id = db.Column(db.Integer, db.ForeignKey('question.id'), nullable=False)
+
+class ChoiceSchema(ma.SQLAlchemySchema):
+    class Meta:
+        model = Choice
+    id = auto_field()
+    content = auto_field()
+
+choice_schema = ChoiceSchema()
+choices_schema = ChoiceSchema(many=True)
 
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -28,24 +44,22 @@ class Question(db.Model):
     point = db.Column(db.Integer, nullable=False)
     chapter_id = db.Column(db.Integer, db.ForeignKey('chapter.id'), nullable=False)
     chapter = db.relationship('Chapter', backref=db.backref('questions', lazy=True))
-    # choices = db.relationship('Choice', backref=db.backref('Question', lazy=True))
+    choices = db.relationship('Choice', backref=db.backref('Question', lazy=True))
 
-class QuestionSchema(ma.Schema):
+class QuestionSchema(ma.SQLAlchemySchema):
     class Meta:
-        # Fields to expose
-        fields = ("id", "title", "description", "type", "hint", "image_url", "point")
+        model = Question
+    id = auto_field()
+    title = auto_field()
+    description = auto_field()
+    type = auto_field()
+    hint = auto_field()
+    image_url = auto_field()
+    point = auto_field()
+    choices = Nested(ChoiceSchema, many=True)
 
 question_schema = QuestionSchema()
 questions_schema = QuestionSchema(many=True)
-
-class Choice(db.Model):
-    id: int
-    content: str
-    id = db.Column(db.Integer, primary_key=True)
-    content = db.Column(db.String(), nullable=False)
-    correctness = db.Column(db.Boolean(), nullable=False)
-    question_id = db.Column(db.Integer, db.ForeignKey('question.id'), nullable=False)
-    question = db.relationship('Question', backref=db.backref('choices', lazy=True))
 
 class Answer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
