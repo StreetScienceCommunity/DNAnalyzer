@@ -3,22 +3,26 @@
 {% block body %}
 
 <div class="quiz">
-    <h1 id="q_title">question.title</h1>
-    <p id="q_type">question.type</p>
-    <p id="q_description">question.description</p>
-    <div id="q_choices" class="q_choices">
-        <div class="columns choice_block">
-            <div class="wrapper column is-half">
-                <input type="checkbox" class="check" id="1">
-                <label for="1" class="choice_text"> Checkbox </label>
+    {% if questions %}
+        {% for question in questions %}
+            <h1 class="q_title">{{question.title}}</h1>
+            {% if question.description %}
+                <p class="q_description">{{question.description}}</p>
+            {% endif %}
+            <div id="q_choices" class="q_choices">
+                <div class="columns is-multiline choice_block">
+                    {% for choice in question.choices%}
+                        <div class="wrapper column is-5">
+                            <input type="checkbox" class="check" id="{{ choice.id }}">
+                            <label for="{{ choice.id }}" class="choice_text"> {{ choice.content }} </label>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
-            <div class="wrapper column is-half">
-                <input type="checkbox" class="check" id="2">
-                <label for="2" class="choice_text"> Checkbox </label>
-            </div>
-        </div>
-        <input type="checkbox" class="check" id="3">
-    </div>
+        {% endfor %}
+
+    {% endif %}
+
 
 </div>
 

@@ -260,12 +260,20 @@ body > footer {
 
 
 /* quiz START */
-
+.q_title{
+	margin-top: 1rem;
+}
+.q_description{
+	margin-top: 1rem;
+}
+.choice_block{
+	margin: 1rem 1rem 2rem 1rem;
+}
 .wrapper{
 	padding: 1rem;
 	border-radius: 1rem;
 	background: #E5E8EE;
-	margin: 1rem;
+	margin: 0.5rem;
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;

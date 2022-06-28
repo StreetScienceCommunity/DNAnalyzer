@@ -103,4 +103,6 @@ def quiz(chapter_id):
     @param chapter_id: the chapter id for showing related quiz questions
     @return: the template for quiz
     """
-    return render_template("games/quiz.html")
+    questions = Question.query.filter_by(chapter_id=chapter_id).order_by(Question.id).all()
+    questions = questions_schema.dump(questions)
+    return render_template("games/quiz.html", questions=questions)
