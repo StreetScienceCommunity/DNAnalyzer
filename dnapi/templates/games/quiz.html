@@ -2,40 +2,56 @@
 
 {% block body %}
 
-<div class="quiz">
-    {% if questions %}
-        {% for question in questions %}
-            <h1 class="q_title">{{question.title}}</h1>
-            {% if question.description %}
-                <p class="q_description">{{question.description}}</p>
-            {% endif %}
-            <div id="q_choices" class="q_choices">
-                <div class="columns is-multiline choice_block">
-                    {% for choice in question.choices%}
-                        <div class="wrapper column is-5">
-                            <input type="checkbox" class="check" id="{{ choice.id }}">
-                            <label for="{{ choice.id }}" class="choice_text"> {{ choice.content }} </label>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-        {% endfor %}
-
-    {% endif %}
-
+<div class="WTF"></div>
+<div class="quiz" id="quiz">
 
 </div>
 
 <script>
-    $('.check').click(function () {
+    $( document ).ready(function() {
+            let myHTML = "";
+    let questions = {{ questions|tojson }};
+    console.log(questions)
+    console.log(questions[0].title)
+    for (let i = 0; i < questions.length; i++) {
+        myHTML += '<div class="quiz_text">';
+        myHTML += `<h1 class="q_title">${questions[i].title}</h1>`;
+        myHTML += `<p class="q_points">${questions[i].point}Pts</p>`;
+        myHTML += '</div>'
+        let choices = questions[i].choices;
+        myHTML += '<div id="q_choices" class="q_choices">'
+        for (let j=0; j <  choices.length; j++){
+            myHTML += `<div class="wrapper">
+                            <input type="checkbox" class="check" id="${ choices[j].id }">
+                            <label for="${ choices[j].id }" class="choice_text"> ${ choices[j].content } </label>
+                        </div>`
+        }
+        myHTML += '</div>';
+    }
+    $('#quiz').html(myHTML);
+    });
 
-        if ($(this).is(':checked') == true) {
-             $(this).parent().css('background', '#95D6A2');
+
+
+    $('div.wrapper').click(function () {
+        if ($(this).children('input:nth-child(1)').is(':checked')) {
+            $(this).children('input:nth-child(1)').prop('checked', false);
+            $(this).css('background', '#E5E8EE');
         }
         else{
-            $(this).parent().css('background', '#E5E8EE');
+            $(this).children('input:nth-child(1)').prop('checked', true);
+            $(this).css('background', '#95D6A2');
         }
     });
+    // $('.check').click(function () {
+    //
+    //     if ($(this).is(':checked') == true) {
+    //          $(this).parent().css('background', '#95D6A2');
+    //     }
+    //     else{
+    //         $(this).parent().css('background', '#E5E8EE');
+    //     }
+    // });
 </script>
 
 

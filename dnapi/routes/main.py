@@ -105,4 +105,6 @@ def quiz(chapter_id):
     """
     questions = Question.query.filter_by(chapter_id=chapter_id).order_by(Question.id).all()
     questions = questions_schema.dump(questions)
-    return render_template("games/quiz.html", questions=questions)
+    data = jsonify(questions)
+    # print(questions)
+    return render_template("games/quiz.html", questions=questions, q_len= len(questions))
