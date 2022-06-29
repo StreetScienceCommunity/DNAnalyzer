@@ -2,18 +2,18 @@
 
 {% block body %}
 
-<div class="WTF"></div>
-<div class="quiz" id="quiz">
-
+<div class="quiz_wrapper columns is-centered">
+        <div class="quiz column is-three-fifths" id="quiz">
+        </div>
 </div>
-
 <script>
     $(document).ready(function () {
-        let myHTML = "";
         let questions = {{questions | tojson}};
-        console.log(questions)
-        console.log(questions[0].title)
+        let chapter = {{chapter| tojson}};
+        let myHTML = `<form action="/quiz/${chapter.id}/submit" method="post">`;
+        myHTML += `<p class="quiz_title">Level ${chapter.level_id} Chapter ${chapter.id}</p>`;
         for (let i = 0; i < questions.length; i++) {
+            myHTML += '<hr>'
             myHTML += '<div class="quiz_text">';
             myHTML += `<h1 class="q_title">${questions[i].title}</h1>`;
             myHTML += `<p class="q_points">${questions[i].point}Pts</p>`;
@@ -34,7 +34,10 @@
                 for (; k < questions.length && questions[k].type==cur_type; k++) {
                     myHTML += `<tr><td>${questions[k].description}</td>`;
                     for (let j = 0; j < choices.length; j++){
-                        myHTML += '<td> <label class="checkbox"><input type="checkbox">&nbsp;</label></td>';
+                        if(cur_type=="grid")
+                            myHTML += '<td> <label class="checkbox"><input type="checkbox" name="${questions[k].id}">&nbsp;</label></td>';
+                        else
+                            myHTML += '<td> <label class="checkbox"><input type="radio" name="${questions[k].id}">&nbsp;</label></td>';
                     }
                     myHTML += `</tr>`;
                 }
@@ -45,7 +48,7 @@
                 if(questions[i].type=="choose one"){
                     for (let j = 0; j < choices.length; j++) {
                         myHTML += `<div class="radio_wrapper wrapper">
-                                    <input type="radio"  name="${questions[i].id}" id="${choices[j].id}">
+                                    <input type="radio"  name="${questions[i].id}" id="${choices[j].id}" value="${choices[j].id}">
                                     <label for="${choices[j].id}" class="choice_text"> ${choices[j].content} </label>
                                 </div>`;
                     }
@@ -53,7 +56,7 @@
                     console.log("hit")
                     for (let j = 0; j < choices.length; j++) {
                         myHTML += `<div class="checkbox_wrapper wrapper">
-                                    <input type="checkbox"  name="${questions[i].id}" class="check" id="${choices[j].id}">
+                                    <input type="checkbox"  name="${questions[i].id}" class="check" id="${choices[j].id}" value="${choices[j].id}">
                                     <label for="${choices[j].id}" class="choice_text"> ${choices[j].content} </label>
                                 </div>`;
                     }
@@ -61,26 +64,9 @@
                 myHTML += '</div>';
             }
         }
+        myHTML += `<button type="submit" class="button is-fullwidth"> Submit my anwers</button></form>`
         $('#quiz').html(myHTML);
     });
-    $(document).on('click', '.checkbox_wrapper', function () {
-        if ($(this).children('input:nth-child(1)').is(':checked')) {
-            $(this).children('input:nth-child(1)').prop('checked', false);
-            $(this).css('background', '#E5E8EE');
-        } else {
-            $(this).children('input:nth-child(1)').prop('checked', true);
-            $(this).css('background', '#95D6A2');
-        }
-    });
-    // $('.check').click(function () {
-    //
-    //     if ($(this).is(':checked') == true) {
-    //          $(this).parent().css('background', '#95D6A2');
-    //     }
-    //     else{
-    //         $(this).parent().css('background', '#E5E8EE');
-    //     }
-    // });
 </script>
 
 

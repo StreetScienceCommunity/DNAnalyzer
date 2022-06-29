@@ -261,18 +261,21 @@ body > footer {
 
 /* quiz START */
 .quiz{
-	margin: 1rem 3rem;
-	/*background-color: #00b89c;*/
+	margin: 2rem 0;
+	/*background-color: #F5F5F5;*/
 }
 
+.quiz_title{
+	font-size: 2rem;
+
+}
 .quiz_text{
-	margin: auto 5rem;
-	text-align: center;
+
 }
 
 .q_title{
-	margin: 2rem 0;
-	font-size: 2rem;
+	margin: 1rem 0;
+	font-size: 1.25rem;
 	color: #2E3971;
 
 }
@@ -285,60 +288,6 @@ body > footer {
 	margin-top: 1rem;
 }
 
-.q_choices{
-	margin: 0 5rem 5rem 5rem;
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	grid-gap: 10px;
-}
-
-.wrapper{
-	padding: 1rem;
-	border-radius: 1rem;
-	background: #E5E8EE;
-	display: flex;
-	align-items: center;
-	justify-content: flex-start;
-}
-
-.wrapper:hover, .check:hover, .choice_text:hover{
-	cursor: pointer;
-}
-
-input[type='checkbox'].check{
-	appearance: none;
-	-webkit-appearance: none;
-	min-height: 0.75rem;
-	min-width: 0.75rem;
-	outline: 3px solid #2E3971;
-	border: none !important;
-	margin: 0 1rem;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.choice_text {
-	color: #2E3971;
-	font-weight: bold;
-	font-size: 1rem;
-	font-family: 'Poppins', sans-serif;
-}
-
-input[type='checkbox'].check:after{
-	content:"\f00c";
-	font-family:"fontawesome";
-	font-weight:900;
-	font-size: 0.75rem;
-	display: none;
-}
-input[type='checkbox'].check:hover{
-	/*background-color: #2E3971;*/
-}
-
-input[type='checkbox'].check:checked:after{
-	display: block;
-}
 
 
 /* quiz END */

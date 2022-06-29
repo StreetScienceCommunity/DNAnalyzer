@@ -11,12 +11,21 @@ class User(db.Model, UserMixin):
 class Level(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(), unique=True, nullable=False)
+    level = db.relationship('Chapter', backref=db.backref('level', lazy=True))
 
 class Chapter(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     total_score = db.Column(db.Integer, nullable=False)
     level_id = db.Column(db.Integer, db.ForeignKey('level.id'), nullable=False)
-    level = db.relationship('Level', backref=db.backref('chapters', lazy=True))
+
+class ChapterSchema(ma.SQLAlchemySchema):
+    class Meta:
+        model = Chapter
+    id = auto_field()
+    level_id = auto_field()
+
+chapter_schema = ChapterSchema()
+chapters_schema = ChapterSchema(many=True)
 
 class Choice(db.Model):
     id = db.Column(db.Integer, primary_key=True)
