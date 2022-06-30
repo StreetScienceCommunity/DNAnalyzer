@@ -119,12 +119,28 @@ def quiz_submit(chapter_id):
     """
 
     form = request.form
-    print(form)
-    print(form.get('1'))
     questions = Question.query.filter_by(chapter_id=chapter_id).order_by(Question.id).all()
     questions_dump = questionswithanswers_schema.dump(questions)
     chapter = Chapter.query.get(chapter_id)
     chapter_dump = chapter_schema.dump(chapter)
-    print(questions[1].choices[0].correctness)
-    print(questions_dump[3])
+    # print(form)
+    # right wrong miss
+    for question in questions_dump:
+        if form.get(question['id']):
+            anwsers = set(form.getlist(question['id']))
+            for choice in question['choices']:
+                if choice['correctness']:
+                    if choice['id'] in anwsers:
+                        print('right')
+                        choice['state'] = 'right'
+                    else:
+                        print('miss')
+                        choice['state'] = 'miss'
+                else:
+                    if choice['id'] in anwsers:
+                        print('wrong')
+                        choice['state'] = 'wrong'
+        else:
+            question['state'] = False
+    print(questions_dump[5]['choices'])
     return render_template("games/quiz.html", questions=questions_dump, q_len= len(questions), chapter=chapter_dump)

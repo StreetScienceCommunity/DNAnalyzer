@@ -1,5 +1,6 @@
 from utils import db, ma
 from flask_login import UserMixin
+from marshmallow import fields
 from marshmallow_sqlalchemy import auto_field
 from marshmallow_sqlalchemy.fields import Nested
 
@@ -53,7 +54,7 @@ choices_schema = ChoiceSchema(many=True)
 class ChoicewithanwersSchema(ma.SQLAlchemySchema):
     class Meta:
         model = Choice
-    id = auto_field()
+    id = fields.String()
     content = auto_field()
     correctness = auto_field()
 
@@ -95,7 +96,7 @@ questions_schema = QuestionSchema(many=True)
 class QuestionwithanswersSchema(ma.SQLAlchemySchema):
     class Meta:
         model = Question
-    id = auto_field()
+    id = fields.String()
     title = auto_field()
     description = auto_field()
     type = auto_field()
