@@ -288,6 +288,15 @@ body > footer {
 	margin-top: 1rem;
 }
 
+.missing{
+	background: yellow;
+}
+.right{
+	background: green;
+}
+.wrong{
+	background: red;
 
+}
 
 /* quiz END */

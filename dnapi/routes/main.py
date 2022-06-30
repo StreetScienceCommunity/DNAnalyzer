@@ -135,12 +135,17 @@ def quiz_submit(chapter_id):
                         choice['state'] = 'right'
                     else:
                         print('miss')
-                        choice['state'] = 'miss'
+                        choice['state'] = 'missing'
                 else:
                     if choice['id'] in anwsers:
                         print('wrong')
                         choice['state'] = 'wrong'
         else:
-            question['state'] = False
-    print(questions_dump[5]['choices'])
-    return render_template("games/quiz.html", questions=questions_dump, q_len= len(questions), chapter=chapter_dump)
+            question['missed'] = True
+    print(form)
+    print("*********************")
+    print(questions_dump[12]['choices'])
+    print(questions_dump[13]['choices'])
+
+    return render_template("games/quiz_result.html", questions=questions_dump, q_len= len(questions), chapter=chapter_dump)
+    # return jsonify(questions_dump)
