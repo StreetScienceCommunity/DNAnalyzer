@@ -18,7 +18,7 @@
             myHTML += `<h1 class="q_title">${questions[i].title}</h1>`;
             myHTML += `<p class="q_points">${questions[i].point}Pts</p>`;
             if(questions[i].missed)
-                    myHTML += '<p class="wrong">You didn\'t answer this question</p>';
+                    myHTML += '<p class="has-text-danger">You didn\'t answer this question</p>';
             myHTML += '</div>'
             let choices = questions[i].choices;
             // myHTML += '<div id="q_choices" class="q_choices">';

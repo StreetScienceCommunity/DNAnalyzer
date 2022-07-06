@@ -95,9 +95,13 @@ def logout():
     flash('Logged out successfully', category='success')
     return redirect(url_for('dnapi.login'))
 
-@bp.route('/quiz/<chapter_id>')
+@bp.route('/level1/intro')
+def intro():
+    return render_template("games/intro.html")
+
+@bp.route('/level1/chapter/<chapter_id>')
 @login_required
-def quiz(chapter_id):
+def chapter(chapter_id):
     """
     view function for quiz page
     @param chapter_id: the chapter id for showing related quiz questions
@@ -107,7 +111,7 @@ def quiz(chapter_id):
     questions = questions_schema.dump(questions)
     chapter = Chapter.query.get(chapter_id)
     chapter = chapter_schema.dump(chapter)
-    return render_template("games/quiz.html", questions=questions, q_len= len(questions), chapter=chapter)
+    return render_template("games/chapter.html",  questions=questions, q_len= len(questions), chapter=chapter)
 
 @bp.route('/quiz/<chapter_id>/submit', methods=['POST'])
 @login_required

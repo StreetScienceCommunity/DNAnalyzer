@@ -1,22 +1,82 @@
 {% extends 'base.html' %}
 {% block body %}
 
-<div class="passed_content">
-	<section class="section">
-		<div class="container content  ">
-			<!--<div><a href="slides.html">Slides</a></div> -->
-			<center>
-				<iframe width="900" height="506" src="https://www.youtube.com/embed/Y_8SuKF-YHY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-				<div>
-					<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdrnrPA_USxzXmGS3rnC0QsELCvdgKmyHUQ_qaRW9-gA_LZZg/viewform?embedded=true" width="900" height="600" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-				</div>
-				<p><a href="/DNAnalyzer/game/level2/" class="button is-link is-large"><strong>Next level</strong></a></p>
-				<div>
-					<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vR7eW6vVlzmGaFtA4p6FcuW6GJzstwMQEqnF5WxI_OHJsGYnItCFUjh9BS5OxQmyFKrvXgASz5XJKAR/pubhtml?gid=861648969&amp;single=true&amp;widget=true&amp;headers=false" width="920" height="315" frameborder="0" marginheight="0" marginwidth="0"></iframe>
-				</div>
-			</center>
-		</div>
-	</section>
+<section class="section">
+	<div class="container content  ">
+		<!--<div><a href="slides.html">Slides</a></div> -->
+		<center>
+			<iframe width="900" height="506" src="https://www.youtube.com/embed/Y_8SuKF-YHY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		</center>
+	</div>
+</section>
+
+<div class="quiz_wrapper columns is-centered">
+        <div class="quiz column is-three-fifths" id="quiz">
+        </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        let questions = {{questions | tojson}};
+        let chapter = {{chapter| tojson}};
+        let myHTML = `<form action="/quiz/${chapter.id}/submit" method="post">`;
+        myHTML += `<p class="quiz_title">Level ${chapter.level_id} Chapter ${chapter.id}</p>`;
+        for (let i = 0; i < questions.length; i++) {
+            myHTML += '<hr>'
+            myHTML += '<div class="quiz_text">';
+            myHTML += `<h1 class="q_title">${questions[i].title}</h1>`;
+            myHTML += `<p class="q_points">${questions[i].point}Pts</p>`;
+            myHTML += '</div>'
+            let choices = questions[i].choices;
+            // myHTML += '<div id="q_choices" class="q_choices">';
+            if (questions[i].type == "grid" || questions[i].type == "grid checkbox") {
+                let cur_type = questions[i].type;
+                myHTML += `<table class="table is-bordered is-striped  is-hoverable is-fullwidth">
+                             <thead>
+                               <tr>
+                                <th>&nbsp;</th>`;
+                for (let j = 0; j < choices.length; j++) {
+                    myHTML += `<th>${choices[j].content}</th>`;
+                }
+                myHTML += '    </tr> </thead> <tbody>';
+                let k = i;
+                for (; k < questions.length && questions[k].type==cur_type; k++) {
+                        choices = questions[k].choices;
+                    myHTML += `<tr><td>${questions[k].description}</td>`;
+                    for (let j = 0; j < choices.length; j++){
+                        if(cur_type=="grid")
+                            myHTML += `<td> <label class="checkbox"><input type="checkbox" name="${questions[k].id}" value="${choices[j].id}">&nbsp;</label></td>`;
+                        else
+                            myHTML += `<td> <label class="checkbox"><input type="radio" name="${questions[k].id}" value="${choices[j].id}">&nbsp;</label></td>`;
+                    }
+                    myHTML += `</tr>`;
+                }
+                myHTML += '  </tbody></table>';
+                i = k -1;
+            } else {
+                myHTML += '<div id="q_choices" class="q_choices">';
+                if(questions[i].type=="choose one"){
+                    for (let j = 0; j < choices.length; j++) {
+                        myHTML += `<div class="radio_wrapper wrapper">
+                                    <input type="radio"  name="${questions[i].id}" id="${choices[j].id}" value="${choices[j].id}">
+                                    <label for="${choices[j].id}" class="choice_text"> ${choices[j].content} </label>
+                                </div>`;
+                    }
+                }else{
+                    console.log("hit")
+                    for (let j = 0; j < choices.length; j++) {
+                        myHTML += `<div class="checkbox_wrapper wrapper">
+                                    <input type="checkbox"  name="${questions[i].id}" class="check" id="${choices[j].id}" value="${choices[j].id}">
+                                    <label for="${choices[j].id}" class="choice_text"> ${choices[j].content} </label>
+                                </div>`;
+                    }
+                }
+                myHTML += '</div>';
+            }
+        }
+        myHTML += `<button type="submit" class="button is-fullwidth"> Submit my anwers</button></form>`
+        $('#quiz').html(myHTML);
+    });
+</script>
 
 {% endblock %}

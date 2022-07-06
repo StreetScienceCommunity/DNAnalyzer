@@ -33,22 +33,9 @@ app.secret_key = 'Imthesercretkeyhaha'
 def index():
     return render_template("index.html")
 
-@app.route('/nav')
-def navbar():
-    return render_template("navbar.html")
-
 @app.route('/about')
 def about():
     return render_template("about.html")
-
-@app.route('/level1/intro')
-def intro():
-    return render_template("games/intro.html")
-
-@app.route('/level1/chapter/<chapter_id>')
-@login_required
-def chapter(chapter_id):
-    return render_template("games/chapter.html")
 
 # Run server
 if __name__ == '__main__':
