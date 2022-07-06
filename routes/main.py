@@ -111,7 +111,9 @@ def chapter(chapter_id):
     questions = questions_schema.dump(questions)
     chapter = Chapter.query.get(chapter_id)
     chapter = chapter_schema.dump(chapter)
-    return render_template("games/chapter.html",  questions=questions, q_len= len(questions), chapter=chapter)
+    chapters = Chapter.query.all()
+    chapters = chapters_schema.dump(chapters)
+    return render_template("games/chapter.html",  questions=questions, q_len= len(questions), chapter=chapter, chapters=chapters)
 
 @bp.route('/quiz/<chapter_id>/submit', methods=['POST'])
 @login_required

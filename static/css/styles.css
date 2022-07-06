@@ -288,4 +288,12 @@ body > footer {
 	margin-top: 1rem;
 }
 
+.quiz-menu{
+	box-shadow: 0 0 15px #87b3da;
+    clip-path: inset(0px -15px 0px 0px);
+}
+.quiz-menu a{
+	text-decoration: none !important;
+}
+
 /* quiz END */
