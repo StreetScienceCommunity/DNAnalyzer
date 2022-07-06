@@ -7,6 +7,36 @@
         </div>
 </div>
 <script>
+function check_result(choice, show_text=true){
+        let rtn = '';
+        if(choice.state == 'correct'){
+                rtn = `<span class="icon-text has-text-success">
+                                  <span class="icon">
+                                    <i class="fas fa-check-square"></i>
+                                  </span>`;
+                if(show_text)
+                        rtn += `<span>Correct</span>`;
+                rtn += `</span>`;
+        }
+        else if(choice.state == 'wrong'){
+                rtn = `<span class="icon-text has-text-danger">
+                                  <span class="icon">
+                                    <i class="fas fa-ban"></i>
+                                  </span>`;
+                if(show_text)
+                        rtn += `<span>Wrong</span>`;
+                rtn += `</span>`;
+        }else if(choice.state == 'missed'){
+                rtn = `<span class="icon-text has-text-warning">
+                                  <span class="icon">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                  </span>`;
+                if(show_text)
+                        rtn += `<span>Missed Answer</span>`;
+                rtn += `</span>`;
+        }
+        return rtn;
+}
     $(document).ready(function () {
         let questions = {{questions | tojson}};
         let chapter = {{chapter| tojson}};
@@ -37,10 +67,16 @@
                         choices = questions[k].choices;
                     myHTML += `<tr><td>${questions[k].description}</td>`;
                     for (let j = 0; j < choices.length; j++){
-                        if(cur_type=="grid")
-                            myHTML += `<td class="${choices[j].state}"> <label class="checkbox"><input type="checkbox" name="${questions[k].id}" value="${choices[j].id}">&nbsp;</label></td>`;
-                        else
-                            myHTML += `<td class="${choices[j].state}"> <label class="checkbox"><input type="radio" name="${questions[k].id}" value="${choices[j].id}">&nbsp;</label></td>`;
+                        if(cur_type=="grid"){
+                            myHTML += `<td class="${choices[j].state}"> <label class="checkbox"><input type="checkbox" name="${questions[k].id}" value="${choices[j].id}">&nbsp;</label>`;
+                            myHTML += check_result(choices[j], false);
+                            myHTML += `</td>`;
+                        }
+                        else{
+                            myHTML += `<td class="${choices[j].state}"> <label class="checkbox"><input type="radio" name="${questions[k].id}" value="${choices[j].id}">&nbsp;</label>`;
+                            myHTML += check_result(choices[j], false);
+                            myHTML += `</td>`;
+                        }
                     }
                     myHTML += `</tr>`;
                 }
@@ -53,30 +89,8 @@
                         myHTML += '<div class="radio_wrapper wrapper">';
                         myHTML +=  `<input type="radio"  name="${questions[i].id}" id="${choices[j].id}" value="${choices[j].id}">
                                     <label for="${choices[j].id}" class="choice_text"> ${choices[j].content} </label> `
-                        if(choices[j].state == 'correct')
-                                myHTML += `<span class="icon-text has-text-success">
-                                                  <span class="icon">
-                                                    <i class="fas fa-check-square"></i>
-                                                  </span>
-                                                  <span>Correct</span>
-                                           </span>`;
-                        else if(choices[j].state == 'wrong'){
-                                myHTML += `<span class="icon-text has-text-danger">
-                                                  <span class="icon">
-                                                    <i class="fas fa-ban"></i>
-                                                  </span>
-                                                  <span>Wrong</span>
-                                            </span>`
-                        }else if(choices[j].state == 'missed'){
-                                myHTML += `<span class="icon-text has-text-warning">
-                                                  <span class="icon">
-                                                    <i class="fas fa-exclamation-triangle"></i>
-                                                  </span>
-                                                  <span>Missed Answer</span>
-                                           </span>`
-                        }
+                        myHTML += check_result(choices[j]);
                         myHTML += `</div>`;
-
                     }
                 }else{
                     console.log("hit")
@@ -84,28 +98,7 @@
                         myHTML += `<div class="checkbox_wrapper wrapper">
                                     <input type="checkbox"  name="${questions[i].id}" class="check" id="${choices[j].id}" value="${choices[j].id}">
                                     <label for="${choices[j].id}" class="choice_text"> ${choices[j].content} </label>`
-                        if(choices[j].state == 'correct')
-                                myHTML += `<span class="icon-text has-text-success">
-                                                  <span class="icon">
-                                                    <i class="fas fa-check-square"></i>
-                                                  </span>
-                                                  <span>Correct</span>
-                                           </span>`;
-                        else if(choices[j].state == 'wrong'){
-                                myHTML += `<span class="icon-text has-text-danger">
-                                                  <span class="icon">
-                                                    <i class="fas fa-ban"></i>
-                                                  </span>
-                                                  <span>Wrong</span>
-                                            </span>`
-                        }else if(choices[j].state == 'missed'){
-                                myHTML += `<span class="icon-text has-text-warning">
-                                                  <span class="icon">
-                                                    <i class="fas fa-exclamation-triangle"></i>
-                                                  </span>
-                                                  <span>Missed Answer</span>
-                                           </span>`
-                        }
+                        myHTML += check_result(choices[j]);
                         myHTML += `</div>`;
                     }
                 }
