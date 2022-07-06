@@ -21,6 +21,8 @@ class Chapter(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     total_score = db.Column(db.Integer, nullable=False)
     level_id = db.Column(db.Integer, db.ForeignKey('level.id'), nullable=False)
+    url = db.Column(db.String(), nullable=False)
+    name = db.Column(db.String(), nullable=False)
 
 
 class ChapterSchema(ma.SQLAlchemySchema):
@@ -29,6 +31,8 @@ class ChapterSchema(ma.SQLAlchemySchema):
 
     id = auto_field()
     level_id = auto_field()
+    url = auto_field()
+    name = auto_field()
 
 
 chapter_schema = ChapterSchema()

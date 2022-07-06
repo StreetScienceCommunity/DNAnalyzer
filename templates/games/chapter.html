@@ -1,17 +1,18 @@
 {% extends 'base.html' %}
 {% block body %}
 
-<section class="section">
+<section class="section mx-6">
 	<div class="container content  ">
+		<p class="quiz_title">Level {{chapter.level_id}} Chapter {{chapter.id}} {{chapter.name}}</p>
 		<!--<div><a href="slides.html">Slides</a></div> -->
-		<center>
-			<iframe width="900" height="506" src="https://www.youtube.com/embed/Y_8SuKF-YHY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-		</center>
+		<figure class="image is-16by9 ">
+			<iframe class="has-ratio" width="600" height="450" src="{{chapter.url}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		</figure>
 	</div>
 </section>
 
 <div class="quiz_wrapper columns is-centered">
-        <div class="quiz column is-three-fifths" id="quiz">
+        <div class="quiz column is-two-thirds" id="quiz">
         </div>
 </div>
 
@@ -20,7 +21,7 @@
         let questions = {{questions | tojson}};
         let chapter = {{chapter| tojson}};
         let myHTML = `<form action="/quiz/${chapter.id}/submit" method="post">`;
-        myHTML += `<p class="quiz_title">Level ${chapter.level_id} Chapter ${chapter.id}</p>`;
+        myHTML += `<p class="quiz_title">Level ${chapter.level_id} Chapter ${chapter.id} Quiz</p>`;
         for (let i = 0; i < questions.length; i++) {
             myHTML += '<hr>'
             myHTML += '<div class="quiz_text">';
