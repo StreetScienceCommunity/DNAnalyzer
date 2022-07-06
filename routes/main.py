@@ -132,10 +132,10 @@ def quiz_submit(chapter_id):
                 if choice['correctness']:
                     if choice['id'] in anwsers:
                         print('right')
-                        choice['state'] = 'right'
+                        choice['state'] = 'correct'
                     else:
                         print('miss')
-                        choice['state'] = 'missing'
+                        choice['state'] = 'missed'
                 else:
                     if choice['id'] in anwsers:
                         print('wrong')
