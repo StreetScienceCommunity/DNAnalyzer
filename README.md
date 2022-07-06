@@ -71,14 +71,10 @@ Thank you very much for visiting our project repository. We hope you feel inspir
 
 ## How can I generate the website locally?
 
-You need a `ruby` environment (version >= 2.4). Either you have it installed and
-you know how to [Bundler](https://bundler.io/) and
-[Jekyll](https://jekyllrb.com/) or you use
-(mini-)[conda](https://conda.io/docs/index.html), a package management system
-that can install all these tools for you. You can install it by following the
-instructions on this page: https://conda.io/docs/user-guide/install/index.html
+The Project relies on `Flask` and `Postgres infrastructure`, you will need `Python 3` and `Postgres`.
 
-In the sequel, we assume you use miniconda.
+
+Detailed installation instructions below
 
 1. Open a terminal
 2. Clone this GitHub repository:
@@ -88,26 +84,32 @@ In the sequel, we assume you use miniconda.
    ```
 
 3. Navigate to the `DNAnalyzer` folder with `cd`
-4. Set up the conda environment:
+4. Set up and activate Python `virtualenv`:
 
    ```
-   make create-env
+   python3 -m venv ./myvenv
+   source myvenv/bin/activate
    ```
 
 5. Install the project's dependencies:
 
    ```
-   make install
+   pip3 install -r requirements.txt
+   ```
+6. Next, create a `db_config.py` file, and edit with your local settings
+
+   ```
+   cp db_config.py.in db_config.py
    ```
 
-6. Start the website:
+7. Start the website:
 
    ```
-   make serve
+   python3 app.py
    ```
 
-7. Open the website in your favorite browser at:
-   [http://127.0.0.1:4000/](http://127.0.0.1:4000/)
+8. Open the website in your favorite browser at:
+   [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
 
 
 

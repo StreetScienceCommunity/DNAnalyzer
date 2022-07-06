@@ -72,7 +72,7 @@ class Question(db.Model):
     point = db.Column(db.Integer, nullable=False)
     chapter_id = db.Column(db.Integer, db.ForeignKey('chapter.id'), nullable=False)
     chapter = db.relationship('Chapter', backref=db.backref('questions', lazy=True))
-    choices = db.relationship('Choice', backref=db.backref('Question', lazy=True))
+    choices = db.relationship('Choice', backref=db.backref('Question', lazy=True, order_by=Choice.id))
 
 
 class QuestionSchema(ma.SQLAlchemySchema):

@@ -7,5 +7,5 @@ node_modules
 videos
 .jekyll-cache
 .idea/
-dnapi/db_config.py
-dnapi/myvenv
+db_config.py
+myvenv
