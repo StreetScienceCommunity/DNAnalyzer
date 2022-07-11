@@ -288,6 +288,9 @@ body > footer {
 	margin-top: 1rem;
 }
 
+.q_title{
+	color: #1d6caf;
+}
 .quiz-menu{
 	box-shadow: 0 0 15px #87b3da;
     clip-path: inset(0px -15px 0px 0px);
@@ -302,5 +305,13 @@ body > footer {
 
 .hidden .hint{
 	display:none;
+}
+
+.hint {
+	margin: 0.5rem 1rem;
+}
+
+.quiz_btn{
+	color: #1d6caf;
 }
 /* quiz END */
