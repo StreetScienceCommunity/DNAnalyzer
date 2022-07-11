@@ -90,6 +90,7 @@ class QuestionSchema(ma.SQLAlchemySchema):
     hint = auto_field()
     image_url = auto_field()
     point = auto_field()
+    explanation = auto_field()
     choices = Nested(ChoiceSchema, many=True)
 
 

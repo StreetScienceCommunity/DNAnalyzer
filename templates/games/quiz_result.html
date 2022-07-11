@@ -102,6 +102,12 @@ function check_result(choice, show_text=true){
                         myHTML += `</div>`;
                     }
                 }
+                if(questions[i].explanation != null ){
+                        myHTML += `<div class="feedback_block mt-2">
+                                        <p class="has-text-weight-bold mb-2">Feedback</p>
+                                        <p class="is-italic feedback_text">${questions[i].explanation}</p>
+                                  </div>`
+                }
                 myHTML += '</div>';
             }
         }

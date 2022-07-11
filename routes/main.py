@@ -131,8 +131,8 @@ def quiz_submit(chapter_id):
     questions_dump = questionswithanswers_schema.dump(questions)
     chapter = Chapter.query.get(chapter_id)
     chapter_dump = chapter_schema.dump(chapter)
-    # print(form)
-    # right wrong miss
+
+    # check choice submitted if right wrong or miss
     for question in questions_dump:
         if form.get(question['id']):
             anwsers = set(form.getlist(question['id']))
@@ -150,10 +150,5 @@ def quiz_submit(chapter_id):
                         choice['state'] = 'wrong'
         else:
             question['missed'] = True
-    print(form)
-    print("*********************")
-    print(questions_dump[12]['choices'])
-    print(questions_dump[13]['choices'])
 
     return render_template("games/quiz_result.html", questions=questions_dump, q_len= len(questions), chapter=chapter_dump)
-    # return jsonify(questions_dump)

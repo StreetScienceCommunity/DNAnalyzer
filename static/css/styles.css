@@ -314,4 +314,13 @@ body > footer {
 .quiz_btn{
 	color: #1d6caf;
 }
+
+.feedback_block{
+	background-color: #f5f5f5;
+	padding: 1.5rem;
+}
+
+.feedback_text{
+	font-size: 0.9rem;
+}
 /* quiz END */
