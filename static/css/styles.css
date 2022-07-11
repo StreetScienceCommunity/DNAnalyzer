@@ -267,8 +267,8 @@ body > footer {
 
 .quiz_title{
 	font-size: 2rem;
-
 }
+
 .quiz_text{
 
 }
@@ -296,4 +296,7 @@ body > footer {
 	text-decoration: none !important;
 }
 
+.menu-list a.is-active{
+	background-color: #1d6caf;
+}
 /* quiz END */

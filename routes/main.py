@@ -97,7 +97,9 @@ def logout():
 
 @bp.route('/level1/intro')
 def intro():
-    return render_template("games/intro.html")
+    chapters = Chapter.query.all()
+    chapters = chapters_schema.dump(chapters)
+    return render_template("games/intro.html", chapters=chapters)
 
 @bp.route('/level1/chapter/<chapter_id>')
 @login_required

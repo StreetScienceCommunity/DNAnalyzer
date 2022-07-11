@@ -1,16 +1,27 @@
 {% extends 'base.html' %}
 {% block body %}
-<div class="passed_content">
-	<section class="section">
-		<div class="container content  ">
-			<h1 id="lets-start-the-game">Let’s start the Game!</h1>
-			<p>Sam, a curious young alien robot from a faraway galaxy, invites you to discover a little blue planet in the Milky Way.</p>
-			<center>
-				<iframe width="900" height="506" src="https://www.youtube.com/embed/x9o0BIf-Kzs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
-			</center>
-			<p>Sam will guide you through the game and you will learn about the Earth and life on it with him. Press the button to start.</p>
-			<p><a href="/level1/chapter/1" class="button is-link is-large is-fullwidth"><strong>Start</strong></a></p>
+
+<div class="quiz_wrapper columns mb-6">
+	<div class="quiz quiz-menu column is-one-fifth mt-6">
+		<aside class="menu mt-6">
+			<ul class="menu-list">
+			<li><a class="is-active" href="/level1/intro"> Overview </a></li>
+			{% for c in chapters %}
+				<li class="mt-4"><a href="/level1/chapter/{{c.id}}"> Chapter {{c.id}}: {{c.name}} </a></li>
+			{% endfor %}
+			</ul>
+		</aside>
+	</div>
+	<div class="quiz column is-four-fifths p-6">
+		<div class="section">
+			<p class="is-size-3 has-text-weight-bold mb-3">Let’s start the Game!</p>
+			<p class="my-4">Sam, a curious young alien robot from a faraway galaxy, invites you to discover a little blue planet in the Milky Way.</p>
+			<figure class="image is-16by9">
+				<iframe class="has-ratio" width="600" height="450" src="https://www.youtube.com/embed/x9o0BIf-Kzs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			</figure>
+			<p class="mt-5">Sam will guide you through the game and you will learn about the Earth and life on it with him. Press the button to start.</p>
+			<p class="my-4"><a href="/level1/chapter/1" class="button is-link is-large is-fullwidth"><strong>Start</strong></a></p>
 		</div>
-	</section>
+	</div>
 </div>
 {% endblock %}
