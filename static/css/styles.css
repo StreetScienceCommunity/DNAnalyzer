@@ -299,4 +299,8 @@ body > footer {
 .menu-list a.is-active{
 	background-color: #1d6caf;
 }
+
+.hidden .hint{
+	display:none;
+}
 /* quiz END */

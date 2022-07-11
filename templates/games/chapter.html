@@ -81,11 +81,31 @@
                                 </div>`;
                     }
                 }
+				myHTML += `<div class="dropdown-wrapper hidden">
+							  <div class="dropdown-trigger">
+							  <button class="button" type="button">
+								<p class="button-text">show hint</p>
+								<span class="icon is-small">
+								<i class="fas fa-angle-down" aria-hidden="true"></i>
+								</span>
+							  </button>
+							  </div>
+							  <p class="hint" >here</p>
+							</div>`
                 myHTML += '</div>';
             }
         }
         myHTML += `<button type="submit" class="button is-fullwidth"> Submit my anwers</button></form>`
         $('#quiz').html(myHTML);
+		$('.dropdown-wrapper').click(function() {
+		  this.classList.toggle('hidden');
+		  var hint_btn = $(this).find('.button-text');
+		  if (hint_btn.text() === "show hint") {
+			  $(this).find('.button-text').text("hide hint");
+		  } else {
+			  $(this).find('.button-text').text("show hint");
+		  }
+		});
     });
 </script>
 
