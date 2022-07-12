@@ -7,9 +7,11 @@ from werkzeug.security  import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
 bp = Blueprint('dnapi', __name__, url_prefix='/')
 
+
 @bp.route('/hello', methods=['GET'])
 def hello():
     return jsonify({"msg": "hello!"})
+
 
 @bp.route('/img', methods=['GET'])
 def access_img(img_path):
@@ -17,6 +19,7 @@ def access_img(img_path):
     # prepare the response: data
     response_data = {"key1": 2, "key2": 3, "image": img}
     return jsonify(response_data)
+
 
 @bp.route('/questions', methods=['GET'])
 @login_required
@@ -28,6 +31,7 @@ def get_questions():
     # return '123'
     return jsonify(questions_schema.dump(all_questions))
 
+
 @bp.route('/chapter/<id>', methods=['GET'])
 def get_questions_by_chapter(id):
     questions = Question.query.filter_by(chapter_id=id).order_by(Question.id).all()
@@ -37,10 +41,6 @@ def get_questions_by_chapter(id):
     # return '123'
     return jsonify(questions_schema.dump(questions))
 
-# @bp.route('/questionsandchoices', methods=['GET'])
-# def get_products_with_choices():
-#     result = Question.query.all()
-#     return make_response(jsonify(result), 200)
 
 def get_encoded_img(image_path):
     full_path = "./images/" + image_path
@@ -49,6 +49,7 @@ def get_encoded_img(image_path):
     img.save(img_byte_arr, format='PNG')
     my_encoded_img = base64.encodebytes(img_byte_arr.getvalue()).decode('ascii')
     return my_encoded_img
+
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
@@ -88,6 +89,7 @@ def register():
     # if request.method == 'GET':
     return render_template("register.html")
 
+
 @bp.route('/logout')
 @login_required
 def logout():
@@ -95,11 +97,13 @@ def logout():
     flash('Logged out successfully', category='success')
     return redirect(url_for('dnapi.login'))
 
+
 @bp.route('/level1/intro')
 def intro():
     chapters = Chapter.query.all()
     chapters = chapters_schema.dump(chapters)
     return render_template("games/intro.html", chapters=chapters)
+
 
 @bp.route('/level1/chapter/<chapter_id>')
 @login_required
@@ -116,6 +120,7 @@ def chapter(chapter_id):
     chapters = Chapter.query.all()
     chapters = chapters_schema.dump(chapters)
     return render_template("games/chapter.html",  questions=questions, q_len= len(questions), chapter=chapter, chapters=chapters)
+
 
 @bp.route('/quiz/<chapter_id>/submit', methods=['POST'])
 @login_required

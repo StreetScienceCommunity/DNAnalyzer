@@ -37,6 +37,8 @@
             myHTML += `<h1 class="q_title">${questions[i].title}</h1>`;
             myHTML += `<p class="q_points">${questions[i].point}Pts</p>`;
             myHTML += '</div>'
+			if(questions[i].image_url != null)
+				myHTML += `<center><img src="/static/quiz_images/${questions[i].image_url}"></center>`
             let choices = questions[i].choices;
             // myHTML += '<div id="q_choices" class="q_choices">';
             if (questions[i].type == "grid" || questions[i].type == "grid checkbox") {
