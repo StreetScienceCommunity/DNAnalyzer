@@ -134,21 +134,17 @@ def quiz_submit(chapter_id):
 
     # check choice submitted if right wrong or miss
     for question in questions_dump:
-        if form.get(question['id']):
-            anwsers = set(form.getlist(question['id']))
-            for choice in question['choices']:
-                if choice['correctness']:
-                    if choice['id'] in anwsers:
-                        print('right')
-                        choice['state'] = 'correct'
-                    else:
-                        print('miss')
-                        choice['state'] = 'missed'
-                else:
-                    if choice['id'] in anwsers:
-                        print('wrong')
-                        choice['state'] = 'wrong'
-        else:
+        if not form.get(question['id']):
             question['missed'] = True
+        anwsers = set(form.getlist(question['id']))
+        for choice in question['choices']:
+            if choice['correctness']:
+                if choice['id'] in anwsers:
+                    choice['state'] = 'correct'
+                else:
+                    choice['state'] = 'missed'
+            else:
+                if choice['id'] in anwsers:
+                    choice['state'] = 'wrong'
 
     return render_template("games/quiz_result.html", questions=questions_dump, q_len= len(questions), chapter=chapter_dump)
