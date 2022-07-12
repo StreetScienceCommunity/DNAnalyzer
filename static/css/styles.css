@@ -315,6 +315,15 @@ body > footer {
 	color: #1d6caf;
 }
 
+.q_image_block{
+	height: 100%;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	vertical-align: middle;
+}
+
 .feedback_block{
 	background-color: #f5f5f5;
 	padding: 1.5rem;
