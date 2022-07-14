@@ -93,7 +93,6 @@ function check_result(choice, show_text=true){
                         myHTML += `</div>`;
                     }
                 }else{
-                    console.log("hit")
                     for (let j = 0; j < choices.length; j++) {
                         myHTML += `<div class="checkbox_wrapper wrapper">
                                     <input type="checkbox"  name="${questions[i].id}" class="check" id="${choices[j].id}" value="${choices[j].id}">

@@ -68,13 +68,27 @@
                     myHTML += `</tr>`;
                 }
                 myHTML += '  </tbody></table>';
+				if(questions[k-1].hint != null) {
+					myHTML += `<div class="dropdown-wrapper mt-2 hidden">
+							  <div class="trigger">
+							  	<button class="button is-info is-outlined" type="button">
+									<span class="button-text">show hint</span>
+									<span class="icon is-small">
+										<i class="fas fa-angle-down" aria-hidden="true"></i>
+									</span>
+							  	</button>
+							  </div>
+							  <p class="hint"> ${questions[k-1].hint} </p>
+							</div>`
+				}
+                myHTML += '</div>';
                 i = k -1;
             } else {
                 myHTML += '<div id="q_choices" class="q_choices">';
                 if(questions[i].type=="choose one"){
                     for (let j = 0; j < choices.length; j++) {
                         myHTML += `<div class="radio_wrapper wrapper">
-                                    <input type="radio"  name="${questions[i].id}" id="${choices[j].id}" value="${choices[j].id}">
+                                    <input type="radio" name="${questions[i].id}" id="${choices[j].id}" value="${choices[j].id}">
                                     <label for="${choices[j].id}" class="choice_text"> ${choices[j].content} </label>
                                 </div>`;
                     }
@@ -87,7 +101,8 @@
                                 </div>`;
                     }
                 }
-				myHTML += `<div class="dropdown-wrapper mt-2 hidden">
+				if(questions[i].hint != null) {
+					myHTML += `<div class="dropdown-wrapper mt-2 hidden">
 							  <div class="trigger">
 							  	<button class="button is-info is-outlined" type="button">
 									<span class="button-text">show hint</span>
@@ -96,12 +111,13 @@
 									</span>
 							  	</button>
 							  </div>
-							  <p class="hint" >Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap </p>
+							  <p class="hint"> ${questions[i].hint} </p>
 							</div>`
+				}
                 myHTML += '</div>';
             }
         }
-        myHTML += `<button type="submit" class="button is-fullwidth quiz_btn"> Submit my anwers</button></form>`
+        myHTML += `<button type="submit" class="button is-fullwidth quiz_btn mt-3"> Submit my anwers</button></form>`
         $('#quiz').html(myHTML);
 		$('.dropdown-wrapper').click(function() {
 		  this.classList.toggle('hidden');
