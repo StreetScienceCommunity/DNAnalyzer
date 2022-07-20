@@ -332,4 +332,24 @@ body > footer {
 .feedback_text{
 	font-size: 0.9rem;
 }
+
+/*#quiz .radio_wrapper{*/
+/*	padding: 0.5rem 0;*/
+/*}*/
+
+/*#quiz .checkbox_wrapper{*/
+/*	padding: 0.5rem 0;*/
+/*}*/
+
+/*.right{*/
+/*	background-color: #e6f4ea;*/
+/*}*/
+
+/*.wrong{*/
+/*	background-color: #fce8e6;*/
+/*}*/
+
+/*.missed{*/
+/*	background-color: #ffffe0;*/
+/*}*/
 /* quiz END */
