@@ -26,3 +26,17 @@ questions:
     - 2: high mutation rate
     - 3: environmental changes
   correct: 2
+
+- title: Sort these things in order from smallest (Size 1) to largest (Size 7).
+  description:
+  type: choose one
+  hint: Change in an organism's environment forces the organism to adapt to fit the new environment, eventually causing it to evolve into a new species. But it might be just one of conditions for evolution, not the biological reason. 
+  explanation: Mutations occur throughout the natural world. Some mutations are beneficial and increase the possibility that an organism will thrive and pass on its genes to the next generation. When mutations improve survival or reproduction, the process of natural selection will cause the mutation to become more common over time. Therefore, mutations can be bad for the individual but overall beneficial for a population. Niche properties like the color changing of lizards can be crucial for there survival. They are not as easy to find by animals who would like to eat them and therefore can survive longer than other species.
+  image_url:
+  point: 2
+  chapter_id: 1
+  choices:
+    - 1: genetic disease
+    - 2: high mutation rate
+    - 3: environmental changes
+  correct: 2
