@@ -61,9 +61,9 @@
                     myHTML += `<tr><td>${questions[k].description}</td>`;
                     for (let j = 0; j < choices.length; j++){
                         if(cur_type=="grid")
-                            myHTML += `<td> <label class="checkbox"><input type="checkbox" name="${questions[k].id}" value="${choices[j].id}">&nbsp;</label></td>`;
-                        else
                             myHTML += `<td> <label class="checkbox"><input type="radio" name="${questions[k].id}" value="${choices[j].id}">&nbsp;</label></td>`;
+                        else
+                            myHTML += `<td> <label class="checkbox"><input type="checkbox" name="${questions[k].id}" value="${choices[j].id}">&nbsp;</label></td>`;
                     }
                     myHTML += `</tr>`;
                 }

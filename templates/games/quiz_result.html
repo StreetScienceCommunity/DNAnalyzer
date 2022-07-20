@@ -68,12 +68,12 @@ function check_result(choice, show_text=true){
                     myHTML += `<tr><td>${questions[k].description}</td>`;
                     for (let j = 0; j < choices.length; j++){
                         if(cur_type=="grid"){
-                            myHTML += `<td class="${choices[j].state}"> <label class="checkbox"><input type="checkbox" name="${questions[k].id}" value="${choices[j].id}">&nbsp;</label>`;
+                            myHTML += `<td class="${choices[j].state}"> <label class="checkbox"><input type="radio" name="${questions[k].id}" value="${choices[j].id}">&nbsp;</label>`;
                             myHTML += check_result(choices[j], false);
                             myHTML += `</td>`;
                         }
                         else{
-                            myHTML += `<td class="${choices[j].state}"> <label class="checkbox"><input type="radio" name="${questions[k].id}" value="${choices[j].id}">&nbsp;</label>`;
+                            myHTML += `<td class="${choices[j].state}"> <label class="checkbox"><input type="checkbox" name="${questions[k].id}" value="${choices[j].id}">&nbsp;</label>`;
                             myHTML += check_result(choices[j], false);
                             myHTML += `</td>`;
                         }
