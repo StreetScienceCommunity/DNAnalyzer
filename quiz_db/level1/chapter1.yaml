@@ -1,4 +1,5 @@
 questions:
+# 1
 - title: What is the proper definition of evolution?
   description:
   type: choose one
@@ -9,10 +10,13 @@ questions:
   chapter_id: 1
   choices:
     - 1: changes in a population of organisms over a period of time
+      correct: true
     - 2: changes in individual organisms during their lifetime
+      correct: false
     - 3: organisms coming into existence at a defined moment in time and not changing
-  correct: 1
+      correct: false
 
+# 2
 - title: What are biological survival benefits for a population?
   description:
   type: choose one
@@ -23,20 +27,113 @@ questions:
   chapter_id: 1
   choices:
     - 1: genetic disease
+      correct: false
     - 2: high mutation rate
+      correct: true
     - 3: environmental changes
-  correct: 2
+      correct: false
+    - 4: niche advantages like the lizards' ability to change a color
+      correct: true
 
-- title: Sort these things in order from smallest (Size 1) to largest (Size 7).
+# 3
+- title: This salamander did not use its eyes so it lost its vision. Who said if you don't use it you lose it?
   description:
   type: choose one
+  hint: Lamarck thought that organisms changed out of need and after a change in the environment.On the other hand, Darwin thought organisms changed by chance when they were born and before there was a change in the environment.
+  explanation: The Lamarck's idea is organisms gaining abilities if they need them and losing others if they don't need them.
+  image_url: salamander.jpg
+  point: 2
+  chapter_id: 1
+  choices:
+    - 1: Malthus
+      correct: false
+    - 2: Lamarck
+      correct: true
+    - 3: Darwin
+      correct: false
+
+# 4
+- title: How did Lamarck's theory of evolution differ from Darwin's?
+  description:
+  type: choose one
+  hint: Darwin thought, that environment performs the cruel but immensely important task of selecting the fittest organisms.
+  explanation: For Lamarck, the environment governs adaptive change by inheritance of acquired traits, while in Darwin thought, it performs the cruel but immensely important task of selecting the fittest organisms.
+  image_url: 
+  point: 3
+  chapter_id: 1
+  choices:
+    - 1: Lamarck believed that characteristics acquired during an organism’s lifetime could be passed on to the next generation.
+      correct: true
+    - 2: Lamarck believed that Earth was old enough to provide a sufficient time scale for the process of evolution.
+      correct: false
+    - 3: Lamarck believed that the organisms of a population that have suvival benefits will produce more offsprings
+      correct: false
+
+# 5
+- title: Lamarck’s ideas about evolution include the concept that differences among the traits of organisms arise as a result of
+  description:
+  type: choose one
+  hint: Lamarck thought that organisms changed out of need and after a change in the environment.
+  explanation: The Lamarck's idea about organisms gaining some abilities if they need them and losing others if they don't need them is applicable here.
+  image_url: 
+  point: 3
+  chapter_id: 1
+  choices:
+    - 1: continual increases in population size.
+      correct: false
+    - 2: the actions of organisms as they use or fail to use body structures.
+      correct: true
+    - 3: an unchanging local environment.
+      correct: false
+    - 4: the natural variations already present within the population of organisms.
+      correct: false
+
+
+
+- title: 
+  description:
+  type: choose one1
+  hint: 
+  explanation: 
+  image_url: 
+  point: 
+  chapter_id: 1
+  choices:
+    - 1: 
+      correct: false
+    - 2: 
+      correct: true
+    - 3: 
+      correct: false
+
+- title: Sort these things in order from smallest (Size 1) to largest (Size 7).
+  type: grid checkbox
   hint: Change in an organism's environment forces the organism to adapt to fit the new environment, eventually causing it to evolve into a new species. But it might be just one of conditions for evolution, not the biological reason. 
   explanation: Mutations occur throughout the natural world. Some mutations are beneficial and increase the possibility that an organism will thrive and pass on its genes to the next generation. When mutations improve survival or reproduction, the process of natural selection will cause the mutation to become more common over time. Therefore, mutations can be bad for the individual but overall beneficial for a population. Niche properties like the color changing of lizards can be crucial for there survival. They are not as easy to find by animals who would like to eat them and therefore can survive longer than other species.
   image_url:
   point: 2
   chapter_id: 1
   choices:
-    - 1: genetic disease
-    - 2: high mutation rate
-    - 3: environmental changes
-  correct: 2
+    - 1: atom
+    - 2: monkey
+    - 3: DNA (nucleotide)
+    - 4: leaf
+    - 5: cell
+    - 6: protein
+    - 7: frog
+    - 8: egg
+  body:
+    - 1: Size 1
+      correct: 3
+    - 2: Size 2
+      correct: 5
+    - 3: Size 3
+      correct: 1
+    - 4: Size 4
+      correct: 2
+    - 5: Size 5
+      correct: 6
+    - 6: Size 6
+      correct: 8
+    - 7: Size 7
+      correct: 4
