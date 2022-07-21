@@ -37,7 +37,7 @@
             myHTML += `<h1 class="q_title">${questions[i].title}</h1>`;
             myHTML += `<p class="q_points">${questions[i].point}Pts</p>`;
             myHTML += '</div>'
-			if(questions[i].image_url != null)
+			if(questions[i].image_url != null && questions[i].image_url.trim())
 				myHTML += `<div class="q_image_block">
 								<figure class="image">
 									<img src="/static/quiz_images/${questions[i].image_url}">
@@ -85,7 +85,8 @@
                 i = k -1;
             } else {
                 myHTML += '<div id="q_choices" class="q_choices">';
-                if(questions[i].type=="choose one"){
+                if(questions[i].type.trim() == "choose one"){
+					console.log(questions[i].id)
                     for (let j = 0; j < choices.length; j++) {
                         myHTML += `<div class="radio_wrapper wrapper">
                                     <input type="radio" name="${questions[i].id}" id="${choices[j].id}" value="${choices[j].id}">
@@ -93,7 +94,6 @@
                                 </div>`;
                     }
                 }else{
-                    console.log("hit")
                     for (let j = 0; j < choices.length; j++) {
                         myHTML += `<div class="checkbox_wrapper wrapper">
                                     <input type="checkbox"  name="${questions[i].id}" class="check" id="${choices[j].id}" value="${choices[j].id}">

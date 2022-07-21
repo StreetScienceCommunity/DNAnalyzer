@@ -14,7 +14,8 @@ keys = ['title',
         # 'correct',
         ]
 
-q_id = 25
+q_id = 23
+c_id = 126
 
 
 def parse_normal_question(q):
@@ -37,21 +38,22 @@ def parse_normal_question(q):
 
 
 def parse_normal_choices(q):
-    global q_id
+    global q_id, c_id
     cur_id = str(q_id - 1)
     s = []
     for c in q['choices']:
-        tmp = []
+        tmp = [str(c_id)]
+        c_id += 1
         for _, v in c.items():
             tmp.append(str(v))
         tmp.append(cur_id)
-        tmp = ",".join(tmp)
+        tmp = "|".join(tmp)
         s.append(tmp.strip())
     return s
 
 
-def show_json(file_path, data_dir):
-    os.remove(data_dir)
+def show_json(file_path, data_dir, choice_dir):
+    # os.remove(data_dir)
     with open(file_path, "r") as yaml_doc:
         yaml_to_dict = yaml.load(yaml_doc, Loader=yaml.FullLoader)
     q_csv = []
@@ -67,8 +69,13 @@ def show_json(file_path, data_dir):
     except IOError as e:
         print("exception happened while transforming data files. (%s)" % e)
         return 1
-    # for c in c_csv:
-    #     print(c)
+    try:
+        with open(choice_dir, "w") as out_file:
+            for c in c_csv:
+                out_file.write("%s\n" % c)
+    except IOError as e:
+        print("exception happened while transforming data files. (%s)" % e)
+        return 1
 
 
 def load_tables(host, port, db_name, user, password, table, out_dir):
@@ -94,6 +101,9 @@ def load_tables(host, port, db_name, user, password, table, out_dir):
             filepath = os.path.join(out_dir)
             conn.copyFrom(filepath, separator="|", table=table)
             conn.commit()
+            filepath = os.path.join('./quiz_db/level1/choices.csv')
+            conn.copyFrom(filepath, separator="|", table='choice')
+            conn.commit()
         except Exception as e:
             print("unable to run load tables. %s" %e)
             return 1
@@ -106,9 +116,10 @@ def load_tables(host, port, db_name, user, password, table, out_dir):
 
 if __name__ == '__main__':
     data_dir = './quiz_db/level1/chapter1.csv'
+    choice_dir = './quiz_db/level1/choices.csv'
     file_p = './quiz_db/level1/chapter1.yaml'
     base_dir = './quiz_db/level1/'
-    show_json(file_p, data_dir)
+    show_json(file_p, data_dir, choice_dir)
     host = "localhost"
     port = 5432
     table = 'question'
