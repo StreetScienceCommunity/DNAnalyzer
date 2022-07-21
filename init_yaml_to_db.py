@@ -77,6 +77,39 @@ def show_json(file_path, data_dir, choice_dir):
         print("exception happened while transforming data files. (%s)" % e)
         return 1
 
+def clear_tables(host, port, db_name, user, password, table, out_dir):
+    """Loads data into tables. Expects that tables are already empty.
+
+    Args:
+        data_dir (str): Directory in which load data exists
+        host (str): IP/hostname of the PG instance
+        port (int): port for the PG instance
+        db_name (str): name of the tpch database
+        user (str): user for the PG instance
+        password (str): password for the PG instance
+        table (str): list of tables
+        out_dir (str): directory with data files to be loaded
+
+    Return:
+        0 if successful
+        non zero otherwise
+    """
+    try:
+        conn = pgdb.PGDB(host, port, db_name, user, password)
+        try:
+            conn.executeQuery("DELETE FROM question")
+            conn.commit()
+            conn.executeQuery("DELETE FROM choice")
+            conn.commit()
+        except Exception as e:
+            print("unable to empty existing tables. %s" % e)
+            return 1
+        print("emptying existing tables")
+        conn.close()
+        return 0
+    except Exception as e:
+        print("unable to connect to the database. %s" % e)
+        return 1
 
 def load_tables(host, port, db_name, user, password, table, out_dir):
     """Loads data into tables. Expects that tables are already empty.
@@ -123,6 +156,10 @@ if __name__ == '__main__':
     host = "localhost"
     port = 5432
     table = 'question'
+    if clear_tables(host, port, DB_CONFIG['DB_NAME'], DB_CONFIG['USERNAME'], DB_CONFIG['PASSWORD'], table, data_dir):
+        print("could clear data in tables")
+        exit(1)
+    print("done clearing data in tables")
     if load_tables(host, port, DB_CONFIG['DB_NAME'], DB_CONFIG['USERNAME'], DB_CONFIG['PASSWORD'], table, data_dir):
         print("could not load data to tables")
         exit(1)
