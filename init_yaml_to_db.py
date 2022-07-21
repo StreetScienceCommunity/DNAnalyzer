@@ -1,5 +1,7 @@
 import yaml
-
+import os
+import pg_instance as pgdb
+from db_config import DB_CONFIG
 keys = ['title',
         'description',
         'type',
@@ -12,24 +14,25 @@ keys = ['title',
         # 'correct',
         ]
 
-q_id = 1
+q_id = 25
 
 
 def parse_normal_question(q):
     global q_id
     tmp = [str(q_id)]
+    # tmp = []
     q_id += 1
     for k in keys:
         v = q[k]
         if v:
             v = str(v)
-            if ',' in v:
+            if '|' in v:
                 v = '"' + v + '"'
             tmp.append(v)
         else:
             tmp.append("")
 
-    tmp = ",".join(tmp)
+    tmp = "|".join(tmp)
     return tmp.strip()
 
 
@@ -47,7 +50,8 @@ def parse_normal_choices(q):
     return s
 
 
-def show_json(file_path):
+def show_json(file_path, data_dir):
+    os.remove(data_dir)
     with open(file_path, "r") as yaml_doc:
         yaml_to_dict = yaml.load(yaml_doc, Loader=yaml.FullLoader)
     q_csv = []
@@ -56,14 +60,59 @@ def show_json(file_path):
         if q['type'] in ['choose one', 'choose many']:
             q_csv.append(parse_normal_question(q))
             c_csv.extend(parse_normal_choices(q))
-    for q in q_csv:
-        print(q)
-    for c in c_csv:
-        print(c)
+    try:
+        with open(data_dir, "w") as out_file:
+            for q in q_csv:
+                out_file.write("%s\n" % q)
+    except IOError as e:
+        print("exception happened while transforming data files. (%s)" % e)
+        return 1
+    # for c in c_csv:
+    #     print(c)
 
 
+def load_tables(host, port, db_name, user, password, table, out_dir):
+    """Loads data into tables. Expects that tables are already empty.
+
+    Args:
+        data_dir (str): Directory in which load data exists
+        host (str): IP/hostname of the PG instance
+        port (int): port for the PG instance
+        db_name (str): name of the tpch database
+        user (str): user for the PG instance
+        password (str): password for the PG instance
+        table (str): list of tables
+        out_dir (str): directory with data files to be loaded
+
+    Return:
+        0 if successful
+        non zero otherwise
+    """
+    try:
+        conn = pgdb.PGDB(host, port, db_name, user, password)
+        try:
+            filepath = os.path.join(out_dir)
+            conn.copyFrom(filepath, separator="|", table=table)
+            conn.commit()
+        except Exception as e:
+            print("unable to run load tables. %s" %e)
+            return 1
+        conn.close()
+        return 0
+    except Exception as e:
+        print("unable to connect to the database. %s" % e)
+        return 1
 
 
 if __name__ == '__main__':
+    data_dir = './quiz_db/level1/chapter1.csv'
     file_p = './quiz_db/level1/chapter1.yaml'
-    show_json(file_p)
+    base_dir = './quiz_db/level1/'
+    show_json(file_p, data_dir)
+    host = "localhost"
+    port = 5432
+    table = 'question'
+    if load_tables(host, port, DB_CONFIG['DB_NAME'], DB_CONFIG['USERNAME'], DB_CONFIG['PASSWORD'], table, data_dir):
+        print("could not load data to tables")
+        exit(1)
+    print("done loading data to tables")
