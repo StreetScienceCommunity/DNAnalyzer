@@ -2,6 +2,7 @@ import yaml
 import os
 import pg_instance as pgdb
 from db_config import DB_CONFIG
+
 keys = ['title',
         'description',
         'type',
@@ -14,17 +15,46 @@ keys = ['title',
         # 'correct',
         ]
 
-q_id = 23
-c_id = 126
+q_id = 1
+c_id = 1
+
+
+def parse_grid_question(q):
+    questions = []
+    descrips = []
+    global q_id
+    for _, v in q['row'].items():
+        descrips.append(v)
+    print(descrips)
+    for descrip in descrips:
+        tmp = [str(q_id)]
+        q_id += 1
+        for k in keys:
+            v = ''
+            if k in q:
+                v = q[k]
+            if v:
+                v = str(v)
+                if '|' in v:
+                    v = '"' + v + '"'
+                tmp.append(v)
+            else:
+                tmp.append("")
+        tmp[2] = descrip
+        tmp = "|".join(tmp)
+        questions.append(tmp.strip())
+    return questions
+
 
 
 def parse_normal_question(q):
     global q_id
     tmp = [str(q_id)]
-    # tmp = []
     q_id += 1
     for k in keys:
-        v = q[k]
+        v = ''
+        if k in q:
+            v = q[k]
         if v:
             v = str(v)
             if '|' in v:
@@ -52,9 +82,11 @@ def parse_normal_choices(q):
     return s
 
 
-def show_json(file_path, data_dir, choice_dir):
-    # os.remove(data_dir)
-    with open(file_path, "r") as yaml_doc:
+def show_json(base_dir, chapter_id):
+    in_file = os.path.join(base_dir, 'chapter' + chapter_id + '.yaml')
+    q_file = os.path.join(base_dir, 'chapter' + chapter_id + '.csv')
+    c_file = os.path.join(base_dir, 'choices' + chapter_id + '.csv')
+    with open(in_file, "r") as yaml_doc:
         yaml_to_dict = yaml.load(yaml_doc, Loader=yaml.FullLoader)
     q_csv = []
     c_csv = []
@@ -62,33 +94,34 @@ def show_json(file_path, data_dir, choice_dir):
         if q['type'] in ['choose one', 'choose many']:
             q_csv.append(parse_normal_question(q))
             c_csv.extend(parse_normal_choices(q))
+        if q['type'] in ['grid checkbox', 'grid']:
+            q_csv.extend(parse_grid_question(q))
+        # c_csv.extend(parse_normal_choices(q))
     try:
-        with open(data_dir, "w") as out_file:
+        with open(q_file, "w") as out_file:
             for q in q_csv:
                 out_file.write("%s\n" % q)
     except IOError as e:
         print("exception happened while transforming data files. (%s)" % e)
         return 1
     try:
-        with open(choice_dir, "w") as out_file:
+        with open(c_file, "w") as out_file:
             for c in c_csv:
                 out_file.write("%s\n" % c)
     except IOError as e:
         print("exception happened while transforming data files. (%s)" % e)
         return 1
 
-def clear_tables(host, port, db_name, user, password, table, out_dir):
-    """Loads data into tables. Expects that tables are already empty.
+
+def clear_tables(host, port, db_name, user, password):
+    """Empty the question and choice tables
 
     Args:
-        data_dir (str): Directory in which load data exists
         host (str): IP/hostname of the PG instance
         port (int): port for the PG instance
         db_name (str): name of the tpch database
         user (str): user for the PG instance
         password (str): password for the PG instance
-        table (str): list of tables
-        out_dir (str): directory with data files to be loaded
 
     Return:
         0 if successful
@@ -111,11 +144,11 @@ def clear_tables(host, port, db_name, user, password, table, out_dir):
         print("unable to connect to the database. %s" % e)
         return 1
 
-def load_tables(host, port, db_name, user, password, table, out_dir):
+
+def load_tables(host, port, db_name, user, password, table, base_dir, chapter_id):
     """Loads data into tables. Expects that tables are already empty.
 
     Args:
-        data_dir (str): Directory in which load data exists
         host (str): IP/hostname of the PG instance
         port (int): port for the PG instance
         db_name (str): name of the tpch database
@@ -131,14 +164,16 @@ def load_tables(host, port, db_name, user, password, table, out_dir):
     try:
         conn = pgdb.PGDB(host, port, db_name, user, password)
         try:
-            filepath = os.path.join(out_dir)
-            conn.copyFrom(filepath, separator="|", table=table)
+            q_file = os.path.join(base_dir, 'chapter' + chapter_id + '.csv')
+            c_file = os.path.join(base_dir, 'choices' + chapter_id + '.csv')
+            conn.copyFrom(q_file, separator="|", table=table)
             conn.commit()
-            filepath = os.path.join('game/level1/choices.csv')
-            conn.copyFrom(filepath, separator="|", table='choice')
+            os.remove(q_file)
+            conn.copyFrom(c_file, separator="|", table='choice')
             conn.commit()
+            os.remove(c_file)
         except Exception as e:
-            print("unable to run load tables. %s" %e)
+            print("unable to run load tables. %s" % e)
             return 1
         conn.close()
         return 0
@@ -148,19 +183,18 @@ def load_tables(host, port, db_name, user, password, table, out_dir):
 
 
 if __name__ == '__main__':
-    data_dir = 'game/level1/chapter1.csv'
-    choice_dir = 'game/level1/choices.csv'
-    file_p = 'game/level1/chapter1.yaml'
-    base_dir = './game/level1/'
-    show_json(file_p, data_dir, choice_dir)
+    base_dir = 'game/level1/'
+    chapter_id = '1'
+    show_json(base_dir, chapter_id)
     host = "localhost"
     port = 5432
     table = 'question'
-    if clear_tables(host, port, DB_CONFIG['DB_NAME'], DB_CONFIG['USERNAME'], DB_CONFIG['PASSWORD'], table, data_dir):
+    if clear_tables(host, port, DB_CONFIG['DB_NAME'], DB_CONFIG['USERNAME'], DB_CONFIG['PASSWORD']):
         print("could clear data in tables")
         exit(1)
     print("done clearing data in tables")
-    if load_tables(host, port, DB_CONFIG['DB_NAME'], DB_CONFIG['USERNAME'], DB_CONFIG['PASSWORD'], table, data_dir):
+    if load_tables(host, port, DB_CONFIG['DB_NAME'], DB_CONFIG['USERNAME'],
+                   DB_CONFIG['PASSWORD'], table, base_dir, chapter_id):
         print("could not load data to tables")
         exit(1)
     print("done loading data to tables")
