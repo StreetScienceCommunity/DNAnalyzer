@@ -134,7 +134,7 @@ def load_tables(host, port, db_name, user, password, table, out_dir):
             filepath = os.path.join(out_dir)
             conn.copyFrom(filepath, separator="|", table=table)
             conn.commit()
-            filepath = os.path.join('./quiz_db/level1/choices.csv')
+            filepath = os.path.join('game/level1/choices.csv')
             conn.copyFrom(filepath, separator="|", table='choice')
             conn.commit()
         except Exception as e:
@@ -148,10 +148,10 @@ def load_tables(host, port, db_name, user, password, table, out_dir):
 
 
 if __name__ == '__main__':
-    data_dir = './quiz_db/level1/chapter1.csv'
-    choice_dir = './quiz_db/level1/choices.csv'
-    file_p = './quiz_db/level1/chapter1.yaml'
-    base_dir = './quiz_db/level1/'
+    data_dir = 'game/level1/chapter1.csv'
+    choice_dir = 'game/level1/choices.csv'
+    file_p = 'game/level1/chapter1.yaml'
+    base_dir = './game/level1/'
     show_json(file_p, data_dir, choice_dir)
     host = "localhost"
     port = 5432
