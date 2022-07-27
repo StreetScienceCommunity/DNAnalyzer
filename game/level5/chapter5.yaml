@@ -1,0 +1,133 @@
+questions:
+
+# 1
+- title: How is the research area called where environmental samples are analyzed for genetic diversity?
+  type: choose one
+  hint:
+  explanation: Metagenomics is the study of genetic material recovered directly from environmental samples. Biology is a branch of science that deals with living organisms and their vital processes. Bioinformatics is an interdisciplinary field that combines general biology, molecular biology, cybernetics, genetics, chemistry, computer science, mathematics and statistics. Genomics is an interdisciplinary field of biology focusing on the structure, function, evolution, mapping, and editing of genomes.
+  image_name:
+  point: 3
+  chapter_id: 5
+  choices:
+    - 1: Biology
+      correct: false
+    - 2: Bioinformatics
+      correct: false
+    - 3: Metagenomics
+      correct: true
+    - 4: Genomics
+      correct: false
+
+# 2
+- title: What can we use to detect and identify different types of microbes stemming from an environmental samples?
+  type: choose many
+  hint:
+  explanation: The samples are sent to a laboratory for DNA extraction and sequencing.
+  image_name:
+  point: 3
+  chapter_id: 5
+  choices:
+    - 1: microscope
+      correct: false
+    - 2: dna extraction
+      correct: true
+    - 3: dna sequencing
+      correct: true
+
+
+# 3
+- title: Here are all steps of a metagenomics experiment listed. Please sort them into the correct order (steps).
+  type: grid
+  hint:
+  explanation:
+  image_name:
+  point: 6
+  chapter_id: 5
+  choices:
+    1: collecting samples
+    2: assembly
+    3: DNA sequencing
+    4: classifying
+    5: annotation
+    6: analysis
+  questions:
+    - text: Size 1
+      answers: [1]
+    - text: Size 2
+      answers: [3]
+    - text: Size 3
+      answers: [2]
+    - text: Size 4
+      answers: [4]
+    - text: Size 5
+      answers: [5]
+    - text: Size 6
+      answers: [6]
+
+# 4
+- title: Where can we collect samples for a metagenomics analysis?
+  type: choose many
+  hint:
+  explanation: Samples can be collected anywhere.
+  image_name:
+  point: 6
+  chapter_id: 5
+  choices:
+    - 1: soil
+      correct: true
+    - 2: water
+      correct: true
+    - 3: skin
+      correct: true
+    - 2: gut
+      correct: true
+    - 3: air
+      correct: true
+
+# template
+- title:
+  type: choose one / choose many
+  hint:
+  explanation:
+  image_name:
+  point:
+  chapter_id: 5
+  choices:
+    - 1:
+      correct: false
+    - 2:
+      correct: true
+    - 3:
+      correct: false
+
+# template
+- title: Sort these things in order from smallest (Size 1) to largest (Size 7).
+  type: grid / grid checkbox
+  hint: Change in an organism's environment forces the organism to adapt to fit the new environment, eventually causing it to evolve into a new species. But it might be just one of conditions for evolution, not the biological reason.
+  explanation: Mutations occur throughout the natural world. Some mutations are beneficial and increase the possibility that an organism will thrive and pass on its genes to the next generation. When mutations improve survival or reproduction, the process of natural selection will cause the mutation to become more common over time. Therefore, mutations can be bad for the individual but overall beneficial for a population. Niche properties like the color changing of lizards can be crucial for there survival. They are not as easy to find by animals who would like to eat them and therefore can survive longer than other species.
+  image_name:
+  point: 2
+  chapter_id: 5
+  choices:
+    1: protein
+    2: flu virus
+    3: atom
+    4: monkey
+    5: DNA (nucleotide)
+    6: leaf cell
+    7: frog egg
+  questions:
+    - text: Size 1
+      answers: [3]
+    - text: Size 2
+      answers: [5]
+    - text: Size 3
+      answers: [1]
+    - text: Size 4
+      answers: [2]
+    - text: Size 5
+      answers: [6]
+    - text: Size 6
+      answers: [7]
+    - text: Size 7
+      answers: [4]

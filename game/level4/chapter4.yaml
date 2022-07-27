@@ -68,7 +68,7 @@ questions:
   explanation:
   image_name:
   point:
-  chapter_id: 3
+  chapter_id: 4
   choices:
     - 1:
       correct: false
@@ -84,7 +84,7 @@ questions:
   explanation: Mutations occur throughout the natural world. Some mutations are beneficial and increase the possibility that an organism will thrive and pass on its genes to the next generation. When mutations improve survival or reproduction, the process of natural selection will cause the mutation to become more common over time. Therefore, mutations can be bad for the individual but overall beneficial for a population. Niche properties like the color changing of lizards can be crucial for there survival. They are not as easy to find by animals who would like to eat them and therefore can survive longer than other species.
   image_name:
   point: 2
-  chapter_id: 3
+  chapter_id: 4
   choices:
     1: protein
     2: flu virus
