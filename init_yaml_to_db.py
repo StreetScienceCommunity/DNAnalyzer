@@ -20,12 +20,9 @@ c_id = 1
 
 
 def parse_grid_question(q):
-    questions = []
-    descrips = []
     global q_id
-    for _, v in q['row'].items():
-        descrips.append(v)
-    print(descrips)
+    questions, choices = [], []
+    descrips = q['questions']
     for descrip in descrips:
         tmp = [str(q_id)]
         q_id += 1
@@ -40,11 +37,29 @@ def parse_grid_question(q):
                 tmp.append(v)
             else:
                 tmp.append("")
-        tmp[2] = descrip
+        tmp[2] = descrip['text']
         tmp = "|".join(tmp)
         questions.append(tmp.strip())
-    return questions
+        choices.extend(parse_grid_choices(q['choices'], descrip['answers']))
+    return questions, choices
 
+
+def parse_grid_choices(choices, answers):
+    global q_id, c_id
+    cur_id = str(q_id - 1)
+    s = []
+    for idx , c in choices.items():
+        tmp = [str(c_id)]
+        c_id += 1
+        tmp.append(c)
+        if idx in answers:
+            tmp.append('true')
+        else:
+            tmp.append('false')
+        tmp.append(cur_id)
+        tmp = "|".join(tmp)
+        s.append(tmp.strip())
+    return s
 
 
 def parse_normal_question(q):
@@ -95,7 +110,9 @@ def show_json(base_dir, chapter_id):
             q_csv.append(parse_normal_question(q))
             c_csv.extend(parse_normal_choices(q))
         if q['type'] in ['grid checkbox', 'grid']:
-            q_csv.extend(parse_grid_question(q))
+            tmp_q, tmp_c = parse_grid_question(q)
+            q_csv.extend(tmp_q)
+            c_csv.extend(tmp_c)
         # c_csv.extend(parse_normal_choices(q))
     try:
         with open(q_file, "w") as out_file:

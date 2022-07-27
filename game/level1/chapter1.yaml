@@ -108,27 +108,27 @@ questions:
   image_url:
   point: 2
   chapter_id: 1
-  row:
-    1: atom
-    2: monkey
-    3: DNA (nucleotide)
-    4: leaf
-    5: cell
-    6: protein
-    7: frog
-    8: egg
-  column:
-    - 1: Size 1
-      correct: 3
-    - 2: Size 2
-      correct: 5
-    - 3: Size 3
-      correct: 1
-    - 4: Size 4
-      correct: 2
-    - 5: Size 5
-      correct: 6
-    - 6: Size 6
-      correct: 8
-    - 7: Size 7
-      correct: 4
+  choices:
+    1: protein
+    2: flu virus
+    3: atom
+    4: monkey
+    5: DNA (nucleotide)
+    6: leaf cell
+    7: frog egg
+  questions:
+    - text: Size 1
+      answers: [3]
+    - text: Size 2
+      answers: [5]
+    - text: Size 3
+      answers: [1]
+    - text: Size 4
+      answers: [2]
+    - text: Size 5
+      answers: [6]
+    - text: Size 6
+      answers: [7]
+    - text: Size 7
+      answers: [4]
+
