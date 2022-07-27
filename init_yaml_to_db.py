@@ -48,7 +48,7 @@ def parse_grid_choices(choices, answers):
     global q_id, c_id
     cur_id = str(q_id - 1)
     s = []
-    for idx , c in choices.items():
+    for idx, c in choices.items():
         tmp = [str(c_id)]
         c_id += 1
         tmp.append(c)
@@ -98,6 +98,11 @@ def parse_normal_choices(q):
 
 
 def show_json(base_dir, chapter_id):
+    """ wrapper function to convert yaml file to csv file
+    Args:
+        base_dir (str): directory with data files to be loaded
+        chapter_id (str): chapter id
+    """
     in_file = os.path.join(base_dir, 'chapter' + chapter_id + '.yaml')
     q_file = os.path.join(base_dir, 'chapter' + chapter_id + '.csv')
     c_file = os.path.join(base_dir, 'choices' + chapter_id + '.csv')
@@ -141,7 +146,7 @@ def clear_tables(host, port, db_name, user, password):
 
     Return:
         0 if successful
-        non zero otherwise
+        non-zero otherwise
     """
     try:
         conn = pgdb.PGDB(host, port, db_name, user, password)
@@ -153,7 +158,6 @@ def clear_tables(host, port, db_name, user, password):
         except Exception as e:
             print("unable to empty existing tables. %s" % e)
             return 1
-        print("emptying existing tables")
         conn.close()
         return 0
     except Exception as e:
@@ -161,7 +165,7 @@ def clear_tables(host, port, db_name, user, password):
         return 1
 
 
-def load_tables(host, port, db_name, user, password, table, base_dir, chapter_id):
+def load_tables(host, port, db_name, user, password, base_dir, chapter_id):
     """Loads data into tables. Expects that tables are already empty.
 
     Args:
@@ -170,19 +174,18 @@ def load_tables(host, port, db_name, user, password, table, base_dir, chapter_id
         db_name (str): name of the tpch database
         user (str): user for the PG instance
         password (str): password for the PG instance
-        table (str): list of tables
-        out_dir (str): directory with data files to be loaded
-
+        base_dir (str): directory with data files to be loaded
+        chapter_id (str): chapter id
     Return:
         0 if successful
-        non zero otherwise
+        non-zero otherwise
     """
     try:
         conn = pgdb.PGDB(host, port, db_name, user, password)
         try:
             q_file = os.path.join(base_dir, 'chapter' + chapter_id + '.csv')
             c_file = os.path.join(base_dir, 'choices' + chapter_id + '.csv')
-            conn.copyFrom(q_file, separator="|", table=table)
+            conn.copyFrom(q_file, separator="|", table='question')
             conn.commit()
             os.remove(q_file)
             conn.copyFrom(c_file, separator="|", table='choice')
@@ -198,19 +201,28 @@ def load_tables(host, port, db_name, user, password, table, base_dir, chapter_id
         return 1
 
 
-if __name__ == '__main__':
-    base_dir = 'game/level1/'
-    chapter_id = '1'
-    show_json(base_dir, chapter_id)
+def yaml_to_db():
+    base_dir = 'game/'
     host = "localhost"
     port = 5432
-    table = 'question'
+
     if clear_tables(host, port, DB_CONFIG['DB_NAME'], DB_CONFIG['USERNAME'], DB_CONFIG['PASSWORD']):
-        print("could clear data in tables")
+        print("could clear the tables")
         exit(1)
-    print("done clearing data in tables")
-    if load_tables(host, port, DB_CONFIG['DB_NAME'], DB_CONFIG['USERNAME'],
-                   DB_CONFIG['PASSWORD'], table, base_dir, chapter_id):
-        print("could not load data to tables")
-        exit(1)
-    print("done loading data to tables")
+    print("successfully emptied database tables")
+
+    for idx in range(1, 6):
+        chapter_id = str(idx)
+        level_dir = os.path.join(base_dir, 'level' + chapter_id)
+
+        show_json(level_dir, chapter_id)
+
+        if load_tables(host, port, DB_CONFIG['DB_NAME'], DB_CONFIG['USERNAME'],
+                       DB_CONFIG['PASSWORD'], level_dir, chapter_id):
+            print("could not load data to tables for chapter%s" % chapter_id)
+            exit(1)
+    print("successfully loaded data to tables")
+
+
+if __name__ == '__main__':
+    yaml_to_db()
