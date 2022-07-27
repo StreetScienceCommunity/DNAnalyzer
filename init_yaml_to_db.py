@@ -151,9 +151,9 @@ def clear_tables(host, port, db_name, user, password):
     try:
         conn = pgdb.PGDB(host, port, db_name, user, password)
         try:
-            conn.executeQuery("DELETE FROM question")
-            conn.commit()
             conn.executeQuery("DELETE FROM choice")
+            conn.commit()
+            conn.executeQuery("DELETE FROM question")
             conn.commit()
         except Exception as e:
             print("unable to empty existing tables. %s" % e)
