@@ -113,7 +113,6 @@ def show_json(base_dir, chapter_id):
             tmp_q, tmp_c = parse_grid_question(q)
             q_csv.extend(tmp_q)
             c_csv.extend(tmp_c)
-        # c_csv.extend(parse_normal_choices(q))
     try:
         with open(q_file, "w") as out_file:
             for q in q_csv:
