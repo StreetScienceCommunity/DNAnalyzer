@@ -68,7 +68,7 @@
                     myHTML += `</tr>`;
                 }
                 myHTML += '  </tbody></table>';
-				if(questions[k-1].hint != null) {
+				if(questions[k-1].hint) {
 					myHTML += `<div class="dropdown-wrapper mt-2 hidden">
 							  <div class="trigger">
 							  	<button class="button is-info is-outlined" type="button">
@@ -101,7 +101,7 @@
                                 </div>`;
                     }
                 }
-				if(questions[i].hint != null) {
+				if(questions[i].hint) {
 					myHTML += `<div class="dropdown-wrapper mt-2 hidden">
 							  <div class="trigger">
 							  	<button class="button is-info is-outlined" type="button">
