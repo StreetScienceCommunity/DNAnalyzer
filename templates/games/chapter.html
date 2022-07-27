@@ -37,10 +37,10 @@
             myHTML += `<h1 class="q_title">${questions[i].title}</h1>`;
             myHTML += `<p class="q_points">${questions[i].point}Pts</p>`;
             myHTML += '</div>'
-			if(questions[i].image_url != null && questions[i].image_url.trim())
+			if(questions[i].image_name != null && questions[i].image_name.trim())
 				myHTML += `<div class="q_image_block">
 								<figure class="image">
-									<img src="/static/quiz_images/${questions[i].image_url}">
+									<img src="/static/quiz_images/${questions[i].image_name}">
 								</figure>
 							</div>`
             let choices = questions[i].choices;

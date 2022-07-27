@@ -101,6 +101,76 @@ questions:
     - 4: some amount of genes
       correct: true
 
+# 7
+- title: https://www.pbs.org/wgbh/nova/labs//lab/evolution/research#/chooser - here you can play and learn. In this game, you'll climb around the tree of life, building out parts of it to better understand how evolution works. You'll be organising the collection of species into a tree. Build a tree by drugging species icons and then traits into the center of the screen. The split point represents the evolutionary moment when the common ancestor of these species diverged into two specific species. Click the button "Play" under the "Mission 1 - Training trees". And then, click “Play” again under “Red, green, and gecko”. Come back here and choose common traits of gecko and fungus.
+  type: choose many
+  hint:
+  explanation:
+  image_name: tree_game.png
+  point: 2
+  chapter_id: 1
+  choices:
+    - 1: heterotrophic
+      correct: true
+    - 2: cells with nuclei
+      correct: true
+    - 3: photosynthetic autotroph
+      correct: false
+
+# 8
+- title: Choose non-hereditary traits
+  type: choose many
+  hint:
+  explanation: Genetic relations among languages are not biologically based, but are defined by cultural transmission from generation to generation. That is, languages are learned, not inherited via the genes. The fingerprint of identical twins (same set of chromosomes) is different and not inherited genetically.
+  image_name:
+  point: 3
+  chapter_id: 1
+  choices:
+    - 1: eye color
+      correct: false
+    - 2: pattern of the fingerprint
+      correct: true
+    - 3: language
+      correct: true
+    - 4: color of the skin
+      correct: false
+    - 5: height
+      correct: false
+
+# 9
+- title: Choose hereditary traits*
+  type: choose one1
+  hint:
+  explanation:
+  image_name:
+  point: 4
+  chapter_id: 1
+  choices:
+    - 1: Hair length
+      correct: false
+    - 2: Color of the skin
+      correct: true
+    - 3: Piercing
+      correct: false
+    - 4: Height
+      correct: true
+    - 5: Hair color
+      correct: true
+
+# 10
+- title: Bacteria are*
+  type: choose one
+  hint: "There are 3 domains existing: Archaea, Bacteria, and Eukarya"
+  explanation: Prokaryotic organisms belong either to the domain Archaea or the domain Bacteria; organisms with eukaryotic cells belong to the domain Eukarya
+  image_name:
+  point: 2
+  chapter_id: 1
+  choices:
+    - 1: prokaryotic organisms
+      correct: true
+    - 2: eukaryotic organisms
+      correct: false
+
 - title: Sort these things in order from smallest (Size 1) to largest (Size 7).
   type: grid
   hint: Change in an organism's environment forces the organism to adapt to fit the new environment, eventually causing it to evolve into a new species. But it might be just one of conditions for evolution, not the biological reason. 
