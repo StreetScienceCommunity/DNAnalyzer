@@ -4,7 +4,7 @@ questions:
   type: choose one
   hint: Even though evolution is taking place all around us, for many species the process operates so slowly that it is not observable except over thousands or hundreds of thousands of years, much too long to witness in a human lifetime.
   explanation: Evolution is a change in a population of organisms through time leading to the appearance of new forms
-  image_url:
+  image_name:
   point: 4
   chapter_id: 1
   choices:
@@ -20,7 +20,7 @@ questions:
   type: choose one
   hint: Change in an organism's environment forces the organism to adapt to fit the new environment, eventually causing it to evolve into a new species. But it might be just one of conditions for evolution, not the biological reason. 
   explanation: Mutations occur throughout the natural world. Some mutations are beneficial and increase the possibility that an organism will thrive and pass on its genes to the next generation. When mutations improve survival or reproduction, the process of natural selection will cause the mutation to become more common over time. Therefore, mutations can be bad for the individual but overall beneficial for a population. Niche properties like the color changing of lizards can be crucial for there survival. They are not as easy to find by animals who would like to eat them and therefore can survive longer than other species.
-  image_url:
+  image_name:
   point: 2
   chapter_id: 1
   choices:
@@ -38,7 +38,7 @@ questions:
   type: choose one
   hint: Lamarck thought that organisms changed out of need and after a change in the environment.On the other hand, Darwin thought organisms changed by chance when they were born and before there was a change in the environment.
   explanation: The Lamarck's idea is organisms gaining abilities if they need them and losing others if they don't need them.
-  image_url: salamander.jpg
+  image_name: salamander.jpg
   point: 2
   chapter_id: 1
   choices:
@@ -54,7 +54,7 @@ questions:
   type: choose one
   hint: Darwin thought, that environment performs the cruel but immensely important task of selecting the fittest organisms.
   explanation: For Lamarck, the environment governs adaptive change by inheritance of acquired traits, while in Darwin thought, it performs the cruel but immensely important task of selecting the fittest organisms.
-  image_url: 
+  image_name:
   point: 3
   chapter_id: 1
   choices:
@@ -70,7 +70,7 @@ questions:
   type: choose one
   hint: Lamarck thought that organisms changed out of need and after a change in the environment.
   explanation: The Lamarck's idea about organisms gaining some abilities if they need them and losing others if they don't need them is applicable here.
-  image_url: 
+  image_name:
   point: 3
   chapter_id: 1
   choices:
@@ -83,29 +83,29 @@ questions:
     - 4: the natural variations already present within the population of organisms.
       correct: false
 
-
-
-- title: 
-  description:
-  type: choose one1
-  hint: 
-  explanation: 
-  image_url: 
-  point: 
+# 6
+- title: What do humans and bananas have in common?
+  type: choose many
+  hint:
+  explanation: All living things evolved from a common ancestor. Therefore, humans, animals and other organisms share many of the same genes, and the molecules made from them function in similar ways. For example, the human and mouse genomes are about 85 percent the same.
+  image_name:
+  point: 4
   chapter_id: 1
   choices:
-    - 1: 
+    - 1: genome
       correct: false
-    - 2: 
+    - 2: part of their genomes
       correct: true
-    - 3: 
-      correct: false
+    - 3: distant ancestor
+      correct: true
+    - 4: some amount of genes
+      correct: true
 
 - title: Sort these things in order from smallest (Size 1) to largest (Size 7).
   type: grid
   hint: Change in an organism's environment forces the organism to adapt to fit the new environment, eventually causing it to evolve into a new species. But it might be just one of conditions for evolution, not the biological reason. 
   explanation: Mutations occur throughout the natural world. Some mutations are beneficial and increase the possibility that an organism will thrive and pass on its genes to the next generation. When mutations improve survival or reproduction, the process of natural selection will cause the mutation to become more common over time. Therefore, mutations can be bad for the individual but overall beneficial for a population. Niche properties like the color changing of lizards can be crucial for there survival. They are not as easy to find by animals who would like to eat them and therefore can survive longer than other species.
-  image_url:
+  image_name:
   point: 2
   chapter_id: 1
   choices:
@@ -132,3 +132,18 @@ questions:
     - text: Size 7
       answers: [4]
 
+# template
+- title:
+  type: choose one1
+  hint:
+  explanation:
+  image_name:
+  point:
+  chapter_id: 1
+  choices:
+    - 1:
+      correct: false
+    - 2:
+      correct: true
+    - 3:
+      correct: false
