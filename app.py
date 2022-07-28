@@ -4,7 +4,7 @@ import os
 from utils import db, ma
 from flask_login import LoginManager, login_required
 from db_config import DB_CONFIG
-
+from init_yaml_to_db import yaml_to_db
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 
@@ -49,4 +49,5 @@ def about():
 
 # Run server
 if __name__ == '__main__':
+    yaml_to_db()
     app.run(debug=True)
