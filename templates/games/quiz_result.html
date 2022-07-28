@@ -86,7 +86,14 @@ function check_result(choice, show_text=true){
                 myHTML += '<div id="q_choices" class="q_choices">';
                 if(questions[i].type=="choose one"){
                     for (let j = 0; j < choices.length; j++) {
-                        myHTML += '<div class="radio_wrapper wrapper">';
+                        myHTML += `<div class="radio_wrapper wrapper ${choices[j].state}">`;
+                        // if(choices[j].state == 'correct')
+                        //         myHTML += 'correct'
+                        // if(choices[j].state == 'wrong')
+                        //         myHTML += 'wrong'
+                        // if(choices[j].state == 'missed')
+                        //         myHTML += 'missed'
+                        // myHTML += `">`;
                         myHTML +=  `<input type="radio"  name="${questions[i].id}" id="${choices[j].id}" value="${choices[j].id}">
                                     <label for="${choices[j].id}" class="choice_text"> ${choices[j].content} </label> `
                         myHTML += check_result(choices[j]);
@@ -94,8 +101,8 @@ function check_result(choice, show_text=true){
                     }
                 }else{
                     for (let j = 0; j < choices.length; j++) {
-                        myHTML += `<div class="checkbox_wrapper wrapper">
-                                    <input type="checkbox"  name="${questions[i].id}" class="check" id="${choices[j].id}" value="${choices[j].id}">
+                        myHTML += `<div class="checkbox_wrapper wrapper ${choices[j].state}">`
+                        myHTML +=  `<input type="checkbox"  name="${questions[i].id}" class="check" id="${choices[j].id}" value="${choices[j].id}">
                                     <label for="${choices[j].id}" class="choice_text"> ${choices[j].content} </label>`
                         myHTML += check_result(choices[j]);
                         myHTML += `</div>`;

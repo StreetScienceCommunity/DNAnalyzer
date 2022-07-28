@@ -86,7 +86,6 @@
             } else {
                 myHTML += '<div id="q_choices" class="q_choices">';
                 if(questions[i].type.trim() == "choose one"){
-					console.log(questions[i].id)
                     for (let j = 0; j < choices.length; j++) {
                         myHTML += `<div class="radio_wrapper wrapper">
                                     <input type="radio" name="${questions[i].id}" id="${choices[j].id}" value="${choices[j].id}">

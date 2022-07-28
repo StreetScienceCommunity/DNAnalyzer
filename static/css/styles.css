@@ -333,23 +333,25 @@ body > footer {
 	font-size: 0.9rem;
 }
 
-/*#quiz .radio_wrapper{*/
-/*	padding: 0.5rem 0;*/
-/*}*/
+#quiz .radio_wrapper{
+	padding: 0.5rem 0.5rem;
+	margin: 0.2rem 0;
+}
 
-/*#quiz .checkbox_wrapper{*/
-/*	padding: 0.5rem 0;*/
-/*}*/
+#quiz .checkbox_wrapper{
+	padding: 0.5rem 0.5rem;
+	margin: 0.2rem 0;
+}
 
-/*.right{*/
-/*	background-color: #e6f4ea;*/
-/*}*/
+.correct{
+	background-color: #e6f4ea;
+}
 
-/*.wrong{*/
-/*	background-color: #fce8e6;*/
-/*}*/
+.wrong{
+	background-color: #fce8e6;
+}
 
-/*.missed{*/
-/*	background-color: #ffffe0;*/
-/*}*/
+.missed{
+	background-color: silver;
+}
 /* quiz END */
