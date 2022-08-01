@@ -103,9 +103,9 @@ def show_json(base_dir, chapter_id):
         base_dir (str): directory with data files to be loaded
         chapter_id (str): chapter id
     """
-    in_file = os.path.join(base_dir, 'chapter' + chapter_id + '.yaml')
-    q_file = os.path.join(base_dir, 'chapter' + chapter_id + '.csv')
-    c_file = os.path.join(base_dir, 'choices' + chapter_id + '.csv')
+    in_file = os.path.join(base_dir, 'quiz' + '.yaml')
+    q_file = os.path.join(base_dir, 'questions' + '.csv')
+    c_file = os.path.join(base_dir, 'choices' + '.csv')
     with open(in_file, "r") as yaml_doc:
         yaml_to_dict = yaml.load(yaml_doc, Loader=yaml.FullLoader)
     q_csv = []
@@ -183,8 +183,8 @@ def load_tables(host, port, db_name, user, password, base_dir, chapter_id):
     try:
         conn = pgdb.PGDB(host, port, db_name, user, password)
         try:
-            q_file = os.path.join(base_dir, 'chapter' + chapter_id + '.csv')
-            c_file = os.path.join(base_dir, 'choices' + chapter_id + '.csv')
+            q_file = os.path.join(base_dir, 'questions' + '.csv')
+            c_file = os.path.join(base_dir, 'choices' + '.csv')
             conn.copyFrom(q_file, separator="|", table='question')
             conn.commit()
             os.remove(q_file)
@@ -213,12 +213,12 @@ def yaml_to_db():
 
     for idx in range(1, 6):
         chapter_id = str(idx)
-        level_dir = os.path.join(base_dir, 'chapter' + chapter_id)
+        chapter_dir = os.path.join(base_dir, 'chapter' + chapter_id)
 
-        show_json(level_dir, chapter_id)
+        show_json(chapter_dir, chapter_id)
 
         if load_tables(host, port, DB_CONFIG['DB_NAME'], DB_CONFIG['USERNAME'],
-                       DB_CONFIG['PASSWORD'], level_dir, chapter_id):
+                       DB_CONFIG['PASSWORD'], chapter_dir, chapter_id):
             print("could not load data to tables for chapter%s" % chapter_id)
             exit(1)
     print("successfully loaded data to tables")
