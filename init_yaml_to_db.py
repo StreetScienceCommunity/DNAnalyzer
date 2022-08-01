@@ -97,11 +97,10 @@ def parse_normal_choices(q):
     return s
 
 
-def show_json(base_dir, chapter_id):
+def show_json(base_dir):
     """ wrapper function to convert yaml file to csv file
     Args:
         base_dir (str): directory with data files to be loaded
-        chapter_id (str): chapter id
     """
     in_file = os.path.join(base_dir, 'quiz' + '.yaml')
     q_file = os.path.join(base_dir, 'questions' + '.csv')
@@ -165,7 +164,7 @@ def clear_tables(host, port, db_name, user, password):
         return 1
 
 
-def load_tables(host, port, db_name, user, password, base_dir, chapter_id):
+def load_tables(host, port, db_name, user, password, base_dir):
     """Loads data into tables. Expects that tables are already empty.
 
     Args:
@@ -175,7 +174,6 @@ def load_tables(host, port, db_name, user, password, base_dir, chapter_id):
         user (str): user for the PG instance
         password (str): password for the PG instance
         base_dir (str): directory with data files to be loaded
-        chapter_id (str): chapter id
     Return:
         0 if successful
         non-zero otherwise
@@ -205,22 +203,23 @@ def yaml_to_db():
     base_dir = 'game/'
     host = "localhost"
     port = 5432
-
+    total_levels = 1
     if clear_tables(host, port, DB_CONFIG['DB_NAME'], DB_CONFIG['USERNAME'], DB_CONFIG['PASSWORD']):
         print("could clear the tables")
         exit(1)
     print("successfully emptied database tables")
+    for cur_lvl in range(1,2):
+        level_dir = os.path.join(base_dir, 'level' + str(cur_lvl))
+        for idx in range(1, 6):
+            chapter_id = str(idx)
+            chapter_dir = os.path.join(level_dir, 'chapter' + chapter_id)
 
-    for idx in range(1, 6):
-        chapter_id = str(idx)
-        chapter_dir = os.path.join(base_dir, 'chapter' + chapter_id)
+            show_json(chapter_dir)
 
-        show_json(chapter_dir, chapter_id)
-
-        if load_tables(host, port, DB_CONFIG['DB_NAME'], DB_CONFIG['USERNAME'],
-                       DB_CONFIG['PASSWORD'], chapter_dir, chapter_id):
-            print("could not load data to tables for chapter%s" % chapter_id)
-            exit(1)
+            if load_tables(host, port, DB_CONFIG['DB_NAME'], DB_CONFIG['USERNAME'],
+                           DB_CONFIG['PASSWORD'], chapter_dir):
+                print("could not load data to tables for chapter%s" % chapter_id)
+                exit(1)
     print("successfully loaded data to tables")
 
 
