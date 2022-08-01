@@ -10,7 +10,7 @@ keys = ['title',
         'explanation',
         'image_name',
         'point',
-        'chapter_id',
+        # 'chapter_id',
         # 'choices',
         # 'correct',
         ]
@@ -19,7 +19,7 @@ q_id = 1
 c_id = 1
 
 
-def parse_grid_question(q):
+def parse_grid_question(q, chapter_id):
     global q_id
     questions, choices = [], []
     descrips = q['questions']
@@ -38,6 +38,7 @@ def parse_grid_question(q):
             else:
                 tmp.append("")
         tmp[2] = descrip['text']
+        tmp.append(chapter_id)
         tmp = "|".join(tmp)
         questions.append(tmp.strip())
         choices.extend(parse_grid_choices(q['choices'], descrip['answers']))
@@ -62,7 +63,7 @@ def parse_grid_choices(choices, answers):
     return s
 
 
-def parse_normal_question(q):
+def parse_normal_question(q, chapter_id):
     global q_id
     tmp = [str(q_id)]
     q_id += 1
@@ -77,7 +78,7 @@ def parse_normal_question(q):
             tmp.append(v)
         else:
             tmp.append("")
-
+    tmp.append(chapter_id)
     tmp = "|".join(tmp)
     return tmp.strip()
 
@@ -97,10 +98,11 @@ def parse_normal_choices(q):
     return s
 
 
-def show_json(base_dir):
+def show_json(base_dir, chapter_id):
     """ wrapper function to convert yaml file to csv file
     Args:
         base_dir (str): directory with data files to be loaded
+        chapter_id (str): chapter id
     """
     in_file = os.path.join(base_dir, 'quiz' + '.yaml')
     q_file = os.path.join(base_dir, 'questions' + '.csv')
@@ -111,10 +113,10 @@ def show_json(base_dir):
     c_csv = []
     for q in yaml_to_dict['questions']:
         if q['type'] in ['choose one', 'choose many']:
-            q_csv.append(parse_normal_question(q))
+            q_csv.append(parse_normal_question(q, chapter_id))
             c_csv.extend(parse_normal_choices(q))
         if q['type'] in ['grid checkbox', 'grid']:
-            tmp_q, tmp_c = parse_grid_question(q)
+            tmp_q, tmp_c = parse_grid_question(q, chapter_id)
             q_csv.extend(tmp_q)
             c_csv.extend(tmp_c)
     try:
@@ -214,7 +216,7 @@ def yaml_to_db():
             chapter_id = str(idx)
             chapter_dir = os.path.join(level_dir, 'chapter' + chapter_id)
 
-            show_json(chapter_dir)
+            show_json(chapter_dir, chapter_id)
 
             if load_tables(host, port, DB_CONFIG['DB_NAME'], DB_CONFIG['USERNAME'],
                            DB_CONFIG['PASSWORD'], chapter_dir):

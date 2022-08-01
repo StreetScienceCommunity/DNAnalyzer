@@ -7,7 +7,6 @@ questions:
   explanation: Comparing the sequences it could be that one of the sequences has a different nucleotide in one position. This is called a Mismatch like the C to T in the red box. It could also happen that there is no nucleotide in the second sequence to the one in the first like the G in the blue box. This is called a gap. Mismatches in the alignment correspond to mutations, and gaps correspond to insertions or deletions.
   image_name: alignment_question.png
   point: 3
-  chapter_id: 4
   choices:
     - 1: match
       correct: false
@@ -27,7 +26,6 @@ questions:
   explanation: Comparing the sequences it could be that one of the sequences has a different nucleotide in one position. This is called a Mismatch like the C to T in the red box. It could also happen that there is no nucleotide in the second sequence to the one in the first like the G in the blue box. This is called a gap. Mismatches in the alignment correspond to mutations, and gaps correspond to insertions or deletions.
   image_name: alignment_question.png
   point: 3
-  chapter_id: 4
   choices:
     - 1: match
       correct: true
@@ -48,7 +46,6 @@ questions:
   explanation: Comparing the sequences it could be that one of the sequences has a different nucleotide in one position. This is called a Mismatch like the C to T in the red box. It could also happen that there is no nucleotide in the second sequence to the one in the first like the G in the blue box. This is called a gap. Mismatches in the alignment correspond to mutations, and gaps correspond to insertions or deletions.
   image_name: alignment_question.png
   point: 3
-  chapter_id: 4
   choices:
     - 1: match
       correct: false
@@ -60,51 +57,3 @@ questions:
       correct: false
     - 5: gap
       correct: true
-
-# template
-- title:
-  type: choose one / choose many
-  hint:
-  explanation:
-  image_name:
-  point:
-  chapter_id: 4
-  choices:
-    - 1:
-      correct: false
-    - 2:
-      correct: true
-    - 3:
-      correct: false
-
-# template
-- title: Sort these things in order from smallest (Size 1) to largest (Size 7).
-  type: grid / grid checkbox
-  hint: Change in an organism's environment forces the organism to adapt to fit the new environment, eventually causing it to evolve into a new species. But it might be just one of conditions for evolution, not the biological reason.
-  explanation: Mutations occur throughout the natural world. Some mutations are beneficial and increase the possibility that an organism will thrive and pass on its genes to the next generation. When mutations improve survival or reproduction, the process of natural selection will cause the mutation to become more common over time. Therefore, mutations can be bad for the individual but overall beneficial for a population. Niche properties like the color changing of lizards can be crucial for there survival. They are not as easy to find by animals who would like to eat them and therefore can survive longer than other species.
-  image_name:
-  point: 2
-  chapter_id: 4
-  choices:
-    1: protein
-    2: flu virus
-    3: atom
-    4: monkey
-    5: DNA (nucleotide)
-    6: leaf cell
-    7: frog egg
-  questions:
-    - text: Size 1
-      answers: [3]
-    - text: Size 2
-      answers: [5]
-    - text: Size 3
-      answers: [1]
-    - text: Size 4
-      answers: [2]
-    - text: Size 5
-      answers: [6]
-    - text: Size 6
-      answers: [7]
-    - text: Size 7
-      answers: [4]
