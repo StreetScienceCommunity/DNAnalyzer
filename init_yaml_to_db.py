@@ -213,7 +213,7 @@ def yaml_to_db():
 
     for idx in range(1, 6):
         chapter_id = str(idx)
-        level_dir = os.path.join(base_dir, 'level' + chapter_id)
+        level_dir = os.path.join(base_dir, 'chapter' + chapter_id)
 
         show_json(level_dir, chapter_id)
 
