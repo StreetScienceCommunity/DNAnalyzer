@@ -1,54 +1,8 @@
 from flask import Blueprint, flash, g, redirect, request, session, url_for, jsonify, send_file, make_response, render_template
-import io
-import base64
-from PIL import Image
 from models.all_models import *
 from werkzeug.security  import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
 bp = Blueprint('dnapi', __name__, url_prefix='/')
-
-
-@bp.route('/hello', methods=['GET'])
-def hello():
-    return jsonify({"msg": "hello!"})
-
-
-@bp.route('/img', methods=['GET'])
-def access_img(img_path):
-    img = get_encoded_img(img_path)
-    # prepare the response: data
-    response_data = {"key1": 2, "key2": 3, "image": img}
-    return jsonify(response_data)
-
-
-@bp.route('/questions', methods=['GET'])
-@login_required
-def get_questions():
-    all_questions = Question.query.filter_by(chapter_id='1').order_by(Question.id).all()
-    # for q in all_questions:
-    #     if q.image_url:
-    #         q.image_url = get_encoded_img(q.image_url)
-    # return '123'
-    return jsonify(questions_schema.dump(all_questions))
-
-
-@bp.route('/chapter/<id>', methods=['GET'])
-def get_questions_by_chapter(id):
-    questions = Question.query.filter_by(chapter_id=id).order_by(Question.id).all()
-    # for q in all_questions:
-    #     if q.image_url:
-    #         q.image_url = get_encoded_img(q.image_url)
-    # return '123'
-    return jsonify(questions_schema.dump(questions))
-
-
-def get_encoded_img(image_path):
-    full_path = "./images/" + image_path
-    img = Image.open(full_path, mode='r')
-    img_byte_arr = io.BytesIO()
-    img.save(img_byte_arr, format='PNG')
-    my_encoded_img = base64.encodebytes(img_byte_arr.getvalue()).decode('ascii')
-    return my_encoded_img
 
 
 @bp.route('/login', methods=['GET', 'POST'])

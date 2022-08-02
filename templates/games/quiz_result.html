@@ -51,7 +51,6 @@ function check_result(choice, show_text=true){
                     myHTML += '<p class="has-text-danger">You didn\'t answer this question</p>';
             myHTML += '</div>'
             let choices = questions[i].choices;
-            // myHTML += '<div id="q_choices" class="q_choices">';
             if (questions[i].type == "grid" || questions[i].type == "grid checkbox") {
                 let cur_type = questions[i].type;
                 myHTML += `<table class="table is-bordered is-striped  is-hoverable is-fullwidth">
@@ -84,16 +83,9 @@ function check_result(choice, show_text=true){
                 i = k -1;
             } else {
                 myHTML += '<div id="q_choices" class="q_choices">';
-                if(questions[i].type=="choose one"){
+                if(questions[i].type=="choose_one"){
                     for (let j = 0; j < choices.length; j++) {
                         myHTML += `<div class="radio_wrapper wrapper ${choices[j].state}">`;
-                        // if(choices[j].state == 'correct')
-                        //         myHTML += 'correct'
-                        // if(choices[j].state == 'wrong')
-                        //         myHTML += 'wrong'
-                        // if(choices[j].state == 'missed')
-                        //         myHTML += 'missed'
-                        // myHTML += `">`;
                         myHTML +=  `<input type="radio"  name="${questions[i].id}" id="${choices[j].id}" value="${choices[j].id}">
                                     <label for="${choices[j].id}" class="choice_text"> ${choices[j].content} </label> `
                         myHTML += check_result(choices[j]);
@@ -108,7 +100,7 @@ function check_result(choice, show_text=true){
                         myHTML += `</div>`;
                     }
                 }
-                if(questions[i].explanation != null ){
+                if(questions[i].explanation){
                         myHTML += `<div class="feedback_block mt-2">
                                         <p class="has-text-weight-bold mb-2">Explanation</p>
                                         <p class="is-italic feedback_text">${questions[i].explanation}</p>
