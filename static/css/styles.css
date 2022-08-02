@@ -352,6 +352,10 @@ body > footer {
 }
 
 .missed{
-	background-color: silver;
+	background-color: #fff9ae;
+}
+
+.missed .has-text-warning{
+	color: #a98600 !important;
 }
 /* quiz END */
