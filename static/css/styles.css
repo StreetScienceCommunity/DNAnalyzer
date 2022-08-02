@@ -145,8 +145,8 @@ body > footer {
 }
  .sign-up:hover {
 	 color: white !important;
-	 background: #5d8ebb !important;
-	 border: 1px solid #000;
+	 background: #1d6caf !important;
+	 border: 2px solid #000;
 	 text-decoration: none !important;
 }
 /* navbar END*/
@@ -175,17 +175,18 @@ body > footer {
 	 font-size: 1.125rem;
 	 max-width: 29.25rem;
 }
- .section1_text a {
+ .start_tbn{
 	 padding: 1.25rem 2.5rem;
-	 background: #1d6caf;
+	 background: #87b3da !important;
 	 border-radius: 0.375rem;
 	 font-weight: 800;
 	 color: #fff;
 	 font-size: 1.125rem;
 }
- .section1_text a:hover {
-	 color: #1d6caf;
-	 background-color: #fff;
+ .start_tbn:hover {
+	 color: #fff !important;
+	 background-color: #1d6caf !important;
+	 border: 2px solid #000 !important;
 }
  .section1_img img {
 	 width: auto;
