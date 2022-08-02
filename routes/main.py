@@ -93,6 +93,8 @@ def quiz_submit(chapter_id):
     questions_dump = questionswithanswers_schema.dump(questions)
     chapter = Chapter.query.get(chapter_id)
     chapter_dump = chapter_schema.dump(chapter)
+    chapters = Chapter.query.all()
+    chapters = chapters_schema.dump(chapters)
 
     # check choice submitted if right wrong or miss
     cur_score = 0
@@ -124,4 +126,4 @@ def quiz_submit(chapter_id):
             correct_sum = selected_correct + missed_wrong
             question['score'] = question['point'] * 0 if correct_sum == 0 else len(question['choices']) / correct_sum
     return render_template("games/quiz_result.html", questions=questions_dump, q_len=len(questions),
-                           chapter=chapter_dump, score=cur_score)
+                           chapter=chapter_dump, score=cur_score, chapters=chapters)

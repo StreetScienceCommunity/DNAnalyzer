@@ -2,9 +2,20 @@
 
 {% block body %}
 
-<div class="quiz_wrapper columns is-centered">
-        <div class="quiz column is-three-fifths" id="quiz">
-        </div>
+<div class="quiz_wrapper columns mb-6">
+		<div class="quiz quiz-menu column is-one-fifth mt-6">
+			<aside class="menu mt-6">
+				<ul class="menu-list">
+				<li><a href="/level1/intro"> Overview </a></li>
+				{% for c in chapters %}
+					<li class="mt-4"><a {% if c.id == chapter.id %} class="is-active" {%endif%} href="/level1/chapter/{{c.id}}"> Chapter {{c.id}}: {{c.name}} </a></li>
+				{% endfor %}
+				</ul>
+			</aside>
+		</div>
+		<div class="quiz column is-four-fifths p-6">
+			<div id="quiz"></div>
+		</div>
 </div>
 <script>
 function check_result(choice, show_text=true){
