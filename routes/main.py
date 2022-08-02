@@ -1,7 +1,9 @@
-from flask import Blueprint, flash, g, redirect, request, session, url_for, jsonify, send_file, make_response, render_template
+from flask import Blueprint, flash, g, redirect, request, session, url_for, jsonify, send_file, make_response, \
+    render_template
 from models.all_models import *
-from werkzeug.security  import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
+
 bp = Blueprint('dnapi', __name__, url_prefix='/')
 
 
@@ -73,7 +75,8 @@ def chapter(chapter_id):
     chapter = chapter_schema.dump(chapter)
     chapters = Chapter.query.all()
     chapters = chapters_schema.dump(chapters)
-    return render_template("games/chapter.html",  questions=questions, q_len= len(questions), chapter=chapter, chapters=chapters)
+    return render_template("games/chapter.html", questions=questions, q_len=len(questions), chapter=chapter,
+                           chapters=chapters)
 
 
 @bp.route('/quiz/<chapter_id>/submit', methods=['POST'])
@@ -92,18 +95,33 @@ def quiz_submit(chapter_id):
     chapter_dump = chapter_schema.dump(chapter)
 
     # check choice submitted if right wrong or miss
+    cur_score = 0
     for question in questions_dump:
         if not form.get(question['id']):
             question['missed'] = True
-        anwsers = set(form.getlist(question['id']))
+        submitted_answers = set(form.getlist(question['id']))
+        selected_correct = 0
+        missed_wrong = 0
         for choice in question['choices']:
             if choice['correctness']:
-                if choice['id'] in anwsers:
+                if choice['id'] in submitted_answers:
                     choice['state'] = 'correct'
+                    selected_correct += 1
                 else:
                     choice['state'] = 'missed'
             else:
-                if choice['id'] in anwsers:
+                if choice['id'] in submitted_answers:
                     choice['state'] = 'wrong'
-
-    return render_template("games/quiz_result.html", questions=questions_dump, q_len= len(questions), chapter=chapter_dump)
+                else:
+                    missed_wrong += 1
+        if question['type'] in ['choose_one', 'grid']:
+            if selected_correct > 0:
+                question['score'] = question['point']
+                cur_score += question['point']
+            else:
+                question['score'] = 0
+        else:
+            correct_sum = selected_correct + missed_wrong
+            question['score'] = question['point'] * 0 if correct_sum == 0 else len(question['choices']) / correct_sum
+    return render_template("games/quiz_result.html", questions=questions_dump, q_len=len(questions),
+                           chapter=chapter_dump, score=cur_score)
