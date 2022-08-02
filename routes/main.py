@@ -87,7 +87,6 @@ def quiz_submit(chapter_id):
     @param chapter_id: the chapter id for showing related quiz questions
     @return: show result
     """
-
     form = request.form
     questions = Question.query.filter_by(chapter_id=chapter_id).order_by(Question.id).all()
     questions_dump = questionswithanswers_schema.dump(questions)
@@ -99,11 +98,18 @@ def quiz_submit(chapter_id):
     # check choice submitted if right wrong or miss
     cur_score = 0
     for question in questions_dump:
-        if not form.get(question['id']):
-            question['missed'] = True
         submitted_answers = set(form.getlist(question['id']))
+        # for aws_id in submitted_answers:
+        #     new_answer = Answer(
+        #         user_id=current_user.id,
+        #         choice_id=aws_id
+        #     )
+        #     db.session.add(new_answer)
+        #     db.session.commit()
         selected_correct = 0
         missed_wrong = 0
+        if not form.get(question['id']):
+            question['missed'] = True
         for choice in question['choices']:
             if choice['correctness']:
                 if choice['id'] in submitted_answers:

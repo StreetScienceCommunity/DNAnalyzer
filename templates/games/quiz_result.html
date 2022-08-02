@@ -52,7 +52,7 @@ function check_result(choice, show_text=true){
         let questions = {{questions | tojson}};
         let chapter = {{chapter| tojson}};
         let myHTML = '';
-        myHTML += `<p class="quiz_title">Level ${chapter.level_id} Chapter ${chapter.id} Quiz result       {{score}}</p>`;
+        myHTML += `<p class="quiz_title"> <span>Level ${chapter.level_id} Chapter ${chapter.id} Quiz result</span>  <span>{{score}} / {{chapter.total_score}} points</span></p>`;
         for (let i = 0; i < questions.length; i++) {
             myHTML += '<hr>'
             myHTML += '<div class="quiz_text">';

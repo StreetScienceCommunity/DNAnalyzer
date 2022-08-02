@@ -112,6 +112,7 @@ class ChapterSchema(ma.SQLAlchemySchema):
     level_id = auto_field()
     url = auto_field()
     name = auto_field()
+    total_score = auto_field()
 
 
 chapter_schema = ChapterSchema()
@@ -130,6 +131,10 @@ class Answer(db.Model):
     user = db.relationship('User', backref=db.backref('answers', lazy=True))
     choice_id = db.Column(db.Integer, db.ForeignKey('choice.id'), nullable=False)
     choice = db.relationship('Choice', backref=db.backref('answers', lazy=True))
+    __table_args__ = (
+        # this can be db.PrimaryKeyConstraint if you want it to be a primary key
+        db.UniqueConstraint('user_id', 'choice_id'),
+    )
 
 
 class Score(db.Model):
