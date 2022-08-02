@@ -2,7 +2,7 @@ questions:
 
 # 1
 - title: Where is DNA contained in eukaryotic cells?
-  type: choose one
+  type: choose_one
   hint:
   explanation: Eukaryotic cells have a nucleus surrounded by a nuclear envelope that consists of two lipid membranes. The nucleus holds the eukaryotic cell's DNA. Mitochondria are an other cell compartment enclosed by a lipid membrane of eukaryotic cells. It is holding its own DNA the mitogenome. Prokaryotic cells do not have a nucleus; rather, they have a membrane less nucleoside region (open part of the cell) that holds free-floating DNA.
   image_name:
@@ -17,7 +17,7 @@ questions:
 
 # 2
 - title: How DNA also can be called?
-  type: choose one
+  type: choose_one
   hint:
   explanation: DNA stands for deoxyribonucleic acid and it includes instructions needed for an organism to grow, develop, live, and reproduce. Therefore, it is also known as the blueprint of life.
   image_name:
@@ -36,7 +36,7 @@ questions:
 
 # 3
 - title: Mutations are always bad.
-  type: choose one
+  type: choose_one
   hint:
   explanation: A mutation could lead to a better adjustment to a certain condition, like hot weather.
   image_name:
@@ -49,7 +49,7 @@ questions:
 
 # 4
 - title: Mutations are insignificant for evolution.
-  type: choose one
+  type: choose_one
   hint:
   explanation: Mutations are essential to evolution; they are the raw material of genetic variation.
   image_name:
@@ -62,7 +62,7 @@ questions:
 
 # 5
 - title: Mutations can help the next generations to adapt for humid climate.
-  type: choose one
+  type: choose_one
   hint:
   explanation: A mutation could lead to a better adjustment to a certain condition, like hot weather.
   image_name:
@@ -75,7 +75,7 @@ questions:
 
 # 6
 - title: What are the bases of DNA?
-  type: choose many
+  type: choose_many
   hint:
   explanation: Adenine, thymine, cytosine, and guanine are building blocks of DNA while in RNA there is uracil instead of thymine. A chromosome is a long DNA molecule with part or all of the genetic material of an organism. Protein is a gene product resulting from expression of a gene.
   image_name:
@@ -98,7 +98,7 @@ questions:
 
 # 7
 - title: How does a cell pack its genetic information?
-  type: choose one
+  type: choose_one
   hint:
   explanation: In a eucaryotic cell genetic material is tightly packaged into chromosomes.
   image_name:
@@ -113,7 +113,7 @@ questions:
 
 # 8
 - title: Do tomatoes contain DNA? Humans contain DNA - monkeys, dogs, and other animals too. What about the vegetables we eat?
-  type: choose one
+  type: choose_one
   hint:
   explanation: Plants are living organisms, and fruits and vegetables are also made up of living cells. Almost all cells contain DNA. There are only a few cells that do not contain any genetic information (for example, in humans, these are red blood cells).
   image_name:

@@ -112,10 +112,10 @@ def show_json(base_dir, chapter_id):
     q_csv = []
     c_csv = []
     for q in yaml_to_dict['questions']:
-        if q['type'] in ['choose one', 'choose many']:
+        if q['type'] in ['choose_one', 'choose_many']:
             q_csv.append(parse_normal_question(q, chapter_id))
             c_csv.extend(parse_normal_choices(q))
-        if q['type'] in ['grid checkbox', 'grid']:
+        if q['type'] in ['grid_checkbox', 'grid']:
             tmp_q, tmp_c = parse_grid_question(q, chapter_id)
             q_csv.extend(tmp_q)
             c_csv.extend(tmp_c)

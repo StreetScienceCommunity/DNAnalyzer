@@ -2,7 +2,7 @@ questions:
 
 # 1
 - title: What is the other name of Sanger sequencing?
-  type: choose one
+  type: choose_one
   hint:
   explanation: Sanger DNA sequencing is also known as the chain-termination method of sequencing. The Sanger technique uses dideoxynucleotides or ddNTPs in addition to typical deoxynucleotides (dNTPs) in the reaction. ddNTPs result in termination of the DNA strand because ddNTPs lack the 3’-OH group required for phosphodiester bond formation between nucleotides. Without this bond, the chain of nucleotides being formed is terminated.
   image_name:
@@ -19,7 +19,7 @@ questions:
 
 # 2
 - title: Sanger sequencing is
-  type: choose one
+  type: choose_one
   hint:
   explanation:
   image_name:
@@ -37,7 +37,7 @@ questions:
 
 # 3
 - title: Which of these DNA sequencing methods are called the 3rd generation?
-  type: choose one
+  type: choose_one
   hint:
   explanation:
   image_name:
@@ -52,7 +52,7 @@ questions:
 
 # 4
 - title: Nanopore sequencing method was developed by
-  type: choose one
+  type: choose_one
   hint:
   explanation: Chain termination method was developed by Sanger, that is why it is also called Sanger sequencing method. In the same year, another chemical method of DNA sequencing was explained by Allan Maxam and Walter Gilbert. In 2014 the company Oxford Nanopore released its first portable nanopore sequencing device.
   image_name:
@@ -67,7 +67,7 @@ questions:
 
 # 5
 - title: A fresh cheese sample, form the  French cheese Bleu de Velay, can still ripe while it its prepared for DNA sequencing.  What should you do?
-  type: choose one
+  type: choose_one
   hint:
   explanation:
   image_name:

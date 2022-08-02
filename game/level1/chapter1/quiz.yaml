@@ -1,7 +1,7 @@
 questions:
 # 1
 - title: What is the proper definition of evolution?
-  type: choose one
+  type: choose_one
   hint: Even though evolution is taking place all around us, for many species the process operates so slowly that it is not observable except over thousands or hundreds of thousands of years, much too long to witness in a human lifetime.
   explanation: Evolution is a change in a population of organisms through time leading to the appearance of new forms
   image_name:
@@ -16,7 +16,7 @@ questions:
 
 # 2
 - title: What are biological survival benefits for a population?
-  type: choose one
+  type: choose_one
   hint: Change in an organism's environment forces the organism to adapt to fit the new environment, eventually causing it to evolve into a new species. But it might be just one of conditions for evolution, not the biological reason. 
   explanation: Mutations occur throughout the natural world. Some mutations are beneficial and increase the possibility that an organism will thrive and pass on its genes to the next generation. When mutations improve survival or reproduction, the process of natural selection will cause the mutation to become more common over time. Therefore, mutations can be bad for the individual but overall beneficial for a population. Niche properties like the color changing of lizards can be crucial for there survival. They are not as easy to find by animals who would like to eat them and therefore can survive longer than other species.
   image_name:
@@ -33,7 +33,7 @@ questions:
 
 # 3
 - title: This salamander did not use its eyes so it lost its vision. Who said if you don't use it you lose it?
-  type: choose one
+  type: choose_one
   hint: Lamarck thought that organisms changed out of need and after a change in the environment.On the other hand, Darwin thought organisms changed by chance when they were born and before there was a change in the environment.
   explanation: The Lamarck's idea is organisms gaining abilities if they need them and losing others if they don't need them.
   image_name: salamander.jpg
@@ -48,7 +48,7 @@ questions:
 
 # 4
 - title: How did Lamarck's theory of evolution differ from Darwin's?
-  type: choose one
+  type: choose_one
   hint: Darwin thought, that environment performs the cruel but immensely important task of selecting the fittest organisms.
   explanation: For Lamarck, the environment governs adaptive change by inheritance of acquired traits, while in Darwin thought, it performs the cruel but immensely important task of selecting the fittest organisms.
   image_name:
@@ -63,7 +63,7 @@ questions:
 
 # 5
 - title: Lamarck’s ideas about evolution include the concept that differences among the traits of organisms arise as a result of
-  type: choose one
+  type: choose_one
   hint: Lamarck thought that organisms changed out of need and after a change in the environment.
   explanation: The Lamarck's idea about organisms gaining some abilities if they need them and losing others if they don't need them is applicable here.
   image_name:
@@ -80,7 +80,7 @@ questions:
 
 # 6
 - title: What do humans and bananas have in common?
-  type: choose many
+  type: choose_many
   hint:
   explanation: All living things evolved from a common ancestor. Therefore, humans, animals and other organisms share many of the same genes, and the molecules made from them function in similar ways. For example, the human and mouse genomes are about 85 percent the same.
   image_name:
@@ -97,7 +97,7 @@ questions:
 
 # 7
 - title: https://www.pbs.org/wgbh/nova/labs//lab/evolution/research#/chooser - here you can play and learn. In this game, you'll climb around the tree of life, building out parts of it to better understand how evolution works. You'll be organising the collection of species into a tree. Build a tree by drugging species icons and then traits into the center of the screen. The split point represents the evolutionary moment when the common ancestor of these species diverged into two specific species. Click the button "Play" under the "Mission 1 - Training trees". And then, click “Play” again under “Red, green, and gecko”. Come back here and choose common traits of gecko and fungus.
-  type: choose many
+  type: choose_many
   hint:
   explanation:
   image_name: tree_game.png
@@ -112,7 +112,7 @@ questions:
 
 # 8
 - title: Choose non-hereditary traits
-  type: choose many
+  type: choose_many
   hint:
   explanation: Genetic relations among languages are not biologically based, but are defined by cultural transmission from generation to generation. That is, languages are learned, not inherited via the genes. The fingerprint of identical twins (same set of chromosomes) is different and not inherited genetically.
   image_name:
@@ -131,7 +131,7 @@ questions:
 
 # 9
 - title: Choose hereditary traits
-  type: choose one1
+  type: choose_one1
   hint:
   explanation:
   image_name:
@@ -150,7 +150,7 @@ questions:
 
 # 10
 - title: Bacteria are
-  type: choose one
+  type: choose_one
   hint: "There are 3 domains existing: Archaea, Bacteria, and Eukarya"
   explanation: Prokaryotic organisms belong either to the domain Archaea or the domain Bacteria; organisms with eukaryotic cells belong to the domain Eukarya
   image_name:
@@ -163,7 +163,7 @@ questions:
 
 # 11
 - title: Prokaryotic cells consist of
-  type: choose many
+  type: choose_many
   hint:
   explanation: Prokaryotic cells do not have a nucleus; rather, they have a membraneless nucleoid region (open part of the cell) that holds free-floating DNA
   image_name:
@@ -184,7 +184,7 @@ questions:
 
 # 12
 - title: Size of prokaryotic cell
-  type: choose one
+  type: choose_one
   hint: eukaryotic cell size is from 10 to 100 micrometres
   explanation: Eukaryotic cell size is from 10 to 100 micrometres, prokaryotic cell size is smaller - from 0.1 to 5 micrometres.
   image_name:
@@ -230,7 +230,7 @@ questions:
 
 # 14
 - title: Determine the items which you can see under different types of microscopes or with naked eye.
-  type: grid checkbox
+  type: grid_checkbox
   hint: Change in an organism's environment forces the organism to adapt to fit the new environment, eventually causing it to evolve into a new species. But it might be just one of conditions for evolution, not the biological reason.
   explanation: Mutations occur throughout the natural world. Some mutations are beneficial and increase the possibility that an organism will thrive and pass on its genes to the next generation. When mutations improve survival or reproduction, the process of natural selection will cause the mutation to become more common over time. Therefore, mutations can be bad for the individual but overall beneficial for a population. Niche properties like the color changing of lizards can be crucial for there survival. They are not as easy to find by animals who would like to eat them and therefore can survive longer than other species.
   image_name:
@@ -254,7 +254,7 @@ questions:
 
 # template
 - title:
-  type: choose one / choose many
+  type: choose_one / choose_many
   hint:
   explanation:
   image_name:
@@ -269,7 +269,7 @@ questions:
 
 # template
 - title: Sort these things in order from smallest (Size 1) to largest (Size 7).
-  type: grid / grid checkbox
+  type: grid / grid_checkbox
   hint: Change in an organism's environment forces the organism to adapt to fit the new environment, eventually causing it to evolve into a new species. But it might be just one of conditions for evolution, not the biological reason.
   explanation: Mutations occur throughout the natural world. Some mutations are beneficial and increase the possibility that an organism will thrive and pass on its genes to the next generation. When mutations improve survival or reproduction, the process of natural selection will cause the mutation to become more common over time. Therefore, mutations can be bad for the individual but overall beneficial for a population. Niche properties like the color changing of lizards can be crucial for there survival. They are not as easy to find by animals who would like to eat them and therefore can survive longer than other species.
   image_name:

@@ -2,7 +2,7 @@ questions:
 
 # 1
 - title: How is the research area called where environmental samples are analyzed for genetic diversity?
-  type: choose one
+  type: choose_one
   hint:
   explanation: Metagenomics is the study of genetic material recovered directly from environmental samples. Biology is a branch of science that deals with living organisms and their vital processes. Bioinformatics is an interdisciplinary field that combines general biology, molecular biology, cybernetics, genetics, chemistry, computer science, mathematics and statistics. Genomics is an interdisciplinary field of biology focusing on the structure, function, evolution, mapping, and editing of genomes.
   image_name:
@@ -19,7 +19,7 @@ questions:
 
 # 2
 - title: What can we use to detect and identify different types of microbes stemming from an environmental samples?
-  type: choose many
+  type: choose_many
   hint:
   explanation: The samples are sent to a laboratory for DNA extraction and sequencing.
   image_name:
@@ -63,7 +63,7 @@ questions:
 
 # 4
 - title: Where can we collect samples for a metagenomics analysis?
-  type: choose many
+  type: choose_many
   hint:
   explanation: Samples can be collected anywhere.
   image_name:

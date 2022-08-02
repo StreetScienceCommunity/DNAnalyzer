@@ -45,7 +45,7 @@
 							</div>`
             let choices = questions[i].choices;
             // myHTML += '<div id="q_choices" class="q_choices">';
-            if (questions[i].type == "grid" || questions[i].type == "grid checkbox") {
+            if (questions[i].type == "grid" || questions[i].type == "grid_checkbox") {
                 let cur_type = questions[i].type;
                 myHTML += `<table class="table is-bordered is-striped  is-hoverable is-fullwidth">
                              <thead>
@@ -85,7 +85,7 @@
                 i = k -1;
             } else {
                 myHTML += '<div id="q_choices" class="q_choices">';
-                if(questions[i].type.trim() == "choose one"){
+                if(questions[i].type.trim() == "choose_one"){
                     for (let j = 0; j < choices.length; j++) {
                         myHTML += `<div class="radio_wrapper wrapper">
                                     <input type="radio" name="${questions[i].id}" id="${choices[j].id}" value="${choices[j].id}">

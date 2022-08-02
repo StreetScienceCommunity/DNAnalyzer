@@ -11,34 +11,6 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(), nullable=False)
 
 
-class Level(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(), unique=True, nullable=False)
-    level = db.relationship('Chapter', backref=db.backref('level', lazy=True))
-
-
-class Chapter(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    total_score = db.Column(db.Integer, nullable=False)
-    level_id = db.Column(db.Integer, db.ForeignKey('level.id'), nullable=False)
-    url = db.Column(db.String(), nullable=False)
-    name = db.Column(db.String(), nullable=False)
-
-
-class ChapterSchema(ma.SQLAlchemySchema):
-    class Meta:
-        model = Chapter
-
-    id = auto_field()
-    level_id = auto_field()
-    url = auto_field()
-    name = auto_field()
-
-
-chapter_schema = ChapterSchema()
-chapters_schema = ChapterSchema(many=True)
-
-
 class Choice(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(), nullable=False)
@@ -49,21 +21,27 @@ class Choice(db.Model):
 class ChoiceSchema(ma.SQLAlchemySchema):
     class Meta:
         model = Choice
+
     id = auto_field()
     content = auto_field()
+
 
 choice_schema = ChoiceSchema()
 choices_schema = ChoiceSchema(many=True)
 
+
 class ChoicewithanwersSchema(ma.SQLAlchemySchema):
     class Meta:
         model = Choice
+
     id = fields.String()
     content = auto_field()
     correctness = auto_field()
 
+
 choicewithanswers_schema = ChoicewithanwersSchema()
 choiceswithanswers_schema = ChoicewithanwersSchema(many=True)
+
 
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -75,8 +53,7 @@ class Question(db.Model):
     image_name = db.Column(db.String())
     point = db.Column(db.Integer, nullable=False)
     chapter_id = db.Column(db.Integer, db.ForeignKey('chapter.id'), nullable=False)
-    chapter = db.relationship('Chapter', backref=db.backref('questions', lazy=True))
-    choices = db.relationship('Choice', backref='Question', order_by=Choice.id)
+    choices = db.relationship('Choice', backref='question', order_by=Choice.id)
 
 
 class QuestionSchema(ma.SQLAlchemySchema):
@@ -101,6 +78,7 @@ questions_schema = QuestionSchema(many=True)
 class QuestionwithanswersSchema(ma.SQLAlchemySchema):
     class Meta:
         model = Question
+
     id = fields.String()
     title = auto_field()
     description = auto_field()
@@ -115,6 +93,35 @@ class QuestionwithanswersSchema(ma.SQLAlchemySchema):
 
 questionwithanswers_schema = QuestionwithanswersSchema()
 questionswithanswers_schema = QuestionwithanswersSchema(many=True)
+
+
+class Chapter(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    total_score = db.Column(db.Integer, nullable=False)
+    level_id = db.Column(db.Integer, db.ForeignKey('level.id'), nullable=False)
+    url = db.Column(db.String(), nullable=False)
+    name = db.Column(db.String(), nullable=False)
+    questions = db.relationship('Question', backref='chapter', order_by=Question.id)
+
+
+class ChapterSchema(ma.SQLAlchemySchema):
+    class Meta:
+        model = Chapter
+
+    id = auto_field()
+    level_id = auto_field()
+    url = auto_field()
+    name = auto_field()
+
+
+chapter_schema = ChapterSchema()
+chapters_schema = ChapterSchema(many=True)
+
+
+class Level(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(), unique=True, nullable=False)
+    chapters = db.relationship('Chapter', backref=db.backref('level', lazy=True))
 
 
 class Answer(db.Model):
