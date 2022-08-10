@@ -48,6 +48,23 @@ function check_result(choice, show_text=true){
         }
         return rtn;
 }
+
+function add_option_input_field(question, choice, type){
+	rtn = ""
+	if(type=="radio"){
+		rtn += `<input type="radio"  name="${question.id}" id="${choice.id}" value="${choice.id}"`
+		if((choice.state == 'correct' || choice.state == 'wrong')){
+			rtn += ` checked="checked" `
+		}
+	}else if(type=="checkbox"){
+		rtn+= `<input type="checkbox"  name="${question.id}" class="checknox" id="${choice.id}" value="${choice.id}"`
+		if((choice.state == 'correct' || choice.state == 'wrong')){
+			rtn += ' checked '
+		}
+	}
+	rtn +='>'
+	return rtn;
+}
     $(document).ready(function () {
         let questions = {{questions | tojson}};
         let chapter = {{chapter| tojson}};
@@ -62,7 +79,7 @@ function check_result(choice, show_text=true){
                     myHTML += '<p class="has-text-danger">You didn\'t answer this question</p>';
             myHTML += '</div>'
             let choices = questions[i].choices;
-            if (questions[i].type == "grid" || questions[i].type == "grid checkbox") {
+            if (questions[i].type == "grid" || questions[i].type == "grid_checkbox") {
                 let cur_type = questions[i].type;
                 myHTML += `<table class="table is-bordered is-striped  is-hoverable is-fullwidth">
                              <thead>
@@ -78,12 +95,16 @@ function check_result(choice, show_text=true){
                     myHTML += `<tr><td>${questions[k].description}</td>`;
                     for (let j = 0; j < choices.length; j++){
                         if(cur_type=="grid"){
-                            myHTML += `<td class="${choices[j].state}"> <label class="checkbox"><input type="radio" name="${questions[k].id}" value="${choices[j].id}">&nbsp;</label>`;
+                            myHTML += `<td class="${choices[j].state}">`
+							myHTML += add_option_input_field(questions[k], choices[j], "radio")
+							myHTML += `<label class="checkbox">&nbsp;</label>`;
                             myHTML += check_result(choices[j], false);
                             myHTML += `</td>`;
                         }
                         else{
-                            myHTML += `<td class="${choices[j].state}"> <label class="checkbox"><input type="checkbox" name="${questions[k].id}" value="${choices[j].id}">&nbsp;</label>`;
+                            myHTML += `<td class="${choices[j].state}">`
+							myHTML += add_option_input_field(questions[k], choices[j], "checkbox")
+							myHTML += `<label class="checkbox">&nbsp;</label>`;
                             myHTML += check_result(choices[j], false);
                             myHTML += `</td>`;
                         }
@@ -96,17 +117,17 @@ function check_result(choice, show_text=true){
                 myHTML += '<div id="q_choices" class="q_choices">';
                 if(questions[i].type=="choose_one"){
                     for (let j = 0; j < choices.length; j++) {
-                        myHTML += `<div class="radio_wrapper wrapper ${choices[j].state}">`;
-                        myHTML +=  `<input type="radio"  name="${questions[i].id}" id="${choices[j].id}" value="${choices[j].id}">
-                                    <label for="${choices[j].id}" class="choice_text"> ${choices[j].content} </label> `
+                        myHTML += `<div class="radio_wrapper wrapper ${choices[j].state}">`
+                        myHTML += add_option_input_field(questions[i], choices[j], "radio")
+						myHTML += `<label for="${choices[j].id}" class="choice_text"> ${choices[j].content} </label> `
                         myHTML += check_result(choices[j]);
                         myHTML += `</div>`;
                     }
                 }else{
                     for (let j = 0; j < choices.length; j++) {
                         myHTML += `<div class="checkbox_wrapper wrapper ${choices[j].state}">`
-                        myHTML +=  `<input type="checkbox"  name="${questions[i].id}" class="check" id="${choices[j].id}" value="${choices[j].id}">
-                                    <label for="${choices[j].id}" class="choice_text"> ${choices[j].content} </label>`
+						myHTML += add_option_input_field(questions[i], choices[j], "checkbox")
+						myHTML += `<label for="${choices[j].id}" class="choice_text"> ${choices[j].content} </label>`
                         myHTML += check_result(choices[j]);
                         myHTML += `</div>`;
                     }
