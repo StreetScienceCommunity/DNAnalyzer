@@ -134,6 +134,9 @@ def quiz_submit(chapter_id):
 
 
 def left_chapter_menu_helper(chapter_id=0):
+    """
+        helper function to return all data needed for the chapter menu
+    """
     if chapter_id != 0:
         questions = Question.query.filter_by(chapter_id=chapter_id).order_by(Question.id).all()
         questions_dump = questionswithanswers_schema.dump(questions)
@@ -151,3 +154,17 @@ def left_chapter_menu_helper(chapter_id=0):
         return chapter_dump, chapters, questions_dump
     else:
         return chapters
+
+
+@bp.route('/progress')
+@login_required
+def progress():
+    """
+    view function for progress page
+    """
+    chapters_lvl1 = db.engine.execute('select chapter.id, name, score, add_time from chapter left join score on score.chapter_id = chapter.id and score.user_id = %s and chapter.level_id = %s order by chapter.id' % (current_user.id, 1))
+    chapters_lvl1 = [dict(row) for row in chapters_lvl1]
+    for c in chapters_lvl1:
+        if c['add_time']:
+            c['add_time'] = c['add_time'].replace(microsecond=0)
+    return render_template("progress.html", chapters_lvl1 = chapters_lvl1)

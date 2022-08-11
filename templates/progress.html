@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<div class="quiz_wrapper columns is-centered mb-6">
+		<div class="column is-four-fifths">
+			<div class="section">
+				<h1>Level 1:</h1>
+				<table class="table is-striped is-fullwidth">
+					<tr class="th">
+						<th>Chapter ID</th>
+						<th>Chapter</th>
+						<th>Status</th>
+						<th>Score</th>
+						<th>Finished Time</th>
+					</tr>
+					{% for c in chapters_lvl1 %}
+						<tr>
+							<td>{{c.id}}</td>
+							<td>{{c.name}}</td>
+							{% if c.score != None %}
+								<td><span class="icon-text has-text-success">Done<span class="icon"><i class="fas fa-check-square"></i></span></span></td>
+								<td>{{c.score}}</td>
+							{% else %}
+								<td></td>
+								<td></td>
+							{% endif %}
+							<td>{{c.add_time}}</td>
+						</tr>
+					{% endfor %}
+
+				</table>
+			</div>
+			<hr>
+		</div>
+</div>
+{% endblock %}
