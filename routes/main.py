@@ -87,7 +87,7 @@ def quiz_submit(chapter_id):
     # check choice submitted if right wrong or miss
     cur_score = 0
     db.engine.execute("delete from answer where answer.choice_id in  ( select answer.choice_id from answer, choice, chapter, users, question where answer.choice_id = choice.id and choice.question_id = question.id and question.chapter_id = chapter.id and chapter.id = %s and users.id = %s )" % (chapter_id, current_user.id))
-    db.engine.execute("delete from score where chapter_id = %s" % (chapter_id) )
+    db.engine.execute("delete from score where chapter_id = %s and user_id=%s" % (chapter_id, current_user.id) )
     for question in questions_dump:
         submitted_answers = set(form.getlist(question['id']))
         for aws_id in submitted_answers:
@@ -129,8 +129,10 @@ def quiz_submit(chapter_id):
     )
     db.session.add(new_score)
     db.session.commit()
+    ranking = get_ranking(chapter_id)
+    print(ranking)
     return render_template("games/quiz_result.html", questions=questions_dump,
-                           chapter=chapter_dump, score=cur_score, chapters=chapters)
+                           chapter=chapter_dump, score=cur_score, chapters=chapters, ranking=ranking)
 
 
 def left_chapter_menu_helper(chapter_id=0):
@@ -146,14 +148,25 @@ def left_chapter_menu_helper(chapter_id=0):
     chapters = chapters_schema.dump(chapters)
     done_chapters = db.engine.execute('select chapter_id from score where user_id = %s' % (current_user.id))
     done_chapters_list = [row[0] for row in done_chapters]
-
-    for ch in chapters:
-        if ch['id'] in done_chapters_list:
-            ch['done'] = 1
+    if done_chapters_list:
+        for ch in chapters:
+            if ch['id'] in done_chapters_list:
+                ch['done'] = 1
     if chapter_id != 0:
         return chapter_dump, chapters, questions_dump
     else:
         return chapters
+
+
+def handle_addtime(result_raw):
+    """
+        make raw sql result to list of dictionaries and remove microseconds from addtime field
+    """
+    result = [dict(row) for row in result_raw]
+    for c in result:
+        if c['add_time']:
+            c['add_time'] = c['add_time'].replace(microsecond=0)
+    return result
 
 
 @bp.route('/progress')
@@ -162,9 +175,15 @@ def progress():
     """
     view function for progress page
     """
-    chapters_lvl1 = db.engine.execute('select chapter.id, name, score, add_time from chapter left join score on score.chapter_id = chapter.id and score.user_id = %s and chapter.level_id = %s order by chapter.id' % (current_user.id, 1))
-    chapters_lvl1 = [dict(row) for row in chapters_lvl1]
-    for c in chapters_lvl1:
-        if c['add_time']:
-            c['add_time'] = c['add_time'].replace(microsecond=0)
+    chapters_lvl1_raw = db.engine.execute('select chapter.id, name, score, add_time from chapter left join score on score.chapter_id = chapter.id and score.user_id = %s and chapter.level_id = %s order by chapter.id' % (current_user.id, 1))
+    chapters_lvl1 = handle_addtime(chapters_lvl1_raw)
     return render_template("progress.html", chapters_lvl1 = chapters_lvl1)
+
+
+def get_ranking(chapter_id):
+    """
+        return top 5 result for certain chapter
+    """
+    ranking_raw = db.engine.execute('select username, score, add_time, user_id from score, users where score.user_id = users.id and score.chapter_id = %s order by score DESC, add_time ASC limit 5' % (chapter_id))
+    ranking = handle_addtime(ranking_raw)
+    return ranking

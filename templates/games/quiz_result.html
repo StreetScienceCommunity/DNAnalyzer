@@ -25,6 +25,30 @@
 		</div>
 		<div class="quiz column is-four-fifths p-6">
 			<div id="quiz"></div>
+			<hr>
+			<div>
+				<p class="quiz_title mb-3">Top 5 rankings on Chapter {{chapter.id}} </p>
+				<table class="table is-striped is-fullwidth">
+					  <thead>
+						<tr>
+							<th>username</th>
+							<th>score</th>
+							<th>Finished Time</th>
+						</tr>
+					  </thead>
+					<tbody>
+						{% for r in ranking %}
+							<tr {% if r.user_id == current_user.id %} class="is-selected" {% endif %}>
+								<td>{{r.username}}</td>
+								<td>{{r.score}}</td>
+								<td>{{r.add_time}}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+
+
+				</table>
+			</div>
 		</div>
 </div>
 <script>
