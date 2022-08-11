@@ -8,7 +8,17 @@
 				<ul class="menu-list">
 				<li><a href="/level1/intro"> Overview </a></li>
 				{% for c in chapters %}
-					<li class="mt-4"><a {% if c.id == chapter.id %} class="is-active" {%endif%} href="/level1/chapter/{{c.id}}"> Chapter {{c.id}}: {{c.name}} </a></li>
+					<li class="mt-4">
+						<a {% if c.id == chapter.id %} class="is-active" {%endif%} href="/level1/chapter/{{c.id}}"> Chapter {{c.id}}: {{c.name}}
+							{% if c.done == 1 %}
+								<span class="icon-text has-text-success">
+									<span class="icon">
+									<i class="fas fa-check-square"></i>
+									</span>
+								</span>
+							{% endif %}
+						</a>
+					</li>
 				{% endfor %}
 				</ul>
 			</aside>
