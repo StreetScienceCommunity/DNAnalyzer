@@ -3,6 +3,7 @@ from flask_login import UserMixin
 from marshmallow import fields
 from marshmallow_sqlalchemy import auto_field
 from marshmallow_sqlalchemy.fields import Nested
+from datetime import datetime
 
 
 class Users(db.Model, UserMixin):
@@ -144,3 +145,4 @@ class Score(db.Model):
     user = db.relationship('Users', backref=db.backref('scores', lazy=True))
     chapter_id = db.Column(db.Integer, db.ForeignKey('chapter.id'), nullable=False)
     chapter = db.relationship('Chapter', backref=db.backref('scores', lazy=True))
+    add_time = db.Column(db.DateTime(), nullable=False, default=datetime.utcnow)
