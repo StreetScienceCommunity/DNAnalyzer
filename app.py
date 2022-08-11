@@ -20,10 +20,10 @@ def register_extensions(app):
     login_manager.login_view = 'dnapi.login'
     login_manager.init_app(app)
 
-    from models.all_models import User
+    from models.all_models import Users
     @login_manager.user_loader
     def load_user(id):
-        return User.query.get(int(id))
+        return Users.query.get(int(id))
 
 
 # Init app
@@ -46,8 +46,11 @@ def index():
 def about():
     return render_template("about.html")
 
+with app.app_context():
+    db.create_all()
 
 # Run server
 if __name__ == '__main__':
     yaml_to_db()
     app.run(debug=True)
+

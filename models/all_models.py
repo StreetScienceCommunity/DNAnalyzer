@@ -5,7 +5,8 @@ from marshmallow_sqlalchemy import auto_field
 from marshmallow_sqlalchemy.fields import Nested
 
 
-class User(db.Model, UserMixin):
+class Users(db.Model, UserMixin):
+    __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(), unique=True, nullable=False)
     password = db.Column(db.String(), nullable=False)
@@ -127,10 +128,9 @@ class Level(db.Model):
 
 class Answer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    user = db.relationship('User', backref=db.backref('answers', lazy=True))
-    choice_id = db.Column(db.Integer, db.ForeignKey('choice.id'), nullable=False)
-    choice = db.relationship('Choice', backref=db.backref('answers', lazy=True))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user = db.relationship('Users', backref=db.backref('answers', lazy=True))
+    choice_id = db.Column(db.Integer, nullable=False)
     __table_args__ = (
         # this can be db.PrimaryKeyConstraint if you want it to be a primary key
         db.UniqueConstraint('user_id', 'choice_id'),
@@ -140,7 +140,7 @@ class Answer(db.Model):
 class Score(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     score = db.Column(db.Integer, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    user = db.relationship('User', backref=db.backref('scores', lazy=True))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user = db.relationship('Users', backref=db.backref('scores', lazy=True))
     chapter_id = db.Column(db.Integer, db.ForeignKey('chapter.id'), nullable=False)
     chapter = db.relationship('Chapter', backref=db.backref('scores', lazy=True))
