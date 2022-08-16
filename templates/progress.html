@@ -20,11 +20,12 @@
 							{% if c.score != None %}
 								<td><span class="icon-text has-text-success">Done<span class="icon"><i class="fas fa-check-square"></i></span></span></td>
 								<td>{{c.score}}</td>
+								<td> {{c.add_time}}</td>
 							{% else %}
 								<td></td>
 								<td></td>
+								<td></td>
 							{% endif %}
-							<td>{{c.add_time}}</td>
 						</tr>
 					{% endfor %}
 
