@@ -82,3 +82,46 @@ In order to add a new chapter:
 1. add the corresponding chapter folder with the name "chapter", followed by the incremental chapter ID.
 2. In this folder, create a new file `quiz.yaml`, which stores all the questions within the chapter. 
 3. Create a new folder `images`, and put all the images needed for the chapter into it.
+
+For adding questions in `quiz.yaml`, we need to add each one under variable `questions`,
+there are 4 types of questions (choose_one, choose_many, grid, grid_checkbox), and templates for each type of questions:
+For choose_one and choose_many type questions:
+```
+- title:
+  type: choose_one / choose_many
+  hint:
+  explanation:
+  image_name:
+  point:
+  choices:
+    - 1:
+      correct: false
+    - 2:
+      correct: true
+    - 3:
+      correct: false
+```
+
+For grid, grid_checkbox questions:
+```
+- title:
+  type: grid / grid_checkbox
+  hint:
+  explanation:
+  image_name:
+  point: 
+  choices:
+    1:
+    2: 
+    3: 
+    4: 
+  questions:
+    - text:
+      answers: [3]
+    - text:
+      answers: [1]
+    - text: 
+      answers: [2]
+    - text: 
+      answers: [4, 2]
+```
