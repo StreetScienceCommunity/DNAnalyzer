@@ -130,7 +130,6 @@ def quiz_submit(chapter_id):
     db.session.add(new_score)
     db.session.commit()
     ranking = get_ranking(chapter_id)
-    print(ranking)
     return render_template("games/quiz_result.html", questions=questions_dump,
                            chapter=chapter_dump, score=cur_score, chapters=chapters, ranking=ranking)
 
@@ -187,3 +186,39 @@ def get_ranking(chapter_id):
     ranking_raw = db.engine.execute('select username, score, add_time, user_id from score, users where score.user_id = users.id and score.chapter_id = %s order by score DESC, add_time ASC limit 5' % (chapter_id))
     ranking = handle_addtime(ranking_raw)
     return ranking
+
+
+@bp.route('/level1/chapter/<chapter_id>/result')
+@login_required
+def chapter_result(chapter_id):
+    """
+    function for receiving quiz answers
+    @param chapter_id: the chapter id for showing related quiz result
+    @return: return result template
+    """
+    chapter_dump, chapters, questions_dump = left_chapter_menu_helper(chapter_id)
+    selected_choices_raw = db.engine.execute("select question.id as q_id,  choice.id as c_id from answer, chapter, choice, question where choice.question_id = question.id and question.chapter_id = chapter.id and choice.id = answer.choice_id and user_id = %s and chapter.id = %s order by question.id, choice.id" % (current_user.id, chapter_id))
+    ranking = get_ranking(chapter_id)
+
+    selected_choices = {}
+    for row in selected_choices_raw:
+        if str(row[0]) not in selected_choices:
+            selected_choices[str(row[0])] = []
+        selected_choices[str(row[0])].append(str(row[1]))
+
+    score = Score.query.filter_by(user_id=current_user.id, chapter_id=chapter_id).first()
+
+    for question in questions_dump:
+        if question['id'] not in selected_choices:
+            question['missed'] = True
+        for choice in question['choices']:
+            if choice['correctness']:
+                if choice['id'] in selected_choices[question['id']]:
+                    choice['state'] = 'correct'
+                else:
+                    choice['state'] = 'missed'
+            else:
+                if choice['id'] in selected_choices[question['id']]:
+                    choice['state'] = 'wrong'
+    return render_template("games/quiz_result.html", questions=questions_dump,
+                           chapter=chapter_dump, score=score.score, chapters=chapters, ranking=ranking)
