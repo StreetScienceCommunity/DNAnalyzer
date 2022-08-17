@@ -179,6 +179,7 @@ function add_option_input_field(question, choice, type){
                 myHTML += '</div>';
             }
         }
+		myHTML += `<a href="/level1/chapter/${chapter.id}" style="text-decoration:none;"><button type="button" class="button is-fullwidth start_tbn mt-3 "> Retry </button></a>`
         $('#quiz').html(myHTML);
     });
 </script>
