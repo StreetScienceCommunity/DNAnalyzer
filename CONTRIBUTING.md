@@ -87,41 +87,41 @@ For adding questions in `quiz.yaml`, we need to add each one under variable `que
 there are 4 types of questions (choose_one, choose_many, grid, grid_checkbox), and templates for each type of questions:
 For choose_one and choose_many type questions:
 ```
-- title:
+- title: # title of the question
   type: choose_one / choose_many
-  hint:
-  explanation:
-  image_name:
-  point:
+  hint: # hint of the question
+  explanation: # explanation of the question shown on the result page
+  image_name: # name with extension of the image file (which is stored in the images folder in the current chapter)
+  point: # points the user will get if it's answered correctly
   choices:
-    - 1:
-      correct: false
-    - 2:
-      correct: true
-    - 3:
-      correct: false
+    - 1: # text of the choice
+      correct: true / false
+    - 2: # text of the choice
+      correct: true / false
+     ...
 ```
 
 For grid, grid_checkbox questions:
 ```
-- title:
+- title: # title of the question
   type: grid / grid_checkbox
-  hint:
-  explanation:
-  image_name:
-  point: 
+  hint: # hint of the question
+  explanation: # explanation of the question shown on the result page
+  image_name: # name with extension of the image file (which is stored in the images folder in the current chapter)
+  point: # points the user will get if it's answered correctly
   choices:
-    1:
-    2: 
-    3: 
-    4: 
+    1: # text of the choice
+    2: # text of the choice
+    3: # text of the choice
+    4: # text of the choice
   questions:
-    - text:
-      answers: [3]
-    - text:
-      answers: [1]
-    - text: 
-      answers: [2]
-    - text: 
-      answers: [4, 2]
+    - text: # text of the sub-question
+      answers: [3] # list of choices which are correct, for grid questions, there should only be one element in the list
+    - text: # text of the sub-question
+      answers: [1,3] # list of choices which are correct, for grid questions, there should only be one element in the list
+    - text: # text of the sub-question
+      answers: [2] # list of choices which are correct, for grid questions, there should only be one element in the list
+    - text: # text of the sub-question
+      answers: [4, 2] # list of choices which are correct, for grid questions, there should only be one element in the list
+    ...
 ```
