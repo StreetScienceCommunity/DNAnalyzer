@@ -49,4 +49,36 @@ And feel free to contact us with new ideas at any time via the [an issue](issues
 
 ## More specific questions and answers
 
+### How do I add new questions?
 
+There's a folder `game` in the project root. The folder structure is shown below:
+```bash
+├──   game
+│   └──   level1
+│       ├──   chapter1
+│       │   ├──   quiz.yaml
+│       │   ├──   images
+│       │   │   ├──   bird_and_lizard.png
+│       │   │   ├──   cell.png
+│       │   │   ├──   ...
+│       ├──   chapter2
+│       │   ├──   quiz.yaml
+│       │   ├──  images
+│       │   │   ├──   dna-with-mutation.png
+│       │   │   ├──   ...
+│       ├──   chapter3
+│       │   ├──   quiz.yaml
+│       │   ├──   images
+│       │   │   ├──   dna-sequencing_med.png
+│       │   │   ├──   ...
+│   └──   level2
+│       ├──   chapter1
+│       │   ├──   quiz.yaml
+│       │   ├──   images
+│       │   │   ├──   ...
+```
+
+In order to add a new chapter:
+1. add the corresponding chapter folder with the name "chapter", followed by the incremental chapter ID.
+2. In this folder, create a new file `quiz.yaml`, which stores all the questions within the chapter. 
+3. Create a new folder `images`, and put all the images needed for the chapter into it.
