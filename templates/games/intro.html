@@ -8,7 +8,11 @@
 			<li><a class="is-active" href="/level1/intro"> Overview </a></li>
 				{% for c in chapters %}
 					<li class="mt-4">
-						<a href="/level1/chapter/{{c.id}}"> Chapter {{c.id}}: {{c.name}}
+						<a href="					{% if c.done == 1 %}
+						/level1/chapter/{{c.id}}/result
+					{% else %}
+						/level1/chapter/{{c.id}}
+					{% endif %}"> Chapter {{c.id}}: {{c.name}}
 							{% if c.done == 1 %}
 								<span class="icon-text has-text-success">
 									<span class="icon">
