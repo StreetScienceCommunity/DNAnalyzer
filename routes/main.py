@@ -145,12 +145,13 @@ def left_chapter_menu_helper(chapter_id=0):
         chapter_dump = chapter_schema.dump(chapter)
     chapters = Chapter.query.all()
     chapters = chapters_schema.dump(chapters)
-    done_chapters = db.engine.execute('select chapter_id from score where user_id = %s' % (current_user.id))
-    done_chapters_list = [row[0] for row in done_chapters]
-    if done_chapters_list:
-        for ch in chapters:
-            if ch['id'] in done_chapters_list:
-                ch['done'] = 1
+    if current_user.is_authenticated:
+        done_chapters = db.engine.execute('select chapter_id from score where user_id = %s' % (current_user.id))
+        done_chapters_list = [row[0] for row in done_chapters]
+        if done_chapters_list:
+            for ch in chapters:
+                if ch['id'] in done_chapters_list:
+                    ch['done'] = 1
     if chapter_id != 0:
         return chapter_dump, chapters, questions_dump
     else:
