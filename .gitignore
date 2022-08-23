@@ -8,4 +8,3 @@ videos
 .jekyll-cache
 .idea/
 db_config.py
-myvenv

@@ -84,11 +84,10 @@ Detailed installation instructions below
    ```
 
 3. Navigate to the `DNAnalyzer` folder with `cd`
-4. Set up and activate Python `virtualenv`:
+4. It's ideal to use a virtual environment for python. For consistency, we recommend to use `conda`:
 
    ```
-   python3 -m venv ./myvenv
-   source myvenv/bin/activate
+   conda activate myenv
    ```
 
 5. Install the project's dependencies:

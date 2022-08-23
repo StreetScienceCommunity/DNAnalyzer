@@ -7,3 +7,4 @@ Flask-SQLAlchemy
 marshmallow
 marshmallow-sqlalchemy
 psycopg2
+pyyaml
