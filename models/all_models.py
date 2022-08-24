@@ -8,13 +8,13 @@ from datetime import datetime
 
 class Users(db.Model, UserMixin):
     __tablename__ = "users"
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.BigInteger, primary_key=True)
     username = db.Column(db.String(), unique=True, nullable=False)
     password = db.Column(db.String(), nullable=False)
 
 
 class Choice(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.BigInteger, primary_key=True)
     content = db.Column(db.String(), nullable=False)
     correctness = db.Column(db.Boolean(), nullable=False)
     question_id = db.Column(db.Integer, db.ForeignKey('question.id'), nullable=False)
@@ -46,7 +46,7 @@ choiceswithanswers_schema = ChoicewithanwersSchema(many=True)
 
 
 class Question(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.BigInteger, primary_key=True)
     title = db.Column(db.String(), nullable=False)
     description = db.Column(db.String())
     type = db.Column(db.String(), nullable=False)
@@ -99,11 +99,11 @@ questionswithanswers_schema = QuestionwithanswersSchema(many=True)
 
 class Chapter(db.Model):
     id = db.Column(db.BigInteger, primary_key=True)
-    order_id = db.Column(db.Integer, nullable=False)
     total_score = db.Column(db.Integer, nullable=False)
     level_id = db.Column(db.Integer, db.ForeignKey('level.id'), nullable=False)
     url = db.Column(db.String(), nullable=False)
     name = db.Column(db.String(), nullable=False)
+    order_id = db.Column(db.Integer, nullable=False)
     questions = db.relationship('Question', backref='chapter', order_by=Question.id)
 
 
@@ -124,13 +124,13 @@ chapters_schema = ChapterSchema(many=True)
 
 
 class Level(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.BigInteger, primary_key=True)
     name = db.Column(db.String(), unique=True, nullable=False)
     chapters = db.relationship('Chapter', backref=db.backref('level', lazy=True))
 
 
 class Answer(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.BigInteger, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     user = db.relationship('Users', backref=db.backref('answers', lazy=True))
     choice_id = db.Column(db.Integer, nullable=False)
@@ -141,10 +141,9 @@ class Answer(db.Model):
 
 
 class Score(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.BigInteger, primary_key=True)
     score = db.Column(db.Integer, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     user = db.relationship('Users', backref=db.backref('scores', lazy=True))
-    chapter_id = db.Column(db.Integer, db.ForeignKey('chapter.id'), nullable=False)
-    chapter = db.relationship('Chapter', backref=db.backref('scores', lazy=True))
+    chapter_id = db.Column(db.BigInteger, nullable=False)
     add_time = db.Column(db.DateTime(), nullable=False, default=datetime.utcnow)
