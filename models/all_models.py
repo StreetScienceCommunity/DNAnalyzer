@@ -98,7 +98,8 @@ questionswithanswers_schema = QuestionwithanswersSchema(many=True)
 
 
 class Chapter(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.BigInteger, primary_key=True)
+    order_id = db.Column(db.Integer, nullable=False)
     total_score = db.Column(db.Integer, nullable=False)
     level_id = db.Column(db.Integer, db.ForeignKey('level.id'), nullable=False)
     url = db.Column(db.String(), nullable=False)
@@ -115,6 +116,7 @@ class ChapterSchema(ma.SQLAlchemySchema):
     url = auto_field()
     name = auto_field()
     total_score = auto_field()
+    order_id = auto_field()
 
 
 chapter_schema = ChapterSchema()
