@@ -129,6 +129,19 @@ class Level(db.Model):
     chapters = db.relationship('Chapter', backref=db.backref('level', lazy=True))
 
 
+class LevelSchema(ma.SQLAlchemySchema):
+    class Meta:
+        model = Level
+
+    id = auto_field()
+    name = auto_field()
+    chapters = auto_field()
+
+
+level_schema = LevelSchema()
+levels_schema = LevelSchema(many=True)
+
+
 class Answer(db.Model):
     id = db.Column(db.BigInteger, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)

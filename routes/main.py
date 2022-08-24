@@ -56,21 +56,24 @@ def logout():
 
 @bp.route('/level/1/intro')
 def intro():
-    chapters = left_chapter_menu_helper()
-    return render_template("games/intro.html", chapters=chapters)
+    level_dict = left_chapter_menu_helper()
+    return render_template("games/intro.html", level_dict=level_dict)
 
 
 @bp.route('/level/<level_id>/chapter/<chapter_id>')
 @login_required
-def chapter(chapter_id):
+def chapter(level_id, chapter_id):
     """
     view function for quiz page
+    @param level_id: the level id for showing related quiz questions
     @param chapter_id: the chapter id for showing related quiz questions
     @return: the template for quiz
     """
-    chapter_dump, chapters, questions_dump = left_chapter_menu_helper(chapter_id)
+    cur_chapter_raw = db.engine.execute('select * from chapter where level_id = %s and order_id = %s' % (level_id, chapter_id))
+    cur_chapter = [dict(row) for row in cur_chapter_raw]
+    chapter_dump, level_dict, questions_dump = left_chapter_menu_helper(cur_chapter[0]['id'])
     return render_template("games/chapter.html", questions=questions_dump, chapter=chapter_dump,
-                           chapters=chapters)
+                           level_dict=level_dict)
 
 
 @bp.route('/quiz/<chapter_id>/submit', methods=['POST'])
@@ -138,24 +141,36 @@ def left_chapter_menu_helper(chapter_id=0):
     """
         helper function to return all data needed for the chapter menu
     """
+    levels = Level.query.all()
+    levels = levels_schema.dump(levels)
+    level_dict = {}
+    for lvl in levels:
+        if lvl['chapters']:
+            level_dict[lvl['id']] = []
+            for ch in lvl['chapters']:
+                chapter = Chapter.query.get(ch)
+                chapter = chapter_schema.dump(chapter)
+                level_dict[lvl['id']].append(chapter)
+
     if chapter_id != 0:
         questions = Question.query.filter_by(chapter_id=chapter_id).order_by(Question.id).all()
         questions_dump = questionswithanswers_schema.dump(questions)
         chapter = Chapter.query.get(chapter_id)
         chapter_dump = chapter_schema.dump(chapter)
-    chapters = Chapter.query.all()
-    chapters = chapters_schema.dump(chapters)
+
     if current_user.is_authenticated:
         done_chapters = db.engine.execute('select chapter_id from score where user_id = %s' % (current_user.id))
         done_chapters_list = [row[0] for row in done_chapters]
         if done_chapters_list:
-            for ch in chapters:
-                if ch['id'] in done_chapters_list:
-                    ch['done'] = 1
+            for chapters in level_dict.values():
+                for ch in chapters:
+                    if ch['id'] in done_chapters_list:
+                        ch['done'] = 1
+
     if chapter_id != 0:
-        return chapter_dump, chapters, questions_dump
+        return chapter_dump, level_dict, questions_dump
     else:
-        return chapters
+        return level_dict
 
 
 def handle_addtime(result_raw):
@@ -189,17 +204,20 @@ def get_ranking(chapter_id):
     return ranking
 
 
-@bp.route('/level1/chapter/<chapter_id>/result')
+@bp.route('/level/<level_id>/chapter/<chapter_id>/result')
 @login_required
-def chapter_result(chapter_id):
+def chapter_result(level_id, chapter_id):
     """
     function for receiving quiz answers
     @param chapter_id: the chapter id for showing related quiz result
     @return: return result template
     """
-    chapter_dump, chapters, questions_dump = left_chapter_menu_helper(chapter_id)
-    selected_choices_raw = db.engine.execute("select question.id as q_id,  choice.id as c_id from answer, chapter, choice, question where choice.question_id = question.id and question.chapter_id = chapter.id and choice.id = answer.choice_id and user_id = %s and chapter.id = %s order by question.id, choice.id" % (current_user.id, chapter_id))
-    ranking = get_ranking(chapter_id)
+    cur_chapter_raw = db.engine.execute(
+        'select * from chapter where level_id = %s and order_id = %s' % (level_id, chapter_id))
+    cur_chapter = [dict(row) for row in cur_chapter_raw]
+    chapter_dump, level_dict, questions_dump = left_chapter_menu_helper(cur_chapter[0]['id'])
+    selected_choices_raw = db.engine.execute("select question.id as q_id,  choice.id as c_id from answer, chapter, choice, question where choice.question_id = question.id and question.chapter_id = chapter.id and choice.id = answer.choice_id and user_id = %s and chapter.id = %s order by question.id, choice.id" % (current_user.id, cur_chapter[0]['id']))
+    ranking = get_ranking(cur_chapter[0]['id'])
 
     selected_choices = {}
     for row in selected_choices_raw:
@@ -207,7 +225,7 @@ def chapter_result(chapter_id):
             selected_choices[str(row[0])] = []
         selected_choices[str(row[0])].append(str(row[1]))
 
-    score = Score.query.filter_by(user_id=current_user.id, chapter_id=chapter_id).first()
+    score = Score.query.filter_by(user_id=current_user.id, chapter_id=cur_chapter[0]['id']).first()
 
     for question in questions_dump:
         if question['id'] not in selected_choices:
@@ -222,4 +240,4 @@ def chapter_result(chapter_id):
                 if choice['id'] in selected_choices[question['id']]:
                     choice['state'] = 'wrong'
     return render_template("games/quiz_result.html", questions=questions_dump,
-                           chapter=chapter_dump, score=score.score, chapters=chapters, ranking=ranking)
+                           chapter=chapter_dump, score=score.score, level_dict=level_dict, ranking=ranking)

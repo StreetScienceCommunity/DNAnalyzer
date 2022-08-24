@@ -6,24 +6,29 @@
 		<div class="quiz quiz-menu column is-one-fifth mt-6">
 			<aside class="menu mt-6">
 				<ul class="menu-list">
-				<li><a href="/level1/intro"> Overview </a></li>
-				{% for c in chapters %}
-					<li class="mt-4">
-						<a {% if c.id == chapter.id %} class="is-active" {% endif %} href="{% if c.done == 1 %}
-						/level1/chapter/{{c.id}}/result
-					{% else %}
-						/level1/chapter/{{c.id}}
-					{% endif %}"> Chapter {{c.id}}: {{c.name}}
-							{% if c.done == 1 %}
-								<span class="icon-text has-text-success">
-									<span class="icon">
-									<i class="fas fa-check-square"></i>
-									</span>
-								</span>
-							{% endif %}
-						</a>
-					</li>
-				{% endfor %}
+				{% if level_dict %}
+					{% for lvl_id, chapters in level_dict.items() %}
+						<li><a href="/level/{{lvl_id}}/intro"> Level {{lvl_id}} Overview </a></li>
+						{% for c in chapters %}
+							<li class="mt-4">
+									<a {% if c.id == chapter.id %} class="is-active" {%endif%}
+										href="{% if c.done == 1 %}
+											/level/{{lvl_id}}/chapter/{{c.order_id}}/result
+										{% else %}
+											/level/{{lvl_id}}/chapter/{{c.order_id}}
+										{% endif %}"> Chapter {{c.id}}: {{c.name}}
+									{% if c.done == 1 %}
+										<span class="icon-text has-text-success">
+											<span class="icon">
+											<i class="fas fa-check-square"></i>
+											</span>
+										</span>
+									{% endif %}
+								</a>
+							</li>
+						{% endfor %}
+					{% endfor %}
+				{% endif %}
 				</ul>
 			</aside>
 		</div>
