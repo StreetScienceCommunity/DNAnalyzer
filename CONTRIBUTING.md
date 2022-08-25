@@ -79,7 +79,7 @@ There's a folder `game` in the project root. The folder structure is shown below
 ```
 
 In order to add a new chapter:
-1. add the corresponding chapter folder with the name "chapter", followed by the incremental chapter ID.
+1. Add the new chapter folder with the name "chapter", followed by the incremental chapter ID.
 2. In this folder, create a new file `quiz.yaml`, which stores all the questions within the chapter. 
 3. Create a new folder `images`, and put all the images needed for the chapter into it.
 
