@@ -7,9 +7,9 @@ total_score: 23
 questions:
 
 # 1
-- title: Where is DNA contained in eukaryotic cells?
+- title: Where can you find DNA in a eukaryotic cell?
   type: choose_one
-  hint:
+  hint: Eukaryotic cells have there DNA enclosed by a membrane.
   explanation: Eukaryotic cells have a nucleus surrounded by a nuclear envelope that consists of two lipid membranes. The nucleus holds the eukaryotic cell's DNA. Mitochondria are an other cell compartment enclosed by a lipid membrane of eukaryotic cells. It is holding its own DNA the mitogenome. Prokaryotic cells do not have a nucleus; rather, they have a membrane less nucleoside region (open part of the cell) that holds free-floating DNA.
   image_name:
   point: 3
@@ -22,9 +22,9 @@ questions:
       correct: true
 
 # 2
-- title: How DNA also can be called?
+- title: How is DNA also called?
   type: choose_one
-  hint:
+  hint: DNA is a shortcut for? Our DNA contains all information we need to live. 
   explanation: DNA stands for deoxyribonucleic acid and it includes instructions needed for an organism to grow, develop, live, and reproduce. Therefore, it is also known as the blueprint of life.
   image_name:
   point: 3
@@ -41,9 +41,9 @@ questions:
       correct: false
 
 # 3
-- title: Mutations are always bad.
+- title: Mutations are always bad. Is this statement true or false?
   type: choose_one
-  hint:
+  hint: How do species evolve over time?
   explanation: A mutation could lead to a better adjustment to a certain condition, like hot weather.
   image_name:
   point: 2
@@ -54,10 +54,10 @@ questions:
       correct: true
 
 # 4
-- title: Mutations are insignificant for evolution.
+- title: Mutations are insignificant for evolution. Is this statement true or false?
   type: choose_one
-  hint:
-  explanation: Mutations are essential to evolution; they are the raw material of genetic variation.
+  hint: What is needed for an organism to change?
+  explanation: Mutations are essential for evolution; they ensure genetic variation.
   image_name:
   point: 2
   choices:
@@ -67,9 +67,9 @@ questions:
       correct: true
 
 # 5
-- title: Mutations can help the next generations to adapt for humid climate.
+- title: Mutations can help the next generations to adapt for hot climate.
   type: choose_one
-  hint:
+  hint: There are genes encoding skin pigmentation. 
   explanation: A mutation could lead to a better adjustment to a certain condition, like hot weather.
   image_name:
   point: 2
@@ -82,7 +82,7 @@ questions:
 # 6
 - title: What are the bases of DNA?
   type: choose_many
-  hint:
+  hint: The shortcuts for each Base are used to describe the genetic alphabet, e.g. {A,T,C,G} for DNA.
   explanation: Adenine, thymine, cytosine, and guanine are building blocks of DNA while in RNA there is uracil instead of thymine. A chromosome is a long DNA molecule with part or all of the genetic material of an organism. Protein is a gene product resulting from expression of a gene.
   image_name:
   point: 5
@@ -103,29 +103,29 @@ questions:
       correct: true
 
 # 7
-- title: How does a cell pack its genetic information?
+- title: How is the genetic information packaged within a cell?
   type: choose_one
-  hint:
+  hint: The DNA should take very little space, but parts should be easily accessible.
   explanation: In a eucaryotic cell genetic material is tightly packaged into chromosomes.
   image_name:
   point: 3
   choices:
-    - 1: The cell cuts them into very small pieces.
+    - 1: It is cut into very small pieces.
       correct: false
-    - 2: The cell rolls them very tightly.
+    - 2: It is rolled up very tightly.
       correct: true
-    - 3: The cell he folds them up.
+    - 3: It is folded into a specific shape.
       correct: false
 
 # 8
 - title: Do tomatoes contain DNA? Humans contain DNA - monkeys, dogs, and other animals too. What about the vegetables we eat?
   type: choose_one
-  hint:
+  hint: DNA is an essential part of any life. 
   explanation: Plants are living organisms, and fruits and vegetables are also made up of living cells. Almost all cells contain DNA. There are only a few cells that do not contain any genetic information (for example, in humans, these are red blood cells).
   image_name:
   point: 3
   choices:
-    - 1: No, cells in fruits and vegetables do not contain DNA.
+    - 1: No, fruits and vegetables do not contain DNA.
       correct: false
     - 2: Yes, tomatoes are made up of cells that contain DNA.
       correct: true
