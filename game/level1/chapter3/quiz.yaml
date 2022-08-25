@@ -7,9 +7,9 @@ total_score: 16
 questions:
 
 # 1
-- title: What is the other name of Sanger sequencing?
+- title: What is a different name for Sanger sequencing?
   type: choose_one
-  hint:
+  hint: Since Sanger sequencing was this first it is also the least scalable sequencing technique. 
   explanation: Sanger DNA sequencing is also known as the chain-termination method of sequencing. The Sanger technique uses dideoxynucleotides or ddNTPs in addition to typical deoxynucleotides (dNTPs) in the reaction. ddNTPs result in termination of the DNA strand because ddNTPs lack the 3’-OH group required for phosphodiester bond formation between nucleotides. Without this bond, the chain of nucleotides being formed is terminated.
   image_name:
   point: 3
@@ -26,8 +26,8 @@ questions:
 # 2
 - title: Sanger sequencing is
   type: choose_one
-  hint:
-  explanation:
+  hint: Used in the human genome project.
+  explanation: Sanger sequencing is the first generation of sequencers. Compared to subsequent methods it is very slow and cost-intensive. But it enabled the start of the first complete sequencing of the human genome (human genome project) and all development it engendered. 
   image_name:
   point: 2
   choices:
@@ -44,8 +44,8 @@ questions:
 # 3
 - title: Which of these DNA sequencing methods are called the 3rd generation?
   type: choose_one
-  hint:
-  explanation:
+  hint: The 3rd generation sequencing methods are the latest sequencing techniques. 
+  explanation: Nanopore sequencing is called the 3rd sequencing generation. By passing the DNA through a nanopore a current pattern is generated and the sequence is deducted from that current pattern.   
   image_name:
   point: 3
   choices:
@@ -57,10 +57,10 @@ questions:
       correct: false
 
 # 4
-- title: Nanopore sequencing method was developed by
+- title: The nanopore sequencing method was developed by ...
   type: choose_one
-  hint:
-  explanation: Chain termination method was developed by Sanger, that is why it is also called Sanger sequencing method. In the same year, another chemical method of DNA sequencing was explained by Allan Maxam and Walter Gilbert. In 2014 the company Oxford Nanopore released its first portable nanopore sequencing device.
+  hint: The nanopore sequencing method was developed by a group of people. 
+  explanation:  In 2014 the company Oxford Nanopore released its first portable nanopore sequencing device.
   image_name:
   point: 2
   choices:
@@ -74,8 +74,8 @@ questions:
 # 5
 - title: A fresh cheese sample, form the  French cheese Bleu de Velay, can still ripe while it its prepared for DNA sequencing.  What should you do?
   type: choose_one
-  hint:
-  explanation:
+  hint: DNA does not change rapidly over time. 
+  explanation: The ripening of cheese is a process with numerous chemical processes. However, if cells are not damaged within the process, the DNA is not changed. There are numerous studies investigating the microbiome of different cheeses. 
   image_name:
   point: 6
   choices:
