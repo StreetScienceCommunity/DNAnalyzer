@@ -157,7 +157,7 @@ questions:
 # 10
 - title: Bacteria are
   type: choose_one
-  hint: There are 3 domains existing: Archaea, Bacteria, and Eukarya
+  hint: 'There are 3 domains existing: Archaea, Bacteria, and Eukarya'
   explanation: Prokaryotic organisms belong either to the domain Archaea or the domain Bacteria; organisms with eukaryotic cells belong to the domain Eukarya
   image_name:
   point: 2
