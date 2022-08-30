@@ -9,8 +9,8 @@ questions:
 # 1
 - title: We have the following alignment. What is colored by red?
   type: choose_one
-  hint:
-  explanation: Comparing the sequences it could be that one of the sequences has a different nucleotide in one position. This is called a Mismatch like the C to T in the red box. It could also happen that there is no nucleotide in the second sequence to the one in the first like the G in the blue box. This is called a gap. Mismatches in the alignment correspond to mutations, and gaps correspond to insertions or deletions.
+  hint: A match means the nucleotides are the same in both sequences. 
+  explanation: Comparing the sequences it could be that one of the sequences has a different nucleotide in one position. This is called a mismatch like the C to T in the red box. Mismatches in the alignment correspond to mutations.
   image_name: alignment_question.png
   point: 3
   choices:
@@ -28,8 +28,8 @@ questions:
 # 2
 - title: We have the following alignment. What is colored by green?
   type: choose_one
-  hint:
-  explanation: Comparing the sequences it could be that one of the sequences has a different nucleotide in one position. This is called a Mismatch like the C to T in the red box. It could also happen that there is no nucleotide in the second sequence to the one in the first like the G in the blue box. This is called a gap. Mismatches in the alignment correspond to mutations, and gaps correspond to insertions or deletions.
+  hint: Is there a difference between the two green-colored nucleotides?
+  explanation: If the nucleotide is the same in the first and second sequences it is called a match, here indicated by the green color. 
   image_name: alignment_question.png
   point: 3
   choices:
@@ -46,10 +46,10 @@ questions:
 
 
 # 3
-- title: We have the following alignment. What is colored by green?
+- title: We have the following alignment. What is colored by blue?
   type: choose_one
-  hint:
-  explanation: Comparing the sequences it could be that one of the sequences has a different nucleotide in one position. This is called a Mismatch like the C to T in the red box. It could also happen that there is no nucleotide in the second sequence to the one in the first like the G in the blue box. This is called a gap. Mismatches in the alignment correspond to mutations, and gaps correspond to insertions or deletions.
+  hint: A insertion or deletion means that over time a new nucleotide is added or is missing in the DNA sequence. 
+  explanation: Comparing the sequences it could be that one of the sequences has a different nucleotide in one position. It could also happen that there is no nucleotide in the second sequence to the one in the first like the G in the blue box. This is called a gap. Mismatches in the alignment correspond to mutations, and gaps correspond to insertions or deletions.
   image_name: alignment_question.png
   point: 3
   choices:

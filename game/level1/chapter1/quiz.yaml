@@ -23,7 +23,7 @@ questions:
 # 2
 - title: What are biological survival benefits for a population?
   type: choose_one
-  hint: Change in an organism's environment forces the organism to adapt to fit the new environment, eventually causing it to evolve into a new species. But it might be just one of conditions for evolution, not the biological reason. 
+  hint: Change in an organism's environment forces the organism to adapt to fit the new environment. How can an organism adapt to this new environment?
   explanation: Mutations occur throughout the natural world. Some mutations are beneficial and increase the possibility that an organism will thrive and pass on its genes to the next generation. When mutations improve survival or reproduction, the process of natural selection will cause the mutation to become more common over time. Therefore, mutations can be bad for the individual but overall beneficial for a population. Niche properties like the color changing of lizards can be crucial for there survival. They are not as easy to find by animals who would like to eat them and therefore can survive longer than other species.
   image_name:
   point: 2
@@ -40,7 +40,7 @@ questions:
 # 3
 - title: This salamander did not use its eyes so it lost its vision. Who said if you don't use it you lose it?
   type: choose_one
-  hint: Lamarck thought that organisms changed out of need and after a change in the environment.On the other hand, Darwin thought organisms changed by chance when they were born and before there was a change in the environment.
+  hint: Lamarck thought that organisms changed out of need and after a change in the environment. On the other hand, Darwin thought organisms changed by chance when they were born and before there was a change in the environment.
   explanation: The Lamarck's idea is organisms gaining abilities if they need them and losing others if they don't need them.
   image_name: salamander.jpg
   point: 2
@@ -87,7 +87,7 @@ questions:
 # 6
 - title: What do humans and bananas have in common?
   type: choose_many
-  hint:
+  hint: There are processes and actions within organisms that are the same and therefore use the same 'tool kit'.
   explanation: All living things evolved from a common ancestor. Therefore, humans, animals and other organisms share many of the same genes, and the molecules made from them function in similar ways. For example, the human and mouse genomes are about 85 percent the same.
   image_name:
   point: 4
@@ -117,7 +117,7 @@ questions:
       correct: false
 
 # 8
-- title: Choose non-hereditary traits
+- title: Choose the non-hereditary traits
   type: choose_many
   hint:
   explanation: Genetic relations among languages are not biologically based, but are defined by cultural transmission from generation to generation. That is, languages are learned, not inherited via the genes. The fingerprint of identical twins (same set of chromosomes) is different and not inherited genetically.
@@ -136,28 +136,28 @@ questions:
       correct: false
 
 # 9
-- title: Choose hereditary traits
+- title: Choose the hereditary traits
   type: choose_one1
   hint:
   explanation:
   image_name:
   point: 4
   choices:
-    - 1: Hair length
+    - 1: hair length
       correct: false
-    - 2: Color of the skin
+    - 2: color of the skin
       correct: true
-    - 3: Piercing
+    - 3: piercing
       correct: false
-    - 4: Height
+    - 4: height
       correct: true
-    - 5: Hair color
+    - 5: hair color
       correct: true
 
 # 10
 - title: Bacteria are
   type: choose_one
-  hint: "There are 3 domains existing: Archaea, Bacteria, and Eukarya"
+  hint: There are 3 domains existing: Archaea, Bacteria, and Eukarya
   explanation: Prokaryotic organisms belong either to the domain Archaea or the domain Bacteria; organisms with eukaryotic cells belong to the domain Eukarya
   image_name:
   point: 2
@@ -168,10 +168,10 @@ questions:
       correct: false
 
 # 11
-- title: Prokaryotic cells consist of
+- title: Prokaryotic cells consist of ...
   type: choose_many
-  hint:
-  explanation: Prokaryotic cells do not have a nucleus; rather, they have a membraneless nucleoid region (open part of the cell) that holds free-floating DNA
+  hint: Prokaryotic cells do not inner membrane-based partitions or compartments.
+  explanation: Prokaryotic cells do not have a nucleus; rather, they have a membraneless nucleoid region (open part of the cell) that holds free-floating DNA. Furthermore, they do not mitochondria, instead they produce their ATP on the cell surface membrane.
   image_name:
   point: 6
   choices:
@@ -189,9 +189,9 @@ questions:
       correct: true
 
 # 12
-- title: Size of prokaryotic cell
+- title: What is the size of prokaryotic cell?
   type: choose_one
-  hint: eukaryotic cell size is from 10 to 100 micrometres
+  hint: A eukaryotic cell is from 10 to 100 micrometres wide.
   explanation: Eukaryotic cell size is from 10 to 100 micrometres, prokaryotic cell size is smaller - from 0.1 to 5 micrometres.
   image_name:
   point: 2
@@ -204,7 +204,7 @@ questions:
       correct: false
 
 #13
-- title: Sort these things in order from smallest (Size 1) to largest (Size 7).
+- title: Sort the following objects in ascending order, from smallest (Size 1) to largest (Size 7).
   type: grid
   hint: Change in an organism's environment forces the organism to adapt to fit the new environment, eventually causing it to evolve into a new species. But it might be just one of conditions for evolution, not the biological reason. 
   explanation: Mutations occur throughout the natural world. Some mutations are beneficial and increase the possibility that an organism will thrive and pass on its genes to the next generation. When mutations improve survival or reproduction, the process of natural selection will cause the mutation to become more common over time. Therefore, mutations can be bad for the individual but overall beneficial for a population. Niche properties like the color changing of lizards can be crucial for there survival. They are not as easy to find by animals who would like to eat them and therefore can survive longer than other species.
