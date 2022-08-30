@@ -54,10 +54,10 @@ def logout():
     return redirect(url_for('dnapi.login'))
 
 
-@bp.route('/level/1/intro')
-def intro():
+@bp.route('/level/<level_id>/intro')
+def intro(level_id):
     level_dict = left_chapter_menu_helper()
-    return render_template("games/intro.html", level_dict=level_dict)
+    return render_template("games/level%s/intro.html" % level_id, level_dict=level_dict)
 
 
 @bp.route('/level/<level_id>/chapter/<chapter_id>')
