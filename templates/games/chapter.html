@@ -43,7 +43,28 @@
 				{% endif %}
 			</div>
 			<hr>
-			<div id="quiz"></div>
+			{% if questions %}
+				<div id="quiz"></div>
+			{% endif %}
+			{% if chapter.id == 8 %}
+				<div class="m-3">
+					<h1 class="is-size-4 mb-4">Please enter the url of your shared Galaxy history below</h1>
+					<form action="">
+						<div class="field mb-4">
+						  <p class="control has-icons-left">
+							<input class="input" type="url" placeholder="History Link">
+						  </p>
+						</div>
+						<div class="field">
+						  <p class="control">
+							<button class="button is-info is-fullwidth">
+							  Submit
+							</button>
+						  </p>
+						</div>
+					</form>
+				</div>
+			{% endif %}
 		</div>
 </div>
 
