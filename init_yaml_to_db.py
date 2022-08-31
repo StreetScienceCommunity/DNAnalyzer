@@ -1,3 +1,5 @@
+import collections
+
 import yaml
 import os
 import pg_instance as pgdb
@@ -14,10 +16,16 @@ keys = ['title',
         # 'choices',
         # 'correct',
         ]
-
 q_id = 1
 choice_id = 1
-chapter_id_global = 1
+chapter_id_overall = 1
+
+
+def int_to_string_helper(s):
+    if s is None:
+        return ""
+    else:
+        return str(s)
 
 
 def parse_grid_question(q, chapter_id):
@@ -125,29 +133,35 @@ def show_json(base_dir, chapter_id, cur_lvl):
         base_dir (str): directory with data files to be loaded
         chapter_id (str): chapter id
     """
+    global chapter_id_overall
     in_file = os.path.join(base_dir, 'quiz' + '.yaml')
     q_file = os.path.join(base_dir, 'questions' + '.csv')
     c_file = os.path.join(base_dir, 'choices' + '.csv')
     chapter_file = os.path.join(base_dir, 'chapter' + '.csv')
-    global chapter_id_global
 
     with open(in_file, "r") as yaml_doc:
         yaml_to_dict = yaml.load(yaml_doc, Loader=yaml.FullLoader)
 
     q_csv = []
     c_csv = []
-    chapter_csv = str(chapter_id_global) + '|' + str(yaml_to_dict['total_score']) + '|' + str(cur_lvl) + '|' + \
-                  yaml_to_dict['video_url'] + '|' + yaml_to_dict['chapter_name'] + '|' + str(chapter_id)
-    chapter_id_global += 1
 
-    for q in yaml_to_dict['questions']:
-        if q['type'] in ['choose_one', 'choose_many']:
-            q_csv.append(parse_normal_question(q, chapter_id))
-            c_csv.extend(parse_normal_choices(q))
-        if q['type'] in ['grid_checkbox', 'grid']:
-            tmp_q, tmp_c = parse_grid_question(q, chapter_id)
-            q_csv.extend(tmp_q)
-            c_csv.extend(tmp_c)
+    chapter_csv = str(chapter_id_overall) + '|' \
+                  + int_to_string_helper(yaml_to_dict['total_score']) + '|' \
+                  + str(cur_lvl) + '|' + \
+                  int_to_string_helper(yaml_to_dict['video_url']) + '|' \
+                  + int_to_string_helper(yaml_to_dict['chapter_name']) + '|' \
+                  + str(chapter_id)
+    chapter_id_overall += 1
+
+    if yaml_to_dict['questions']:
+        for q in yaml_to_dict['questions']:
+            if q['type'] in ['choose_one', 'choose_many']:
+                q_csv.append(parse_normal_question(q, chapter_id))
+                c_csv.extend(parse_normal_choices(q))
+            if q['type'] in ['grid_checkbox', 'grid']:
+                tmp_q, tmp_c = parse_grid_question(q, chapter_id)
+                q_csv.extend(tmp_q)
+                c_csv.extend(tmp_c)
 
     try:
         with open(chapter_file, "w") as out_file:
@@ -249,18 +263,35 @@ def yaml_to_db():
     base_dir = 'game/'
     host = "localhost"
     port = 5432
-    total_levels = 1
+    max_lvl = 0
+    lvl_dict = {}
+    global q_id, choice_id, chapter_id_overall
+
+    # iterate through game folder, find max level and max chapter for each level
+    for lvl_folder in os.scandir(base_dir):
+        if lvl_folder.name.startswith("level"):
+            cur_lvl = int(lvl_folder.name[5:])
+            max_lvl = max(cur_lvl, max_lvl)
+            max_chap = 0
+            for chapter_folder in os.scandir(base_dir+'/'+lvl_folder.name+'/'):
+                if chapter_folder.name.startswith("chapter"):
+                    max_chap = max(int(chapter_folder.name[7:]), max_chap)
+            lvl_dict[cur_lvl] = max_chap
+    lvl_dict = collections.OrderedDict(sorted(lvl_dict.items()))
+
+    # clear level chapter and choice tables in the database
     if clear_tables(host, port, DB_CONFIG['DB_NAME'], DB_CONFIG['USERNAME'], DB_CONFIG['PASSWORD']):
         print("could clear the tables")
         exit(1)
     print("successfully emptied database tables")
-    for cur_lvl in range(1, 2):
+
+    # iterate through each chapter folder to parse yaml file to json and load them to the database
+    for cur_lvl in range(1, max_lvl+1):
         level_dir = os.path.join(base_dir, 'level' + str(cur_lvl))
-        for idx in range(1, 6):
+        for idx in range(1, lvl_dict[cur_lvl]+1):
             chapter_id = str(idx)
             chapter_dir = os.path.join(level_dir, 'chapter' + chapter_id)
             show_json(chapter_dir, chapter_id, cur_lvl)
-
             if load_tables(host, port, DB_CONFIG['DB_NAME'], DB_CONFIG['USERNAME'],
                            DB_CONFIG['PASSWORD'], chapter_dir):
                 print("could not load data to tables for chapter%s" % chapter_id)
