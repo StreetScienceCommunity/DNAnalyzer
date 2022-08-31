@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<div class="quiz_wrapper columns mb-6">
+	<div class="quiz quiz-menu column is-one-fifth mt-6">
+		<aside class="menu mt-6">
+			<ul class="menu-list">
+				{% if level_dict %}
+					{% for lvl_id, chapters in level_dict.items() %}
+							<li><a class="is-active" href="/level/{{lvl_id}}/intro"> Level {{lvl_id}} Overview </a></li>
+						{% for c in chapters %}
+							<li class="mt-4">
+								<a href="{% if c.done == 1 %}
+											/level/{{lvl_id}}/chapter/{{c.order_id}}/result
+										{% else %}
+											/level/{{lvl_id}}/chapter/{{c.order_id}}
+										{% endif %}"> Chapter {{c.id}}: {{c.name}}
+									{% if c.done == 1 %}
+										<span class="icon-text has-text-success">
+											<span class="icon">
+											<i class="fas fa-check-square"></i>
+											</span>
+										</span>
+									{% endif %}
+								</a>
+							</li>
+						{% endfor %}
+						<hr>
+					{% endfor %}
+				{% endif %}
+			</ul>
+		</aside>
+	</div>
+	<div class="quiz column is-four-fifths p-6">
+		<div class="section">
+			<p class="is-size-3 has-text-weight-bold mb-3">Introduction page for level 2</p>
+		</div>
+	</div>
+</div>
+{% endblock %}
