@@ -85,8 +85,7 @@ def quiz_submit(chapter_id):
     @return: show result
     """
     form = request.form
-    chapter_dump, chapters, questions_dump = left_chapter_menu_helper(chapter_id)
-
+    chapter_dump, level_dict, questions_dump = left_chapter_menu_helper(chapter_id)
     # check choice submitted if right wrong or miss
     cur_score = 0
     db.engine.execute("delete from answer where answer.choice_id in  ( select answer.choice_id from answer, choice, chapter, users, question where answer.choice_id = choice.id and choice.question_id = question.id and question.chapter_id = chapter.id and chapter.id = %s and users.id = %s )" % (chapter_id, current_user.id))
@@ -134,7 +133,7 @@ def quiz_submit(chapter_id):
     db.session.commit()
     ranking = get_ranking(chapter_id)
     return render_template("games/quiz_result.html", questions=questions_dump,
-                           chapter=chapter_dump, score=cur_score, chapters=chapters, ranking=ranking)
+                           chapter=chapter_dump, score=cur_score, level_dict=level_dict, ranking=ranking)
 
 
 def left_chapter_menu_helper(chapter_id=0):
