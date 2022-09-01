@@ -16,6 +16,13 @@ keys = ['title',
         # 'choices',
         # 'correct',
         ]
+
+levels = [
+    'Sam the alien',
+    'BeerDEcoded',
+    'Peer review'
+]
+
 q_id = 1
 choice_id = 1
 chapter_id_overall = 1
@@ -187,6 +194,43 @@ def show_json(base_dir, chapter_id, cur_lvl):
         return 1
 
 
+def process_level(base_dir, host, port, db_name, user, password):
+    """ wrapper function to convert yaml file to csv file
+    Args:
+        base_dir (str): directory with data files to be loaded
+        chapter_id (str): chapter id
+    """
+    levels_file = os.path.join(base_dir, 'levels' + '.csv')
+
+    lvl_csv = []
+    for index, item in enumerate(levels, start=1):
+        tmp = str(index) + '|' + item
+        lvl_csv.append(tmp.strip())
+
+    try:
+        with open(levels_file, "w") as out_file:
+            for l in lvl_csv:
+                out_file.write("%s\n" % l)
+    except IOError as e:
+        print("exception happened while transforming data files. (%s)" % e)
+        return 1
+
+    try:
+        conn = pgdb.PGDB(host, port, db_name, user, password)
+        try:
+            conn.copyFrom(levels_file, separator="|", table='level')
+            conn.commit()
+            os.remove(levels_file)
+        except Exception as e:
+            print("unable to run load tables. %s" % e)
+            return 1
+        conn.close()
+        return 0
+    except Exception as e:
+        print("unable to connect to the database. %s" % e)
+        return 1
+
+
 def clear_tables(host, port, db_name, user, password):
     """Empty the chapters, question and choice tables
 
@@ -209,6 +253,8 @@ def clear_tables(host, port, db_name, user, password):
             conn.executeQuery("DELETE FROM question")
             conn.commit()
             conn.executeQuery("DELETE FROM chapter")
+            conn.commit()
+            conn.executeQuery("DELETE FROM level")
             conn.commit()
         except Exception as e:
             print("unable to empty existing tables. %s" % e)
@@ -269,7 +315,7 @@ def yaml_to_db():
 
     # iterate through game folder, find max level and max chapter for each level
     for lvl_folder in os.scandir(base_dir):
-        if lvl_folder.name.startswith("level"):
+        if os.path.isdir(lvl_folder) and lvl_folder.name.startswith("level"):
             cur_lvl = int(lvl_folder.name[5:])
             max_lvl = max(cur_lvl, max_lvl)
             max_chap = 0
@@ -284,6 +330,12 @@ def yaml_to_db():
         print("could clear the tables")
         exit(1)
     print("successfully emptied database tables")
+
+    # load all levels to the database first
+    if process_level(base_dir, host, port, DB_CONFIG['DB_NAME'], DB_CONFIG['USERNAME'], DB_CONFIG['PASSWORD']):
+        print("could process levels")
+        exit(1)
+    print("successfully loaded data for level table")
 
     # iterate through each chapter folder to parse yaml file to json and load them to the database
     for cur_lvl in range(1, max_lvl+1):
