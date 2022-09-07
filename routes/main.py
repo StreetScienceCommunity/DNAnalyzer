@@ -93,8 +93,14 @@ def quiz_submit(chapter_id):
         "delete from answer where answer.choice_id in  ( select answer.choice_id from answer, choice, chapter, users, question where answer.choice_id = choice.id and choice.question_id = question.id and question.chapter_id = chapter.id and chapter.id = %s and users.id = %s )" % (
         chapter_id, current_user.id))
     db.engine.execute("delete from score where chapter_id = %s and user_id=%s" % (chapter_id, current_user.id))
-    for question in questions_dump:
-        submitted_answers = set(form.getlist(question['id']))
+
+    # check score for each question
+    i = 0
+    while i < len(questions_dump):
+        j = i
+
+        # update answer to the database for each choice selected
+        submitted_answers = set(form.getlist(questions_dump[i]['id']))
         for aws_id in submitted_answers:
             new_answer = Answer(
                 user_id=current_user.id,
@@ -102,32 +108,64 @@ def quiz_submit(chapter_id):
             )
             db.session.add(new_answer)
             db.session.commit()
+
+        # start counting selected correct choices and wrong choices that user didn't select
         selected_correct = 0
         missed_wrong = 0
-        if not form.get(question['id']):
-            question['missed'] = True
-        for choice in question['choices']:
-            if choice['correctness']:
-                if choice['id'] in submitted_answers:
-                    choice['state'] = 'correct'
-                    selected_correct += 1
+        if questions_dump[i]['type'] in ['choose_one', 'grid']:
+            if not form.get(questions_dump[i]['id']):
+                questions_dump[i]['missed'] = True
+            for choice in questions_dump[i]['choices']:
+                if choice['correctness']:
+                    if choice['id'] in submitted_answers:
+                        choice['state'] = 'correct'
+                        selected_correct += 1
+                    else:
+                        choice['state'] = 'missed'
                 else:
-                    choice['state'] = 'missed'
-            else:
-                if choice['id'] in submitted_answers:
-                    choice['state'] = 'wrong'
-                else:
-                    missed_wrong += 1
-        if question['type'] in ['choose_one', 'grid']:
+                    if choice['id'] in submitted_answers:
+                        choice['state'] = 'wrong'
+                    else:
+                        missed_wrong += 1
             if selected_correct > 0:
-                question['score'] = question['point']
-                cur_score += question['point']
+                questions_dump[i]['score'] = questions_dump[i]['point']
+                cur_score += questions_dump[i]['point']
             else:
-                question['score'] = 0
+                questions_dump[i]['score'] = 0
         else:
+            total_choice_num = 0
+            while j < len(questions_dump):
+                if questions_dump[j]['title'] != questions_dump[i]['title']:
+                    break
+                if not form.get(questions_dump[j]['id']):
+                    questions_dump[j]['missed'] = True
+                for choice in questions_dump[j]['choices']:
+                    total_choice_num += 1
+                    if choice['correctness']:
+                        if choice['id'] in submitted_answers:
+                            choice['state'] = 'correct'
+                            selected_correct += 1
+                        else:
+                            choice['state'] = 'missed'
+                    else:
+                        if choice['id'] in submitted_answers:
+                            choice['state'] = 'wrong'
+                        else:
+                            missed_wrong += 1
+                j += 1
             correct_sum = selected_correct + missed_wrong
-            question['score'] = question['point'] * 0 if correct_sum == 0 else len(question['choices']) / correct_sum
-            cur_score += question['score']
+            question_score = 0
+            if correct_sum == 0:
+                question_score = 0
+            else:
+                question_score = round(correct_sum / total_choice_num * questions_dump[i]['point'])
+            cur_score += question_score
+            for k in range(i, j):
+                questions_dump[k]['score'] = question_score
+            i = j - 1
+        i += 1
+
+    # update final score to the database
     new_score = Score(
         score=cur_score,
         user_id=current_user.id,
@@ -135,6 +173,7 @@ def quiz_submit(chapter_id):
     )
     db.session.add(new_score)
     db.session.commit()
+
     ranking = get_ranking(chapter_id)
     return render_template("games/quiz_result.html", questions=questions_dump,
                            chapter=chapter_dump, score=cur_score, level_dict=level_dict, ranking=ranking)
