@@ -69,7 +69,8 @@ def chapter(level_id, chapter_id):
     @param chapter_id: the chapter id for showing related quiz questions
     @return: the template for quiz
     """
-    cur_chapter_raw = db.engine.execute('select * from chapter where level_id = %s and order_id = %s' % (level_id, chapter_id))
+    cur_chapter_raw = db.engine.execute(
+        'select * from chapter where level_id = %s and order_id = %s' % (level_id, chapter_id))
     cur_chapter = [dict(row) for row in cur_chapter_raw]
     chapter_dump, level_dict, questions_dump = left_chapter_menu_helper(cur_chapter[0]['id'])
     return render_template("games/chapter.html", questions=questions_dump, chapter=chapter_dump,
@@ -88,8 +89,10 @@ def quiz_submit(chapter_id):
     chapter_dump, level_dict, questions_dump = left_chapter_menu_helper(chapter_id)
     # check choice submitted if right wrong or miss
     cur_score = 0
-    db.engine.execute("delete from answer where answer.choice_id in  ( select answer.choice_id from answer, choice, chapter, users, question where answer.choice_id = choice.id and choice.question_id = question.id and question.chapter_id = chapter.id and chapter.id = %s and users.id = %s )" % (chapter_id, current_user.id))
-    db.engine.execute("delete from score where chapter_id = %s and user_id=%s" % (chapter_id, current_user.id) )
+    db.engine.execute(
+        "delete from answer where answer.choice_id in  ( select answer.choice_id from answer, choice, chapter, users, question where answer.choice_id = choice.id and choice.question_id = question.id and question.chapter_id = chapter.id and chapter.id = %s and users.id = %s )" % (
+        chapter_id, current_user.id))
+    db.engine.execute("delete from score where chapter_id = %s and user_id=%s" % (chapter_id, current_user.id))
     for question in questions_dump:
         submitted_answers = set(form.getlist(question['id']))
         for aws_id in submitted_answers:
@@ -125,9 +128,9 @@ def quiz_submit(chapter_id):
             correct_sum = selected_correct + missed_wrong
             question['score'] = question['point'] * 0 if correct_sum == 0 else len(question['choices']) / correct_sum
     new_score = Score(
-        score = cur_score,
+        score=cur_score,
         user_id=current_user.id,
-        chapter_id = chapter_id
+        chapter_id=chapter_id
     )
     db.session.add(new_score)
     db.session.commit()
@@ -189,16 +192,20 @@ def progress():
     """
     view function for progress page
     """
-    chapters_lvl1_raw = db.engine.execute('select chapter.id, name, score, add_time from chapter left join score on score.chapter_id = chapter.id and score.user_id = %s and chapter.level_id = %s order by chapter.id' % (current_user.id, 1))
+    chapters_lvl1_raw = db.engine.execute(
+        'select chapter.id, name, score, add_time from chapter left join score on score.chapter_id = chapter.id and score.user_id = %s and chapter.level_id = %s order by chapter.id' % (
+        current_user.id, 1))
     chapters_lvl1 = handle_addtime(chapters_lvl1_raw)
-    return render_template("progress.html", chapters_lvl1 = chapters_lvl1)
+    return render_template("progress.html", chapters_lvl1=chapters_lvl1)
 
 
 def get_ranking(chapter_id):
     """
         return top 5 result for certain chapter
     """
-    ranking_raw = db.engine.execute('select username, score, add_time, user_id from score, users where score.user_id = users.id and score.chapter_id = %s order by score DESC, add_time ASC limit 5' % (chapter_id))
+    ranking_raw = db.engine.execute(
+        'select username, score, add_time, user_id from score, users where score.user_id = users.id and score.chapter_id = %s order by score DESC, add_time ASC limit 5' % (
+            chapter_id))
     ranking = handle_addtime(ranking_raw)
     return ranking
 
@@ -215,7 +222,9 @@ def chapter_result(level_id, chapter_id):
         'select * from chapter where level_id = %s and order_id = %s' % (level_id, chapter_id))
     cur_chapter = [dict(row) for row in cur_chapter_raw]
     chapter_dump, level_dict, questions_dump = left_chapter_menu_helper(cur_chapter[0]['id'])
-    selected_choices_raw = db.engine.execute("select question.id as q_id,  choice.id as c_id from answer, chapter, choice, question where choice.question_id = question.id and question.chapter_id = chapter.id and choice.id = answer.choice_id and user_id = %s and chapter.id = %s order by question.id, choice.id" % (current_user.id, cur_chapter[0]['id']))
+    selected_choices_raw = db.engine.execute(
+        "select question.id as q_id,  choice.id as c_id from answer, chapter, choice, question where choice.question_id = question.id and question.chapter_id = chapter.id and choice.id = answer.choice_id and user_id = %s and chapter.id = %s order by question.id, choice.id" % (
+        current_user.id, cur_chapter[0]['id']))
     ranking = get_ranking(cur_chapter[0]['id'])
 
     selected_choices = {}
@@ -238,5 +247,5 @@ def chapter_result(level_id, chapter_id):
             else:
                 if choice['id'] in selected_choices[question['id']]:
                     choice['state'] = 'wrong'
-    return render_template("games/quiz_result.html", questions=questions_dump,
+    return render_template("games/quiz_result.html", questions=questions_dump, cur_lvl=level_id,
                            chapter=chapter_dump, score=score.score, level_dict=level_dict, ranking=ranking)
