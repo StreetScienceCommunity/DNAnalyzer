@@ -127,6 +127,7 @@ def quiz_submit(chapter_id):
         else:
             correct_sum = selected_correct + missed_wrong
             question['score'] = question['point'] * 0 if correct_sum == 0 else len(question['choices']) / correct_sum
+            cur_score += question['score']
     new_score = Score(
         score=cur_score,
         user_id=current_user.id,
@@ -240,12 +241,12 @@ def chapter_result(level_id, chapter_id):
             question['missed'] = True
         for choice in question['choices']:
             if choice['correctness']:
-                if choice['id'] in selected_choices[question['id']]:
+                if question['id'] in selected_choices and choice['id'] in selected_choices[question['id']]:
                     choice['state'] = 'correct'
                 else:
                     choice['state'] = 'missed'
             else:
-                if choice['id'] in selected_choices[question['id']]:
+                if question['id'] in selected_choices and choice['id'] in selected_choices[question['id']]:
                     choice['state'] = 'wrong'
     return render_template("games/quiz_result.html", questions=questions_dump, cur_lvl=level_id,
                            chapter=chapter_dump, score=score.score, level_dict=level_dict, ranking=ranking)
