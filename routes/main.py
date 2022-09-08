@@ -1,4 +1,7 @@
 import collections
+import json
+import os
+from pathlib import Path
 
 from flask import Blueprint, flash, g, redirect, request, session, url_for, jsonify, send_file, make_response, \
     render_template
@@ -305,3 +308,16 @@ def chapter_result(level_id, chapter_id):
                     choice['state'] = 'wrong'
     return render_template("games/quiz_result.html", questions=questions_dump, cur_lvl=level_id,
                            chapter=chapter_dump, score=score.score, level_dict=level_dict, ranking=ranking)
+
+
+@bp.route('/galaxy_history')
+@login_required
+def galaxy_history():
+    """
+    view function for galaxy history result
+    """
+    SITE_ROOT = Path(__file__).parent.parent
+    filename = os.path.join(SITE_ROOT, 'game', 'dummy_result.json')
+    with open(filename) as test_file:
+        dummy_result = json.load(test_file)
+    return render_template("games/level2/galaxy_result.html", result=dummy_result)

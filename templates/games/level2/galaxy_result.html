@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<div class="quiz_wrapper columns mb-6">
+	<div class="quiz quiz-menu column is-one-fifth mt-6">
+		<aside class="menu mt-6">
+			<ul class="menu-list">
+				{% if level_dict %}
+					{% for lvl_id, chapters in level_dict.items() %}
+							<li><a class="is-active" href="/level/{{lvl_id}}/intro"> Level {{lvl_id}} Overview </a></li>
+						{% for c in chapters %}
+							<li class="mt-4">
+								<a href="{% if c.done == 1 %}
+											/level/{{lvl_id}}/chapter/{{c.order_id}}/result
+										{% else %}
+											/level/{{lvl_id}}/chapter/{{c.order_id}}
+										{% endif %}"> Chapter {{c.id}}: {{c.name}}
+									{% if c.done == 1 %}
+										<span class="icon-text has-text-success">
+											<span class="icon">
+											<i class="fas fa-check-square"></i>
+											</span>
+										</span>
+									{% endif %}
+								</a>
+							</li>
+						{% endfor %}
+						<hr>
+					{% endfor %}
+				{% endif %}
+			</ul>
+		</aside>
+	</div>
+	<div class="quiz column is-four-fifths p-6">
+		<div class="section">
+			<p class="is-size-3 has-text-weight-bold mb-3">Data analysis Galaxy history Result </p>
+		</div>
+		{% for step_num, step_res in result.steps.items() %}
+			<div>
+				<div id="step_{{step_num}}" class="step_num mb-3">
+					<p class="title"> Step {{step_num}} </p>
+				</div>
+				<div id="table_step_{{step_num}}" class="ml-6 mb-3 p-2">
+					<table class="table is-fullwidth">
+						<tr class="th">
+							<th></th>
+							<th>Expected</th>
+							<th>Current</th>
+							<th>Status</th>
+						</tr>
+							<tr>
+								<td class="has-text-left">tool_used</td>
+								<td class="has-text-left">{{step_res.tool_used.expected_value}}</td>
+								<td class="has-text-left">{{step_res.tool_used.user_value}}</td>
+								<td class="has-text-left">
+									{% if step_res.tool_used.status %}
+										<td><span class="icon has-text-success"><i class="fas fa-check-square"></i></span>
+									{% else %}
+										<span class="icon has-text-warning"><i class="fas fa-exclamation-triangle"></i></span>
+									{% endif %}
+								</td>
+							</tr>
+							<tr>
+								<td class="has-text-left">tool_version</td>
+								<td class="has-text-left">{{step_res.tool_version.expected_version}}</td>
+								<td class="has-text-left">{{step_res.tool_version.user_version}}</td>
+								<td class="has-text-left">
+									{% if step_res.tool_version.status %}
+										<td><span class="icon has-text-success"><i class="fas fa-check-square"></i></span>
+									{% else %}
+										<span class="icon has-text-warning"><i class="fas fa-exclamation-triangle"></i></span>
+									{% endif %}
+								</td>
+							</tr>
+					</table>
+				</div>
+				<hr>
+			</div>
+		{% endfor %}
+	</div>
+</div>
+
+<script>
+	$(document).ready(function() {
+    $('.step_num').on('click', function(){
+		var table_id = '#table_' + this.id
+        $(table_id).toggle();
+    });
+
+});
+</script>
+{% endblock %}

@@ -362,3 +362,12 @@ body > footer {
 	color: #a98600 !important;
 }
 /* quiz END */
+
+.step_num{
+	background-color: #87b3da;
+	padding: 0.5rem 1rem 0.5rem 1rem;
+}
+
+.step_num p{
+	color: white;
+}
