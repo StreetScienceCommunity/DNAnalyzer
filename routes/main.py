@@ -1,3 +1,5 @@
+import collections
+
 from flask import Blueprint, flash, g, redirect, request, session, url_for, jsonify, send_file, make_response, \
     render_template
 from models.all_models import *
@@ -232,11 +234,25 @@ def progress():
     """
     view function for progress page
     """
-    chapters_lvl1_raw = db.engine.execute(
-        'select chapter.id, name, score, add_time from chapter left join score on score.chapter_id = chapter.id and score.user_id = %s and chapter.level_id = %s order by chapter.id' % (
+    # get raw query result
+    chapters_raw = db.engine.execute(
+        'select chapter.id, name, score, add_time, level_id from chapter left join score on score.chapter_id = chapter.id and score.user_id = %s and chapter.level_id = %s order by chapter.id' % (
         current_user.id, 1))
-    chapters_lvl1 = handle_addtime(chapters_lvl1_raw)
-    return render_template("progress.html", chapters_lvl1=chapters_lvl1)
+
+    # process time format and make the result a dictionary
+    chapters_processed = handle_addtime(chapters_raw)
+
+    # convert it into a lvl_id:[chapters] dictionary
+    chapter_lvl_dict = {}
+    for c in chapters_processed:
+        if c['level_id'] not in chapter_lvl_dict:
+            chapter_lvl_dict[c['level_id']] = []
+        chapter_lvl_dict[c['level_id']].append(c)
+
+    # sort it by the lvl id
+    sorted_dict = collections.OrderedDict(sorted(chapter_lvl_dict.items()))
+
+    return render_template("progress.html", lvl_dict=sorted_dict)
 
 
 def get_ranking(chapter_id):
