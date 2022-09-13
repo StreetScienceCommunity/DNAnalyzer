@@ -61,8 +61,7 @@ def logout():
 
 @bp.route('/level/<level_id>/intro')
 def intro(level_id):
-    level_dict = left_chapter_menu_helper()
-    return render_template("games/level%s/intro.html" % level_id, level_dict=level_dict)
+    return render_template("games/level%s/intro.html" % level_id, cur_lvl_intro=int(level_id))
 
 
 @bp.route('/level/<level_id>/chapter/<chapter_id>')
@@ -77,10 +76,8 @@ def chapter(level_id, chapter_id):
     cur_chapter_raw = db.engine.execute(
         'select * from chapter where level_id = %s and order_id = %s' % (level_id, chapter_id))
     cur_chapter = [dict(row) for row in cur_chapter_raw]
-    level_dict = left_chapter_menu_helper()
     chapter_dump, questions_dump = quiz_questions_helper(cur_chapter[0]['id'])
-    return render_template("games/chapter.html", questions=questions_dump, chapter=chapter_dump,
-                           level_dict=level_dict)
+    return render_template("games/chapter.html", questions=questions_dump, chapter=chapter_dump)
 
 
 @bp.route('/quiz/<chapter_id>/submit', methods=['POST'])
@@ -92,13 +89,12 @@ def quiz_submit(chapter_id):
     @return: show result
     """
     form = request.form
-    level_dict = left_chapter_menu_helper()
     chapter_dump, questions_dump = quiz_questions_helper(chapter_id)
     # check choice submitted if right wrong or miss
     cur_score = 0
     db.engine.execute(
         "delete from answer where answer.choice_id in  ( select answer.choice_id from answer, choice, chapter, users, question where answer.choice_id = choice.id and choice.question_id = question.id and question.chapter_id = chapter.id and chapter.id = %s and users.id = %s )" % (
-        chapter_id, current_user.id))
+            chapter_id, current_user.id))
     db.engine.execute("delete from score where chapter_id = %s and user_id=%s" % (chapter_id, current_user.id))
 
     # check score for each question
@@ -183,7 +179,7 @@ def quiz_submit(chapter_id):
 
     ranking = get_ranking(chapter_id)
     return render_template("games/quiz_result.html", questions=questions_dump,
-                           chapter=chapter_dump, score=cur_score, level_dict=level_dict, ranking=ranking)
+                           chapter=chapter_dump, score=cur_score, ranking=ranking)
 
 
 def left_chapter_menu_helper():
@@ -249,7 +245,7 @@ def progress():
     # get raw query result
     chapters_raw = db.engine.execute(
         'select chapter.id, name, score, add_time, level_id from chapter left join score on score.chapter_id = chapter.id and score.user_id = %s and chapter.level_id = %s order by chapter.id' % (
-        current_user.id, 1))
+            current_user.id, 1))
 
     # process time format and make the result a dictionary
     chapters_processed = handle_addtime(chapters_raw)
@@ -289,11 +285,10 @@ def chapter_result(level_id, chapter_id):
     cur_chapter_raw = db.engine.execute(
         'select * from chapter where level_id = %s and order_id = %s' % (level_id, chapter_id))
     cur_chapter = [dict(row) for row in cur_chapter_raw]
-    level_dict = left_chapter_menu_helper()
     chapter_dump, questions_dump = quiz_questions_helper(cur_chapter[0]['id'])
     selected_choices_raw = db.engine.execute(
         "select question.id as q_id,  choice.id as c_id from answer, chapter, choice, question where choice.question_id = question.id and question.chapter_id = chapter.id and choice.id = answer.choice_id and user_id = %s and chapter.id = %s order by question.id, choice.id" % (
-        current_user.id, cur_chapter[0]['id']))
+            current_user.id, cur_chapter[0]['id']))
     ranking = get_ranking(cur_chapter[0]['id'])
 
     selected_choices = {}
@@ -317,7 +312,7 @@ def chapter_result(level_id, chapter_id):
                 if question['id'] in selected_choices and choice['id'] in selected_choices[question['id']]:
                     choice['state'] = 'wrong'
     return render_template("games/quiz_result.html", questions=questions_dump, cur_lvl=level_id,
-                           chapter=chapter_dump, score=score.score, level_dict=level_dict, ranking=ranking)
+                           chapter=chapter_dump, score=score.score, ranking=ranking)
 
 
 @bp.route('/galaxy_history')
@@ -330,11 +325,11 @@ def galaxy_history():
     filename = os.path.join(SITE_ROOT, 'game', 'dummy_result.json')
     with open(filename) as test_file:
         dummy_result = json.load(test_file)
-    return render_template("games/level2/galaxy_result.html", result=dummy_result)
+    chapter = Chapter.query.get(8)
+    return render_template("games/level2/galaxy_result.html", result=dummy_result, chapter=chapter)
 
 
-# @bp.context_processor
-# def provide_menu():
-#     menu = left_chapter_menu_helper()
-#     return {'menu': menu}
-
+@bp.context_processor
+def provide_menu():
+    level_dict = left_chapter_menu_helper()
+    return {'level_dict': level_dict}
