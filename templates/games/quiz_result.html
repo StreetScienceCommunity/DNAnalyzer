@@ -84,7 +84,7 @@ function add_option_input_field(question, choice, type){
         let questions = {{questions | tojson}};
         let chapter = {{chapter| tojson}};
         let myHTML = '';
-        myHTML += `<p class="quiz_title"> <span>Level ${chapter.level_id} Chapter ${chapter.id} Quiz result</span>  <span>{{score}} / {{chapter.total_score}} points</span></p>`;
+        myHTML += `<p class="quiz_title"> <span>Level ${chapter.level_id} / Chapter ${chapter.id} Quiz result</span>  <span>{{score}} / {{chapter.total_score}} points</span></p>`;
         for (let i = 0; i < questions.length; i++) {
             myHTML += '<hr>'
             myHTML += '<div class="quiz_text">';
