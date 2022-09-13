@@ -35,6 +35,32 @@
 		<div class="section">
 			<p class="is-size-3 has-text-weight-bold mb-3">Data analysis Galaxy history Result </p>
 		</div>
+		<div>
+			<div class="step_num mb-3">
+				<p class="title"> data_inputs </p>
+			</div>
+			<div class="ml-6 mb-3 p-2">
+				<table class="table is-fullwidth">
+					<tr class="th">
+						<th>Expected number of inputs</th>
+						<th>User number of inputs</th>
+						<th>Status</th>
+					</tr>
+						<tr {% if result.data_inputs.status %} class="correct" {% else %} class="wrong" {% endif %}>
+							<td class="has-text-left">{{result.data_inputs.expected_number_of_inputs}}</td>
+							<td class="has-text-left">{{result.data_inputs.user_number_of_inputs}}</td>
+							<td class="has-text-left">
+								{% if result.data_inputs.status %}
+									<td><span class="icon has-text-success"><i class="fas fa-check-square"></i></span>
+								{% else %}
+									<span class="icon has-text-warning"><i class="fas fa-exclamation-triangle"></i></span>
+								{% endif %}
+							</td>
+						</tr>
+				</table>
+			</div>
+			<hr>
+		</div>
 		{% for step_num, step_res in result.steps.items() %}
 			<div>
 				<div id="step_{{step_num}}" class="step_num mb-3">
@@ -44,11 +70,11 @@
 					<table class="table is-fullwidth">
 						<tr class="th">
 							<th></th>
-							<th>Expected</th>
-							<th>Current</th>
+							<th>Expected value</th>
+							<th>User Value</th>
 							<th>Status</th>
 						</tr>
-							<tr>
+							<tr {% if step_res.tool_used.status %} class="correct" {% else %} class="wrong" {% endif %}>
 								<td class="has-text-left">tool_used</td>
 								<td class="has-text-left">{{step_res.tool_used.expected_value}}</td>
 								<td class="has-text-left">{{step_res.tool_used.user_value}}</td>
@@ -60,7 +86,7 @@
 									{% endif %}
 								</td>
 							</tr>
-							<tr>
+							<tr {% if step_res.tool_version.status %} class="correct" {% else %} class="missed" {% endif %}>
 								<td class="has-text-left">tool_version</td>
 								<td class="has-text-left">{{step_res.tool_version.expected_version}}</td>
 								<td class="has-text-left">{{step_res.tool_version.user_version}}</td>
