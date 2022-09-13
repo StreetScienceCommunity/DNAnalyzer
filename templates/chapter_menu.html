@@ -3,7 +3,7 @@
         <ul class="menu-list">
         {% if level_dict %}
             {% for lvl_id, chapters in level_dict.items() %}
-                <li><a {% if cur_lvl_intro and cur_lvl_intro == lvl_id %} class="is-active" {% endif %} href="/level/{{lvl_id}}/intro"> Level {{lvl_id}} Overview </a></li>
+                <li><a class=" {% if cur_lvl_intro and cur_lvl_intro == lvl_id %} is-active {% endif %} has-text-weight-bold" href="/level/{{lvl_id}}/intro"> Level {{lvl_id}} Overview </a></li>
                 {% for c in chapters %}
                     <li class="mt-4">
                         <a {% if chapter and c.id == chapter.id %} class="is-active" {%endif%}
