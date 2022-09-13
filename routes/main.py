@@ -77,7 +77,8 @@ def chapter(level_id, chapter_id):
     cur_chapter_raw = db.engine.execute(
         'select * from chapter where level_id = %s and order_id = %s' % (level_id, chapter_id))
     cur_chapter = [dict(row) for row in cur_chapter_raw]
-    chapter_dump, level_dict, questions_dump = left_chapter_menu_helper(cur_chapter[0]['id'])
+    level_dict = left_chapter_menu_helper()
+    chapter_dump, questions_dump = quiz_questions_helper(cur_chapter[0]['id'])
     return render_template("games/chapter.html", questions=questions_dump, chapter=chapter_dump,
                            level_dict=level_dict)
 
@@ -91,7 +92,8 @@ def quiz_submit(chapter_id):
     @return: show result
     """
     form = request.form
-    chapter_dump, level_dict, questions_dump = left_chapter_menu_helper(chapter_id)
+    level_dict = left_chapter_menu_helper()
+    chapter_dump, questions_dump = quiz_questions_helper(chapter_id)
     # check choice submitted if right wrong or miss
     cur_score = 0
     db.engine.execute(
@@ -184,9 +186,11 @@ def quiz_submit(chapter_id):
                            chapter=chapter_dump, score=cur_score, level_dict=level_dict, ranking=ranking)
 
 
-def left_chapter_menu_helper(chapter_id=0):
+def left_chapter_menu_helper():
     """
-        helper function to return all data needed for the chapter menu
+    helper function to return a lvl->chapter dictionary for the chapter menu
+    @return: a lvl->chapter dictionary
+    @rtype: dictionary
     """
     levels = Level.query.all()
     levels = levels_schema.dump(levels)
@@ -199,12 +203,6 @@ def left_chapter_menu_helper(chapter_id=0):
                 chapter = chapter_schema.dump(chapter)
                 level_dict[lvl['id']].append(chapter)
 
-    if chapter_id != 0:
-        questions = Question.query.filter_by(chapter_id=chapter_id).order_by(Question.id).all()
-        questions_dump = questionswithanswers_schema.dump(questions)
-        chapter = Chapter.query.get(chapter_id)
-        chapter_dump = chapter_schema.dump(chapter)
-
     if current_user.is_authenticated:
         done_chapters = db.engine.execute('select chapter_id from score where user_id = %s' % (current_user.id))
         done_chapters_list = [row[0] for row in done_chapters]
@@ -213,11 +211,22 @@ def left_chapter_menu_helper(chapter_id=0):
                 for ch in chapters:
                     if ch['id'] in done_chapters_list:
                         ch['done'] = 1
+    return level_dict
 
-    if chapter_id != 0:
-        return chapter_dump, level_dict, questions_dump
-    else:
-        return level_dict
+
+def quiz_questions_helper(chapter_id):
+    """
+    function to get a chapter object and a list of questions of the particular chapter by chapter id
+    @param chapter_id: id of the chapter
+    @type chapter_id: integer
+    @return: a chapter object and a list of questions of the particular chapter
+    @rtype: chapter object and list
+    """
+    questions = Question.query.filter_by(chapter_id=chapter_id).order_by(Question.id).all()
+    questions_dump = questionswithanswers_schema.dump(questions)
+    cur_chapter = Chapter.query.get(chapter_id)
+    chapter_dump = chapter_schema.dump(cur_chapter)
+    return chapter_dump, questions_dump
 
 
 def handle_addtime(result_raw):
@@ -280,7 +289,8 @@ def chapter_result(level_id, chapter_id):
     cur_chapter_raw = db.engine.execute(
         'select * from chapter where level_id = %s and order_id = %s' % (level_id, chapter_id))
     cur_chapter = [dict(row) for row in cur_chapter_raw]
-    chapter_dump, level_dict, questions_dump = left_chapter_menu_helper(cur_chapter[0]['id'])
+    level_dict = left_chapter_menu_helper()
+    chapter_dump, questions_dump = quiz_questions_helper(cur_chapter[0]['id'])
     selected_choices_raw = db.engine.execute(
         "select question.id as q_id,  choice.id as c_id from answer, chapter, choice, question where choice.question_id = question.id and question.chapter_id = chapter.id and choice.id = answer.choice_id and user_id = %s and chapter.id = %s order by question.id, choice.id" % (
         current_user.id, cur_chapter[0]['id']))
@@ -321,3 +331,10 @@ def galaxy_history():
     with open(filename) as test_file:
         dummy_result = json.load(test_file)
     return render_template("games/level2/galaxy_result.html", result=dummy_result)
+
+
+# @bp.context_processor
+# def provide_menu():
+#     menu = left_chapter_menu_helper()
+#     return {'menu': menu}
+
