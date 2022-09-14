@@ -9,7 +9,7 @@
 		</div>
 		<div>
 			<div class="step_num mb-3">
-				<p class="title"> data_inputs </p>
+				<p class="title"> data inputs </p>
 			</div>
 			<div class="ml-6 mb-3 p-2">
 				<table class="table is-fullwidth">
@@ -47,7 +47,7 @@
 							<th>Status</th>
 						</tr>
 							<tr {% if step_res.tool_used.status %} class="correct" {% else %} class="wrong" {% endif %}>
-								<td class="has-text-left">tool_used</td>
+								<td class="has-text-left">tool used</td>
 								<td class="has-text-left">{{step_res.tool_used.expected_value}}</td>
 								<td class="has-text-left">{{step_res.tool_used.user_value}}</td>
 								<td class="has-text-left">
@@ -59,7 +59,7 @@
 								</td>
 							</tr>
 							<tr {% if step_res.tool_version.status %} class="correct" {% else %} class="missed" {% endif %}>
-								<td class="has-text-left">tool_version</td>
+								<td class="has-text-left">tool version</td>
 								<td class="has-text-left">{{step_res.tool_version.expected_version}}</td>
 								<td class="has-text-left">{{step_res.tool_version.user_version}}</td>
 								<td class="has-text-left">
