@@ -296,7 +296,6 @@ def progress():
     return render_template("progress.html", lvl_dict=sorted_dict)
 
 
-
 def get_ranking(chapter_id):
     """
     function to return top 5 result for certain chapter

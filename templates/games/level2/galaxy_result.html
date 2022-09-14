@@ -43,7 +43,7 @@
 						<tr class="th">
 							<th></th>
 							<th>Expected value</th>
-							<th>User Value</th>
+							<th>User value</th>
 							<th>Status</th>
 						</tr>
 							<tr {% if step_res.tool_used.status %} class="correct" {% else %} class="wrong" {% endif %}>
@@ -54,7 +54,7 @@
 									{% if step_res.tool_used.status %}
 										<span class="icon has-text-success"><i class="fas fa-check-square"></i></span>
 									{% else %}
-										<span class="icon has-text-warning"><i class="fas fa-exclamation-triangle"></i></span>
+										<span class="icon has-text-danger"><i class="fas fa-ban"></i></span>
 									{% endif %}
 								</td>
 							</tr>
@@ -71,6 +71,39 @@
 								</td>
 							</tr>
 					</table>
+					{% if step_res.parameters %}
+						{% if step_res.parameters %}
+							{% if step_res.parameters.param_values %}
+								<div id="step_{{step_num}}_params" class="step_num mb-3">
+									<p class="title"> Parameters </p>
+								</div>
+								<div id="table_step_{{step_num}}_params" class="ml-6 mb-3 p-2">
+									<table class="table is-fullwidth">
+										<tr class="th">
+											<th>Parameter name</th>
+											<th>Expected input</th>
+											<th>User input</th>
+											<th>Status</th>
+										</tr>
+										{% for key, value in step_res.parameters.param_values.items() %}
+											<tr {% if value.status %} class="correct" {% else %} class="wrong" {% endif %}>
+												<td class="has-text-left">{{key}}</td>
+												<td class="has-text-left">{{value.expected_input}}</td>
+												<td class="has-text-left">{{value.user_input}}</td>
+												<td class="has-text-left">
+													{% if value.status %}
+														<span class="icon has-text-success"><i class="fas fa-check-square"></i></span>
+													{% else %}
+														<span class="icon has-text-danger"><i class="fas fa-ban"></i></span>
+													{% endif %}
+												</td>
+											</tr>
+										{% endfor %}
+									</table>
+								</div>
+							{% endif %}
+						{% endif %}
+					{% endif %}
 				</div>
 				<hr>
 			</div>
