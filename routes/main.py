@@ -14,6 +14,11 @@ bp = Blueprint('dnapi', __name__, url_prefix='/')
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
+    """
+    Function to log in the user
+    @return: index page if login is successfully else return to login page with message
+    @rtype: flask template
+    """
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
@@ -28,6 +33,11 @@ def login():
 
 @bp.route('/register', methods=['GET', 'POST'])
 def register():
+    """
+    Function to register the user
+    @return: return to the register page with success or error message
+    @rtype: flask template
+    """
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
@@ -54,6 +64,11 @@ def register():
 @bp.route('/logout')
 @login_required
 def logout():
+    """
+    Log out the user
+    @return: return to the login page
+    @rtype: flask template redirect
+    """
     logout_user()
     flash('Logged out successfully', category='success')
     return redirect(url_for('dnapi.login'))
@@ -61,6 +76,13 @@ def logout():
 
 @bp.route('/level/<level_id>/intro')
 def intro(level_id):
+    """
+    Function for accessing each level's introduction page
+    @param level_id: id of level
+    @type level_id: integer in string form
+    @return: return the certain introduction page
+    @rtype: flask template
+    """
     return render_template("games/level%s/intro.html" % level_id, cur_lvl_intro=int(level_id))
 
 
@@ -70,8 +92,11 @@ def chapter(level_id, chapter_id):
     """
     view function for quiz page
     @param level_id: the level id for showing related quiz questions
+    @type level_id: integer
     @param chapter_id: the chapter id for showing related quiz questions
-    @return: the template for quiz
+    @type chapter_id: integer
+    @return: flask template for quiz
+    @rtype: flask template
     """
     cur_chapter_raw = db.engine.execute(
         'select * from chapter where level_id = %s and order_id = %s' % (level_id, chapter_id))
@@ -84,9 +109,11 @@ def chapter(level_id, chapter_id):
 @login_required
 def quiz_submit(chapter_id):
     """
-    function for receiving quiz answers
+    function for receiving quiz answers, checking them, store the score and return to the result page
     @param chapter_id: the chapter id for showing related quiz questions
-    @return: show result
+    @type chapter_id: integer
+    @return: return the quiz result page
+    @rtype: flask template
     """
     form = request.form
     chapter_dump, questions_dump = quiz_questions_helper(chapter_id)
@@ -227,7 +254,11 @@ def quiz_questions_helper(chapter_id):
 
 def handle_addtime(result_raw):
     """
-        make raw sql result to list of dictionaries and remove microseconds from addtime field
+    make raw sql result to list of dictionaries and remove microseconds from addtime field
+    @param result_raw: raw sql result
+    @type result_raw: raw sql result
+    @return: sql result in the form of a list of dictionary
+    @rtype: a list of dictionary
     """
     result = [dict(row) for row in result_raw]
     for c in result:
@@ -241,6 +272,8 @@ def handle_addtime(result_raw):
 def progress():
     """
     view function for progress page
+    @return: return the progress page
+    @rtype: flask template
     """
     # get raw query result
     chapters_raw = db.engine.execute(
@@ -263,9 +296,14 @@ def progress():
     return render_template("progress.html", lvl_dict=sorted_dict)
 
 
+
 def get_ranking(chapter_id):
     """
-        return top 5 result for certain chapter
+    function to return top 5 result for certain chapter
+    @param chapter_id: id of the chapter
+    @type chapter_id: integer
+    @return: a list of ranking
+    @rtype: list
     """
     ranking_raw = db.engine.execute(
         'select username, score, add_time, user_id from score, users where score.user_id = users.id and score.chapter_id = %s order by score DESC, add_time ASC limit 5' % (
@@ -279,8 +317,12 @@ def get_ranking(chapter_id):
 def chapter_result(level_id, chapter_id):
     """
     function for receiving quiz answers
+    @param level_id: the level id of the chapter
+    @type level_id: integer
     @param chapter_id: the chapter id for showing related quiz result
-    @return: return result template
+    @type chapter_id: integer
+    @return: return result page
+    @rtype: flask template
     """
     cur_chapter_raw = db.engine.execute(
         'select * from chapter where level_id = %s and order_id = %s' % (level_id, chapter_id))
@@ -320,6 +362,8 @@ def chapter_result(level_id, chapter_id):
 def galaxy_history():
     """
     view function for galaxy history result
+    @return: return galaxy history result page
+    @rtype: flask template
     """
     SITE_ROOT = Path(__file__).parent.parent
     filename = os.path.join(SITE_ROOT, 'game', 'dummy_result.json')
@@ -331,5 +375,10 @@ def galaxy_history():
 
 @bp.context_processor
 def provide_menu():
+    """
+    function to provide global variable for all the templates to use
+    @return: a dictionary for level->[chapters]
+    @rtype: dictionary
+    """
     level_dict = left_chapter_menu_helper()
     return {'level_dict': level_dict}
