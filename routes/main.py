@@ -367,9 +367,28 @@ def galaxy_history():
     SITE_ROOT = Path(__file__).parent.parent
     filename = os.path.join(SITE_ROOT, 'game', 'dummy_result.json')
     with open(filename) as test_file:
-        dummy_result = json.load(test_file)
+        json_result = json.load(test_file)
     chapter = Chapter.query.get(8)
-    return render_template("games/level2/galaxy_result.html", result=dummy_result, chapter=chapter)
+
+    # calculate score
+    num_step = 0  # total number of steps
+    score = 0  # user score
+    for step_num, step_res in json_result['steps'].items():
+        num_step += 1
+        # check if using the same tool
+        if step_res['tool_id'] and step_res['tool_id']['status']:
+            score += 5
+            # if using the same tool, then check tool version
+            if step_res['tool_version'] and step_res['tool_version']['status']:
+                score += 1
+            # if using the same tool, then check parameters
+            if step_res['parameters'] and step_res['parameters']['number_of_mismatches'] and step_res['parameters'][
+                'total_number_of_param']:
+                score += (step_res['parameters']['number_of_mismatches'] / step_res['parameters'][
+                    'total_number_of_param']) * 2
+    normalized_score = round(score / (num_step * 8) * 100, 2)
+    return render_template("games/level2/galaxy_result.html", result=json_result, chapter=chapter,
+                           score=normalized_score)
 
 
 @bp.context_processor
