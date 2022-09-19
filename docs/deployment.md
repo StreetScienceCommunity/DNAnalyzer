@@ -1,6 +1,86 @@
-# Instructions for deploy the project on the complete new Linux server
-## Firstly you should have access to the server using tools like ssh
-## Setting up the environment
+# Deployment instructions
+
+This document contains 2 instructions for the deployment of the project, one is for local environment and the other is for a complete new Linux server.
+
+## Part1: Instructions for deploying the project locally on Linux
+
+### System environment
+
+Firstly make sure the basic tools like git, python, conda (or miniconda) are installed.
+
+This part is skipped, since the instructions can be found on the official website of each tool.
+
+clone the project
+```
+    git clone https://github.com/YedilSerzhan/DNAnalyzer.git
+```
+
+### Postgres database
+
+#### Installment
+
+This project uses Postgres as the database, of which the versions 11 to 14 should all work.
+
+it needs to be installed via website manually
+or through terminal commands
+```
+    sudo apt install postgresql postgresql-contrib -y
+```
+
+#### Setting up the database
+
+The database can be managed through a GUI client pgAdmin, or through command lines using `psql`.
+
+Here are the example instructions for creating the user and the database we need by using `psql`:
+
+```
+    sudo -u postgres psql
+    create database {nameOfTheDatabaseYouWant};
+    create user {usernameYouWant} with encrypted password '{yourPassword}';
+    grant all privileges on database {nameOfTheDatabaseYouWant} to {usernameYouWant};
+    exit
+```
+
+### Project environment
+
+Now we set up the project environment:
+
+make sure we are at the project root:
+
+```
+    cd /path/to/the/project
+```
+
+activate the virtual python env and install the packages needed:
+
+```
+    conda activate myenv
+    pip3 install -r requirements.txt
+``` 
+
+>   if errors occurred for building wheel for Pillow, then the following commands would be needed:
+>   ```
+>   apt-get install libjpeg-dev zlib1g-dev
+>   # if not working after this, also try
+>   sudo pip install -U setuptools
+>   ```
+
+configure the database details for the project:
+```
+    cp db_config.py.in db_config.py
+    vi db_config.py # edit the config file to change database, username, password according your own setup
+```
+
+### Run the project
+
+now the project should be ready to run locally
+```
+    python app.py
+```
+
+## Part2: Instructions for deploying the project on the complete new Linux server
+### Firstly you should have access to the server using tools like ssh
+### Setting up the environment
 update the system applications
 ```
     sudo apt update -y
@@ -29,7 +109,7 @@ install conda
     ~/miniconda3/bin/conda init bash
     ~/miniconda3/bin/conda init zsh
 ```
-## Setting up the database
+### Setting up the database
 ```
     sudo -u postgres psql
     create database {nameOfTheDatabaseYouWant};
@@ -41,28 +121,28 @@ install conda
     sudo systemctl restart postgresql
 ```
 
-## Setting up the project environment
+### Setting up the project environment
 ```
     cd /path/to/the/project
     conda activate myenv
     pip3 install -r requirements.txt
     cp db_config.py.in db_config.py
-    vi db_config.py # change database, username, password according your own
+    vi db_config.py # edit the config file to change database, username, password according your own
 ```
+
+>   if errors occurred for building wheel for Pillow, then the following commands would be needed:
+>   ```
+>   apt-get install libjpeg-dev zlib1g-dev
+>   # if not working after this, also try
+>   sudo pip install -U setuptools
+>   ```
 
 now the project should be ready to run locally
 ```
     python app.py
 ```
 
-if errors occurred for building wheel for Pillow, then the following commands would be needed:
-```
-    apt-get install libjpeg-dev zlib1g-dev
-    # if not working after this, also try
-    sudo pip install -U setuptools
-```
-
-## Next steps are for deploying the project with gunicorn and nginx
+### Next steps are for deploying the project with gunicorn and nginx
 ```
     pip3 install gunicorn
     vi {project root}/wsgi.py
