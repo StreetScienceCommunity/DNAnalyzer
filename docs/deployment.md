@@ -78,7 +78,7 @@ now the project should be ready to run locally
     python app.py
 ```
 
-## Part2: Instructions for deploying the project on the complete new Linux server
+## Part2: Instructions for deploying the project on a complete new Linux server
 ### Firstly you should have access to the server using tools like ssh
 ### Setting up the environment
 update the system applications
@@ -233,4 +233,4 @@ Finally, restart the Nginx service to apply the changes:
 ```
     systemctl restart nginx
 ```
-At this point, your Flask application is installed, configured, and hosted with an Nginx proxy. You can now access it using the URL http://flask.example.com. You should see the following page:
+At this point, your Flask application is installed, configured, and hosted with an Nginx proxy. You can now access it using your domain http://flask.example.com.
