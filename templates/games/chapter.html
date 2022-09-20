@@ -18,11 +18,19 @@
 				<div id="quiz"></div>
 			{% endif %}
 			{% if chapter.id == 6 %}
-				<p class="mb-4"> Starting from a beer bottle the cellwals of living organisms in the liquid are destroyed.
+				<p class="my-4"> Starting from a beer bottle the cellwals of living organisms in the liquid are destroyed.
 				In several washing and cleaning steps the DNA is isolated until finally the liquid is tested for if it contains engah amount of DNA. </p>
 				<img src="/static/quiz_images/protocol_extraction.png" alt="">
 				<p class="my-4">To learn more please check the extraction protocol </p>
 				<p class="my-4"><a href="https://streetscience.community/protocols/beer-dna-extraction/" class="button is-link is-large is-fullwidth start_tbn"><strong>Protocol</strong></a></p>
+			{% endif %}
+			{% if chapter.id == 7 %}
+				<p class="my-4">Now the extracted DNA can be sequenced. The DNA is prepared for sequencing by adding adapters to the sequences.
+					They are needed so the sequence can be bound to a motor protein which will than push the sequence through a nanopore.
+					The sequence is read with the nanopore by reading out the current the sequence is generating at each position.</p>
+				<img src="/static/quiz_images/protocol_sequencing.png" alt="">
+				<p class="my-4">To learn more please check the sequencing protocol</p>
+				<p class="my-4"><a href="https://streetscience.community/protocols/beer-dna-sequencing/" class="button is-link is-large is-fullwidth start_tbn"><strong>Protocol</strong></a></p>
 			{% endif %}
 			{% if chapter.id == 8 %}
 				<div class="m-3">
