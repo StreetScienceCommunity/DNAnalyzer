@@ -277,7 +277,7 @@ def progress():
     """
     # get raw query result
     chapters_raw = db.engine.execute(
-        'select chapter.id, name, score, add_time, level_id from chapter left join score on score.chapter_id = chapter.id and score.user_id = %s and chapter.level_id = %s order by chapter.id' % (
+        'select chapter.id, order_id, name, score, add_time, level_id from chapter left join score on score.chapter_id = chapter.id and score.user_id = %s and chapter.level_id = %s order by chapter.id' % (
             current_user.id, 1))
 
     # process time format and make the result a dictionary
