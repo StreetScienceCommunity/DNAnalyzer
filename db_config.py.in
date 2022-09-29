@@ -1,5 +1,5 @@
 DB_CONFIG = {
     'USERNAME': '',
     'PASSWORD': '',
-    'DB_NAME': 'dnapi'
+    'DB_NAME': 'dnanalyzer'
 }

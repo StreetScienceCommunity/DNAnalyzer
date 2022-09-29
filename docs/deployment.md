@@ -2,84 +2,119 @@
 
 This document contains 2 instructions for the deployment of the project, one is for local environment and the other is for a complete new Linux server.
 
-## Part1: Instructions for deploying the project locally on Linux
+## Part 1: Instructions for deploying the project locally on Linux
 
-### System environment
+### Set up the environment
 
-Firstly make sure the basic tools like git, python, conda (or miniconda) are installed.
+Firstly make sure Git is installed, then:
 
-This part is skipped, since the instructions can be found on the official website of each tool.
+1. Clone the project
 
-clone the project
+    ```
+    $ git clone https://github.com/YedilSerzhan/DNAnalyzer.git
+    ```
+
+2. Move into the project folder
+
+    ```
+    $ cd /path/to/the/project
+    ```
+
+3. Set up the project environment
+
+    - With conda
+
+        1. Install [miniconda](https://docs.conda.io/en/latest/miniconda.html)
+        2. Create conda environment
+
+            ```
+            $ conda env create -f environment.yml
+            ```
+
+        3. Activate conda environment
+
+            ```
+            $ conda activate dnanalyzer
+            ```
+
+    - Without conda on Ubuntu
+
+        1. Make sure Python is installed
+        2. Install PostgreSQL (version 11 or 14)
+
+            ```
+            $ sudo apt install postgresql postgresql-contrib -y
+            ```
+
+        3. Install the project's dependencies:
+
+            ```
+            $ pip3 install -r requirements.txt
+            ```
+
+            If errors occurred for building wheel for Pillow, then the following commands would be needed:
+
+            ```
+            $ apt-get install libjpeg-dev zlib1g-dev
+            # if not working after this, also try
+            $ sudo pip install -U setuptools
+            ```
+
+### Setting up the database
+
+1. Create database
+
+    Within conda environment:
+
+    1. Create a base database locally
+
+        ```
+        $ initdb -D dnanalyzer
+        ```
+
+    2. Start the server modus/instance of postgres
+
+        ```
+        $ pg_ctl -D dnanalyzer -l logfile start
+        ```
+
+    3. Create a non-superuser (more safety!)
+
+        ```
+        $ createuser --encrypted --pwprompt <mynonsuperuser>
+        ```
+
+    4. Create inner database inside the base database
+
+        ```
+        $ createdb --owner=<mynonsuperuser> dnanalyzer
+        ```
+
+
+    Without conda
+
+    ```
+    $ sudo -u postgres psql
+        create database dnanalyzer;
+        create user {usernameYouWant} with encrypted password '{yourPassword}';
+        grant all privileges on database dnanalyzer to {usernameYouWant};
+        exit
+    ```
+
+2. Configure the database details for the project:
+    1. Copy the `db_config.py.in` to `db_config.py`
+    2. Edit `db_config.py` to change username, password according the previous setup
+
+### Launch the project
+
 ```
-    git clone https://github.com/YedilSerzhan/DNAnalyzer.git
-```
-
-### Postgres database
-
-#### Installment
-
-This project uses Postgres as the database, of which the versions 11 to 14 should all work.
-
-it needs to be installed via website manually
-or through terminal commands
-```
-    sudo apt install postgresql postgresql-contrib -y
-```
-
-#### Setting up the database
-
-The database can be managed through a GUI client pgAdmin, or through command lines using `psql`.
-
-Here are the example instructions for creating the user and the database we need by using `psql`:
-
-```
-    sudo -u postgres psql
-    create database {nameOfTheDatabaseYouWant};
-    create user {usernameYouWant} with encrypted password '{yourPassword}';
-    grant all privileges on database {nameOfTheDatabaseYouWant} to {usernameYouWant};
-    exit
-```
-
-### Project environment
-
-Now we set up the project environment:
-
-make sure we are at the project root:
-
-```
-    cd /path/to/the/project
-```
-
-activate the virtual python env and install the packages needed:
-
-```
-    conda activate myenv
-    pip3 install -r requirements.txt
-``` 
-
->   if errors occurred for building wheel for Pillow, then the following commands would be needed:
->   ```
->   apt-get install libjpeg-dev zlib1g-dev
->   # if not working after this, also try
->   sudo pip install -U setuptools
->   ```
-
-configure the database details for the project:
-```
-    cp db_config.py.in db_config.py
-    vi db_config.py # edit the config file to change database, username, password according your own setup
-```
-
-### Run the project
-
-now the project should be ready to run locally
-```
-    python app.py
+$ python app.py
 ```
 
 ## Part2: Instructions for deploying the project on a complete new Linux server
+
 ### Firstly you should have access to the server using tools like ssh
+
 ### Setting up the environment
 update the system applications
 ```

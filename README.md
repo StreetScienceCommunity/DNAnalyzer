@@ -26,16 +26,16 @@ Technologies like DNA sequencing are getting cheaper and therefore more accessib
 
 ### The solution
 
-We are implementing an encouraging and easy-to-understand online game on DNA data analysis, the DNAnalyzer. 
+We are implementing an encouraging and easy-to-understand online game on DNA data analysis, the DNAnalyzer.
 
 We have some interesting story, to make the game more exciting. You can see them [here](stories/README.md)
 
-The game, implemented in Galaxy, will consist of several levels: 
-1. Learning: about biological background (DNA and sequencing) and how to use the platform. 
+The game, implemented in Galaxy, will consist of several levels:
+1. Learning: about biological background (DNA and sequencing) and how to use the platform.
 2. Hands on: perform the first guided data analysis.
 3. Expert: change and improve their pipeline for data analysis.
 
-Gamer will in the first two levels collect points by answering questions or finding treasures by following hints. In the third level gamer and reseachter will interactively evaluate dataanalysis of otheres and thereby give and get points. We believe that the integration of society into the scientific both will profit. Citizens will get excited for science and they can help to analyze and improve scientific data. 
+Gamer will in the first two levels collect points by answering questions or finding treasures by following hints. In the third level gamer and reseachter will interactively evaluate dataanalysis of otheres and thereby give and get points. We believe that the integration of society into the scientific both will profit. Citizens will get excited for science and they can help to analyze and improve scientific data.
 
 ## Who are we?
 
@@ -71,45 +71,7 @@ Thank you very much for visiting our project repository. We hope you feel inspir
 
 ## How can I generate the website locally?
 
-The Project relies on `Flask` and `Postgres infrastructure`, you will need `Python 3` and `Postgres`.
-
-
-Detailed installation instructions below
-
-1. Open a terminal
-2. Clone this GitHub repository:
-
-   ```
-   git clone https://github.com/StreetScienceCommunity/DNAnalyzer
-   ```
-
-3. Navigate to the `DNAnalyzer` folder with `cd`
-4. It's ideal to use a virtual environment for python. For consistency, we recommend to use `conda`:
-
-   ```
-   conda activate myenv
-   ```
-
-5. Install the project's dependencies:
-
-   ```
-   pip3 install -r requirements.txt
-   ```
-6. Next, create a `db_config.py` file, and edit with your local settings
-
-   ```
-   cp db_config.py.in db_config.py
-   ```
-
-7. Start the website:
-
-   ```
-   python3 app.py
-   ```
-
-8. Open the website in your favorite browser at:
-   [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
-
+The Project relies on Flask and Postgres. The detailed installation instructions are available [here](docs/deployment.md)
 
 
 ## Generate videos
@@ -127,7 +89,7 @@ $ sudo apt-get install libsox-fmt-mp3
 
 In different terminals:
 
-1. Run website 
+1. Run website
 1. Launch MozillaTTS for speech
 
    ```

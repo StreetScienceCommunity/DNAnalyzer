@@ -1,0 +1,18 @@
+name: dnanalyzer
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - postgresql
+  - python
+  - wheel
+  - Pillow
+  - flask
+  - flask-Login
+  - flask-marshmallow
+  - flask-SQLAlchemy
+  - marshmallow
+  - marshmallow-sqlalchemy
+  - psycopg2-binary
+  - psycopg2
+  - pyyaml
