@@ -87,7 +87,6 @@ def intro(level_id):
 
 
 @bp.route('/level/<level_id>/chapter/<chapter_id>')
-@login_required
 def chapter(level_id, chapter_id):
     """
     view function for quiz page
@@ -106,7 +105,6 @@ def chapter(level_id, chapter_id):
 
 
 @bp.route('/quiz/<chapter_id>/submit', methods=['POST'])
-@login_required
 def quiz_submit(chapter_id):
     """
     function for receiving quiz answers, checking them, store the score and return to the result page
@@ -117,27 +115,31 @@ def quiz_submit(chapter_id):
     """
     form = request.form
     chapter_dump, questions_dump = quiz_questions_helper(chapter_id)
-    # check choice submitted if right wrong or miss
     cur_score = 0
-    db.engine.execute(
-        "delete from answer where answer.choice_id in  ( select answer.choice_id from answer, choice, chapter, users, question where answer.choice_id = choice.id and choice.question_id = question.id and question.chapter_id = chapter.id and chapter.id = %s and users.id = %s )" % (
-            chapter_id, current_user.id))
-    db.engine.execute("delete from score where chapter_id = %s and user_id=%s" % (chapter_id, current_user.id))
+
+    # delete old results if the user is authenticated
+    if current_user.is_authenticated:
+        db.engine.execute(
+            "delete from answer where answer.choice_id in  ( select answer.choice_id from answer, choice, chapter, users, question where answer.choice_id = choice.id and choice.question_id = question.id and question.chapter_id = chapter.id and chapter.id = %s and users.id = %s )" % (
+                chapter_id, current_user.id))
+        db.engine.execute("delete from score where chapter_id = %s and user_id=%s" % (chapter_id, current_user.id))
 
     # check score for each question
     i = 0
     while i < len(questions_dump):
         j = i
 
-        # update answer to the database for each choice selected
         submitted_answers = set(form.getlist(questions_dump[i]['id']))
-        for aws_id in submitted_answers:
-            new_answer = Answer(
-                user_id=current_user.id,
-                choice_id=aws_id
-            )
-            db.session.add(new_answer)
-            db.session.commit()
+
+        # if the user is_authenticated, update answer to the database for each choice selected
+        if current_user.is_authenticated:
+            for aws_id in submitted_answers:
+                new_answer = Answer(
+                    user_id=current_user.id,
+                    choice_id=aws_id
+                )
+                db.session.add(new_answer)
+                db.session.commit()
 
         # start counting selected correct choices and wrong choices that user didn't select
         selected_correct = 0
@@ -195,14 +197,15 @@ def quiz_submit(chapter_id):
             i = j - 1
         i += 1
 
-    # update final score to the database
-    new_score = Score(
-        score=cur_score,
-        user_id=current_user.id,
-        chapter_id=chapter_id
-    )
-    db.session.add(new_score)
-    db.session.commit()
+    # if the user is authenticated, update final score to the database
+    if current_user.is_authenticated:
+        new_score = Score(
+            score=cur_score,
+            user_id=current_user.id,
+            chapter_id=chapter_id
+        )
+        db.session.add(new_score)
+        db.session.commit()
 
     ranking = get_ranking(chapter_id)
     return render_template("games/quiz_result.html", questions=questions_dump,
@@ -357,7 +360,6 @@ def chapter_result(level_id, chapter_id):
 
 
 @bp.route('/galaxy_history')
-@login_required
 def galaxy_history():
     """
     view function for galaxy history result
