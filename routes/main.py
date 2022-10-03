@@ -208,7 +208,7 @@ def quiz_submit(chapter_id):
         db.session.commit()
 
     ranking = get_ranking(chapter_id)
-    return render_template("games/quiz_result.html", questions=questions_dump,
+    return render_template("games/quiz_result.html", questions=questions_dump, cur_lvl=chapter_dump['level_id'],
                            chapter=chapter_dump, score=cur_score, ranking=ranking)
 
 
