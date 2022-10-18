@@ -62,7 +62,7 @@ Firstly make sure Git is installed, then:
 
 ### Setting up the database
 
-1. Create database
+1. Create database (only once)
 
     Within conda environment:
 
@@ -107,9 +107,17 @@ Firstly make sure Git is installed, then:
 
 ### Launch the project
 
-```
-$ python app.py
-```
+1. Start the server modus/instance of postgres (if not already running)
+
+    ```
+    $ pg_ctl -D dnanalyzer -l logfile start
+    ```
+
+2. Launch the project
+
+    ```
+    $ python app.py
+    ```
 
 ## Part2: Instructions for deploying the project on a complete new Linux server
 
