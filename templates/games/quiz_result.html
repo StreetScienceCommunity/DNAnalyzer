@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="quiz_wrapper columns mb-6">
+		{% include 'chapter_menu.html' %}
+		<div class="quiz column is-four-fifths p-6">
+			<div id="quiz"></div>
+			<hr>
+			<div>
+				<p class="quiz_title mb-3">Top 5 rankings on Chapter {{chapter.id}} </p>
+				<table class="table is-striped is-fullwidth">
+					  <thead>
+						<tr>
+							<th>username</th>
+							<th>score</th>
+							<th>Finished Time</th>
+						</tr>
+					  </thead>
+					<tbody>
+						{% for r in ranking %}
+							<tr {% if r.user_id == current_user.id %} class="is-selected" {% endif %}>
+								<td>{{r.username}}</td>
+								<td>{{r.score}}</td>
+								<td>{{r.add_time}}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+
+
+				</table>
+			</div>
+		</div>
+</div>
+<script>
+function check_result(choice, show_text=true){
+        let rtn = '';
+        if(choice.state == 'correct'){
+                rtn = `<span class="icon-text has-text-success">
+                                  <span class="icon">
+                                    <i class="fas fa-check-square"></i>
+                                  </span>`;
+                if(show_text)
+                        rtn += `<span>Correct</span>`;
+                rtn += `</span>`;
+        }
+        else if(choice.state == 'wrong'){
+                rtn = `<span class="icon-text has-text-danger">
+                                  <span class="icon">
+                                    <i class="fas fa-ban"></i>
+                                  </span>`;
+                if(show_text)
+                        rtn += `<span>Wrong</span>`;
+                rtn += `</span>`;
+        }else if(choice.state == 'missed'){
+                rtn = `<span class="icon-text has-text-warning">
+                                  <span class="icon">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                  </span>`;
+                if(show_text)
+                        rtn += `<span>Missed Answer</span>`;
+                rtn += `</span>`;
+        }
+        return rtn;
+}
+
+function add_option_input_field(question, choice, type){
+	rtn = ""
+	if(type=="radio"){
+		rtn += `<input type="radio"  name="${question.id}" id="${choice.id}" value="${choice.id}"`
+		if((choice.state == 'correct' || choice.state == 'wrong')){
+			rtn += ` checked="checked" `
+		}
+	}else if(type=="checkbox"){
+		rtn+= `<input type="checkbox"  name="${question.id}" class="checknox" id="${choice.id}" value="${choice.id}"`
+		if((choice.state == 'correct' || choice.state == 'wrong')){
+			rtn += ' checked '
+		}
+	}
+	rtn +='>'
+	return rtn;
+}
+    $(document).ready(function () {
+        let questions = {{questions | tojson}};
+        let chapter = {{chapter| tojson}};
+        let myHTML = '';
+        myHTML += `<p class="quiz_title"> <span>Level ${chapter.level_id} / Chapter ${chapter.id} Quiz result</span>  <span>{{score}} / {{chapter.total_score}} points</span></p>`;
+        for (let i = 0; i < questions.length; i++) {
+            myHTML += '<hr>'
+            myHTML += '<div class="quiz_text">';
+            myHTML += `<h1 class="q_title">${questions[i].title}</h1>`;
+            myHTML += `<p class="q_points">${questions[i].point}Pts</p>`;
+            if(questions[i].missed)
+                    myHTML += '<p class="has-text-danger">You didn\'t answer this question</p>';
+            myHTML += '</div>'
+            let choices = questions[i].choices;
+            if (questions[i].type == "grid" || questions[i].type == "grid_checkbox") {
+                let cur_type = questions[i].type;
+                myHTML += `<table class="table is-bordered is-striped  is-hoverable is-fullwidth">
+                             <thead>
+                               <tr>
+                                <th>&nbsp;</th>`;
+                for (let j = 0; j < choices.length; j++) {
+                    myHTML += `<th>${choices[j].content}</th>`;
+                }
+                myHTML += '    </tr> </thead> <tbody>';
+                let k = i;
+                for (; k < questions.length && questions[k].type==cur_type; k++) {
+                        choices = questions[k].choices;
+                    myHTML += `<tr><td>${questions[k].description}</td>`;
+                    for (let j = 0; j < choices.length; j++){
+                        if(cur_type=="grid"){
+                            myHTML += `<td class="${choices[j].state}">`
+							myHTML += add_option_input_field(questions[k], choices[j], "radio")
+							myHTML += `<label class="checkbox">&nbsp;</label>`;
+                            myHTML += check_result(choices[j], false);
+                            myHTML += `</td>`;
+                        }
+                        else{
+                            myHTML += `<td class="${choices[j].state}">`
+							myHTML += add_option_input_field(questions[k], choices[j], "checkbox")
+							myHTML += `<label class="checkbox">&nbsp;</label>`;
+                            myHTML += check_result(choices[j], false);
+                            myHTML += `</td>`;
+                        }
+                    }
+                    myHTML += `</tr>`;
+                }
+                myHTML += '  </tbody></table>';
+                i = k -1;
+            } else {
+                myHTML += '<div id="q_choices" class="q_choices">';
+                if(questions[i].type=="choose_one"){
+                    for (let j = 0; j < choices.length; j++) {
+                        myHTML += `<div class="radio_wrapper wrapper ${choices[j].state}">`
+                        myHTML += add_option_input_field(questions[i], choices[j], "radio")
+						myHTML += `<label for="${choices[j].id}" class="choice_text"> ${choices[j].content} </label> `
+                        myHTML += check_result(choices[j]);
+                        myHTML += `</div>`;
+                    }
+                }else{
+                    for (let j = 0; j < choices.length; j++) {
+                        myHTML += `<div class="checkbox_wrapper wrapper ${choices[j].state}">`
+						myHTML += add_option_input_field(questions[i], choices[j], "checkbox")
+						myHTML += `<label for="${choices[j].id}" class="choice_text"> ${choices[j].content} </label>`
+                        myHTML += check_result(choices[j]);
+                        myHTML += `</div>`;
+                    }
+                }
+                if(questions[i].explanation){
+                        myHTML += `<div class="feedback_block mt-2">
+                                        <p class="has-text-weight-bold mb-2">Explanation</p>
+                                        <p class="is-italic feedback_text">${questions[i].explanation}</p>
+                                  </div>`
+                }
+                myHTML += '</div>';
+            }
+        }
+		myHTML += `<a href="/level/{{cur_lvl}}/chapter/${chapter.id}" style="text-decoration:none;"><button type="button" class="button is-fullwidth start_tbn mt-3 "> Retry </button></a>`
+        $('#quiz').html(myHTML);
+    });
+</script>
+
+
+{% endblock %}

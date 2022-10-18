@@ -1,0 +1,788 @@
+{
+    "data_inputs": {
+        "expected_number_of_inputs": 3,
+        "user_number_of_inputs": 3,
+        "status": true
+    },
+    "steps": {
+        "0": {
+            "tool_used": {
+                "expected_value": "FastQC",
+                "user_value": "FastQC",
+                "status": true
+            },
+            "tool_id": {
+                "expected_id": "fastqc",
+                "user_id": "fastqc",
+                "status": true
+            },
+            "tool_dev": {
+                "expected_dev": "devteam",
+                "user_dev": "devteam",
+                "status": true
+            },
+            "tool_version": {
+                "expected_version": "0.72+galaxy1",
+                "user_version": "0.73+galaxy0",
+                "status": false
+            },
+            "parameters": {
+                "param_values": {
+                    "min_length": {
+                        "expected_input": "",
+                        "user_input": null,
+                        "status": false
+                    },
+                    "kmers": {
+                        "expected_input": "7",
+                        "user_input": "7",
+                        "status": true
+                    },
+                    "limits": {
+                        "expected_input": {
+                            "__class__": "RuntimeValue"
+                        },
+                        "user_input": null,
+                        "status": false
+                    },
+                    "input_file": {
+                        "expected_input": {
+                            "__class__": "ConnectedValue"
+                        },
+                        "user_input": null,
+                        "status": false
+                    },
+                    "__page__": {
+                        "expected_input": null,
+                        "user_input": null,
+                        "status": true
+                    },
+                    "__rerun_remap_job_id__": {
+                        "expected_input": null,
+                        "user_input": null,
+                        "status": true
+                    },
+                    "contaminants": {
+                        "expected_input": {
+                            "__class__": "RuntimeValue"
+                        },
+                        "user_input": null,
+                        "status": false
+                    },
+                    "adapters": {
+                        "expected_input": {
+                            "__class__": "RuntimeValue"
+                        },
+                        "user_input": null,
+                        "status": false
+                    },
+                    "nogroup": {
+                        "expected_input": "false",
+                        "user_input": "false",
+                        "status": true
+                    }
+                },
+                "param_overall_status": false,
+                "number_of_mismatches": 5,
+                "total_number_of_param": 9
+            },
+            "inputs_connection": {
+                "expected_input_source": [
+                    "datasets"
+                ],
+                "user_input_source": [
+                    "datasets"
+                ],
+                "status": true
+            }
+        },
+        "1": {
+            "tool_used": {
+                "expected_value": "FastQC",
+                "user_value": "FastQC",
+                "status": true
+            },
+            "tool_id": {
+                "expected_id": "fastqc",
+                "user_id": "fastqc",
+                "status": true
+            },
+            "tool_dev": {
+                "expected_dev": "devteam",
+                "user_dev": "devteam",
+                "status": true
+            },
+            "tool_version": {
+                "expected_version": "0.72+galaxy1",
+                "user_version": "0.73+galaxy0",
+                "status": false
+            },
+            "parameters": {
+                "param_values": {
+                    "min_length": {
+                        "expected_input": "",
+                        "user_input": null,
+                        "status": false
+                    },
+                    "kmers": {
+                        "expected_input": "7",
+                        "user_input": "7",
+                        "status": true
+                    },
+                    "limits": {
+                        "expected_input": {
+                            "__class__": "RuntimeValue"
+                        },
+                        "user_input": null,
+                        "status": false
+                    },
+                    "input_file": {
+                        "expected_input": {
+                            "__class__": "ConnectedValue"
+                        },
+                        "user_input": null,
+                        "status": false
+                    },
+                    "__page__": {
+                        "expected_input": null,
+                        "user_input": null,
+                        "status": true
+                    },
+                    "__rerun_remap_job_id__": {
+                        "expected_input": null,
+                        "user_input": null,
+                        "status": true
+                    },
+                    "contaminants": {
+                        "expected_input": {
+                            "__class__": "RuntimeValue"
+                        },
+                        "user_input": null,
+                        "status": false
+                    },
+                    "adapters": {
+                        "expected_input": {
+                            "__class__": "RuntimeValue"
+                        },
+                        "user_input": null,
+                        "status": false
+                    },
+                    "nogroup": {
+                        "expected_input": "false",
+                        "user_input": "false",
+                        "status": true
+                    }
+                },
+                "param_overall_status": false,
+                "number_of_mismatches": 5,
+                "total_number_of_param": 9
+            },
+            "inputs_connection": {
+                "expected_input_source": [
+                    "datasets"
+                ],
+                "user_input_source": [
+                    "datasets"
+                ],
+                "status": true
+            }
+        },
+        "2": {
+            "tool_used": {
+                "expected_value": "FASTQ interlacer",
+                "user_value": "FASTQ interlacer",
+                "status": true
+            },
+            "tool_id": {
+                "expected_id": "fastq_paired_end_interlacer",
+                "user_id": "fastq_paired_end_interlacer",
+                "status": true
+            },
+            "tool_dev": {
+                "expected_dev": "devteam",
+                "user_dev": "devteam",
+                "status": true
+            },
+            "tool_version": {
+                "expected_version": "1.2.0.1+galaxy0",
+                "user_version": "1.2.0.1+galaxy0",
+                "status": true
+            },
+            "parameters": {
+                "param_values": {
+                    "__page__": {
+                        "expected_input": null,
+                        "user_input": null,
+                        "status": true
+                    },
+                    "reads": {
+                        "expected_input": {
+                            "input2_file": {
+                                "__class__": "ConnectedValue"
+                            },
+                            "input1_file": {
+                                "__class__": "ConnectedValue"
+                            },
+                            "__current_case__": 0,
+                            "reads_selector": "paired"
+                        },
+                        "user_input": {
+                            "reads_selector": "paired",
+                            "__current_case__": 0,
+                            "input1_file": null,
+                            "input2_file": null
+                        },
+                        "status": false
+                    },
+                    "__rerun_remap_job_id__": {
+                        "expected_input": null,
+                        "user_input": null,
+                        "status": true
+                    }
+                },
+                "param_overall_status": false,
+                "number_of_mismatches": 1,
+                "total_number_of_param": 3
+            },
+            "inputs_connection": {
+                "expected_input_source": [
+                    "datasets",
+                    "datasets"
+                ],
+                "user_input_source": [
+                    "datasets",
+                    "datasets"
+                ],
+                "status": true
+            }
+        },
+        "3": {
+            "tool_used": {
+                "expected_value": "MultiQC",
+                "user_value": "MultiQC",
+                "status": true
+            },
+            "tool_id": {
+                "expected_id": "multiqc",
+                "user_id": "multiqc",
+                "status": true
+            },
+            "tool_dev": {
+                "expected_dev": "iuc",
+                "user_dev": "iuc",
+                "status": true
+            },
+            "tool_version": {
+                "expected_version": "1.7",
+                "user_version": "1.11+galaxy0",
+                "status": false
+            },
+            "parameters": {
+                "param_values": {
+                    "comment": {
+                        "expected_input": "",
+                        "user_input": "",
+                        "status": true
+                    },
+                    "__page__": {
+                        "expected_input": null,
+                        "user_input": null,
+                        "status": true
+                    },
+                    "title": {
+                        "expected_input": "",
+                        "user_input": "",
+                        "status": true
+                    },
+                    "__rerun_remap_job_id__": {
+                        "expected_input": null,
+                        "user_input": null,
+                        "status": true
+                    },
+                    "results": {
+                        "expected_input": [
+                            {
+                                "__index__": 0,
+                                "software_cond": {
+                                    "output": [
+                                        {
+                                            "__index__": 0,
+                                            "type": "data",
+                                            "input": {
+                                                "__class__": "ConnectedValue"
+                                            }
+                                        },
+                                        {
+                                            "__index__": 1,
+                                            "type": "data",
+                                            "input": {
+                                                "__class__": "ConnectedValue"
+                                            }
+                                        }
+                                    ],
+                                    "__current_case__": 8,
+                                    "software": "fastqc"
+                                }
+                            }
+                        ],
+                        "user_input": [
+                            {
+                                "__index__": 0,
+                                "software_cond": {
+                                    "software": "fastqc",
+                                    "__current_case__": 8,
+                                    "output": [
+                                        {
+                                            "__index__": 0,
+                                            "type": "data",
+                                            "input": null
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "status": false
+                    },
+                    "saveLog": {
+                        "expected_input": "false",
+                        "user_input": "false",
+                        "status": true
+                    }
+                },
+                "param_overall_status": false,
+                "number_of_mismatches": 1,
+                "total_number_of_param": 6
+            },
+            "inputs_connection": {
+                "expected_input_source": [
+                    "fastqc",
+                    "fastqc"
+                ],
+                "user_input_source": [],
+                "status": true
+            }
+        },
+        "4": {
+            "tool_used": {
+                "expected_value": "velveth",
+                "user_value": "velveth",
+                "status": true
+            },
+            "tool_id": {
+                "expected_id": "velveth",
+                "user_id": 0,
+                "status": false
+            },
+            "tool_dev": {
+                "expected_dev": "devteam",
+                "user_dev": 0,
+                "status": false
+            },
+            "tool_version": {
+                "expected_version": "1.2.10.1",
+                "user_version": 0,
+                "status": false
+            },
+            "parameters": {
+                "param_values": {
+                    "__page__": {
+                        "expected_input": null,
+                        "user_input": null,
+                        "status": true
+                    },
+                    "hash_length": {
+                        "expected_input": "29",
+                        "user_input": "29",
+                        "status": true
+                    },
+                    "__rerun_remap_job_id__": {
+                        "expected_input": null,
+                        "user_input": null,
+                        "status": true
+                    },
+                    "strand_specific": {
+                        "expected_input": "false",
+                        "user_input": "false",
+                        "status": true
+                    },
+                    "inputs": {
+                        "expected_input": [
+                            {
+                                "__index__": 0,
+                                "read_type": "-shortPaired",
+                                "input": {
+                                    "__class__": "RuntimeValue"
+                                },
+                                "file_format": "-fastq"
+                            }
+                        ],
+                        "user_input": [
+                            {
+                                "__index__": 0,
+                                "file_format": "-fastq",
+                                "read_type": "-shortPaired",
+                                "input": null
+                            }
+                        ],
+                        "status": false
+                    }
+                },
+                "param_overall_status": false,
+                "number_of_mismatches": 1,
+                "total_number_of_param": 5
+            },
+            "inputs_connection": {
+                "expected_input_source": [
+                    "fastq_paired_end_interlacer"
+                ],
+                "user_input_source": [
+                    "fastq_paired_end_interlacer"
+                ],
+                "status": true
+            }
+        },
+        "5": {
+            "tool_used": {
+                "expected_value": "velvetg",
+                "user_value": "velvetg",
+                "status": true
+            },
+            "tool_id": {
+                "expected_id": "velvetg",
+                "user_id": 0,
+                "status": false
+            },
+            "tool_dev": {
+                "expected_dev": "devteam",
+                "user_dev": 0,
+                "status": false
+            },
+            "tool_version": {
+                "expected_version": "1.2.10.1",
+                "user_version": 0,
+                "status": false
+            },
+            "parameters": {
+                "param_values": {
+                    "__page__": {
+                        "expected_input": null,
+                        "user_input": null,
+                        "status": true
+                    },
+                    "__rerun_remap_job_id__": {
+                        "expected_input": null,
+                        "user_input": null,
+                        "status": true
+                    },
+                    "last_graph": {
+                        "expected_input": {
+                            "generate_graph": "no",
+                            "__current_case__": 0
+                        },
+                        "user_input": {
+                            "generate_graph": "no",
+                            "__current_case__": 0
+                        },
+                        "status": true
+                    },
+                    "generate_amos": {
+                        "expected_input": {
+                            "afg": "no",
+                            "__current_case__": 0
+                        },
+                        "user_input": {
+                            "afg": "no",
+                            "__current_case__": 0
+                        },
+                        "status": true
+                    },
+                    "reads": {
+                        "expected_input": {
+                            "paired": "yes",
+                            "options": {
+                                "__current_case__": 0,
+                                "advanced": "no"
+                            },
+                            "__current_case__": 1,
+                            "ins_length": "-1"
+                        },
+                        "user_input": {
+                            "paired": "yes",
+                            "__current_case__": 1,
+                            "ins_length": "-1",
+                            "options": {
+                                "advanced": "no",
+                                "__current_case__": 0
+                            }
+                        },
+                        "status": true
+                    },
+                    "unused_reads": {
+                        "expected_input": {
+                            "generate_unused": "no",
+                            "__current_case__": 0
+                        },
+                        "user_input": {
+                            "generate_unused": "no",
+                            "__current_case__": 0
+                        },
+                        "status": true
+                    },
+                    "coverage": {
+                        "expected_input": {
+                            "cutoff": "none",
+                            "__current_case__": 0
+                        },
+                        "user_input": {
+                            "cutoff": "none",
+                            "__current_case__": 0
+                        },
+                        "status": true
+                    },
+                    "expected": {
+                        "expected_input": {
+                            "__current_case__": 0,
+                            "coverage": "none"
+                        },
+                        "user_input": {
+                            "coverage": "none",
+                            "__current_case__": 0
+                        },
+                        "status": true
+                    },
+                    "input": {
+                        "expected_input": {
+                            "__class__": "ConnectedValue"
+                        },
+                        "user_input": null,
+                        "status": false
+                    },
+                    "read_trkg": {
+                        "expected_input": "false",
+                        "user_input": "false",
+                        "status": true
+                    },
+                    "contig_lgth": {
+                        "expected_input": {
+                            "__current_case__": 0,
+                            "use_contig_lgth": "no"
+                        },
+                        "user_input": {
+                            "use_contig_lgth": "no",
+                            "__current_case__": 0
+                        },
+                        "status": true
+                    }
+                },
+                "param_overall_status": false,
+                "number_of_mismatches": 1,
+                "total_number_of_param": 11
+            },
+            "inputs_connection": {
+                "expected_input_source": [
+                    "velveth"
+                ],
+                "user_input_source": [
+                    0
+                ],
+                "status": true
+            }
+        },
+        "6": {
+            "tool_used": {
+                "expected_value": "Quast",
+                "user_value": "Quast",
+                "status": true
+            },
+            "tool_id": {
+                "expected_id": "quast",
+                "user_id": "quast",
+                "status": true
+            },
+            "tool_dev": {
+                "expected_dev": "iuc",
+                "user_dev": "iuc",
+                "status": true
+            },
+            "tool_version": {
+                "expected_version": "5.0.2+galaxy0",
+                "user_version": "5.0.2+galaxy2",
+                "status": false
+            },
+            "parameters": {
+                "param_values": {
+                    "scaffold_gap_max_size": {
+                        "expected_input": "1000",
+                        "user_input": null,
+                        "status": null
+                    },
+                    "skip_unaligned_mis_contigs": {
+                        "expected_input": "true",
+                        "user_input": null,
+                        "status": null
+                    },
+                    "assembly": {
+                        "expected_input": {
+                            "ref": {
+                                "operons": {
+                                    "__class__": "RuntimeValue"
+                                },
+                                "r": {
+                                    "__class__": "ConnectedValue"
+                                },
+                                "use_ref": "true",
+                                "features": {
+                                    "__class__": "RuntimeValue"
+                                },
+                                "__current_case__": 0
+                            },
+                            "orga_type": "",
+                            "type": "genome",
+                            "__current_case__": 0
+                        },
+                        "user_input": {
+                            "type": "genome",
+                            "__current_case__": 0,
+                            "ref": {
+                                "use_ref": "true",
+                                "__current_case__": 0,
+                                "r": null,
+                                "features": null,
+                                "operons": null,
+                                "k_mer": {
+                                    "k_mer_stats": "",
+                                    "__current_case__": 1
+                                },
+                                "circos": "false"
+                            },
+                            "orga_type": ""
+                        },
+                        "status": false
+                    },
+                    "circos": {
+                        "expected_input": "false",
+                        "user_input": null,
+                        "status": null
+                    },
+                    "contig_thresholds": {
+                        "expected_input": "0,1000",
+                        "user_input": null,
+                        "status": null
+                    },
+                    "__page__": {
+                        "expected_input": null,
+                        "user_input": null,
+                        "status": true
+                    },
+                    "strict_NA": {
+                        "expected_input": "false",
+                        "user_input": null,
+                        "status": null
+                    },
+                    "__rerun_remap_job_id__": {
+                        "expected_input": null,
+                        "user_input": null,
+                        "status": true
+                    },
+                    "genes": {
+                        "expected_input": {
+                            "rna_finding": "false",
+                            "gene_finding": {
+                                "tool": "none",
+                                "__current_case__": 0
+                            },
+                            "conserved_genes_finding": "false"
+                        },
+                        "user_input": {
+                            "gene_finding": {
+                                "tool": "none",
+                                "__current_case__": 0
+                            },
+                            "rna_finding": "false",
+                            "conserved_genes_finding": "false"
+                        },
+                        "status": true
+                    },
+                    "unaligned_part_size": {
+                        "expected_input": "500",
+                        "user_input": null,
+                        "status": null
+                    },
+                    "al": {
+                        "expected_input": {
+                            "upper_bound_assembly": "false",
+                            "min_identity": "95.0",
+                            "ambiguity_score": "0.99",
+                            "ambiguity_usage": "one",
+                            "upper_bound_min_con": "2",
+                            "fragmented": "false",
+                            "fragmented_max_indent": "50",
+                            "use_all_alignments": "false",
+                            "min_alignment": "65"
+                        },
+                        "user_input": null,
+                        "status": null
+                    },
+                    "extensive_mis_size": {
+                        "expected_input": "1000",
+                        "user_input": null,
+                        "status": null
+                    },
+                    "large": {
+                        "expected_input": "false",
+                        "user_input": "false",
+                        "status": true
+                    },
+                    "in": {
+                        "expected_input": {
+                            "inputs": {
+                                "__class__": "ConnectedValue"
+                            },
+                            "__current_case__": 1,
+                            "custom": "false"
+                        },
+                        "user_input": {
+                            "custom": "false",
+                            "__current_case__": 1,
+                            "inputs": null
+                        },
+                        "status": false
+                    },
+                    "k_mer": {
+                        "expected_input": {
+                            "k_mer_stats": "",
+                            "__current_case__": 1
+                        },
+                        "user_input": null,
+                        "status": null
+                    },
+                    "split_scaffolds": {
+                        "expected_input": "false",
+                        "user_input": "false",
+                        "status": true
+                    },
+                    "min_contig": {
+                        "expected_input": "500",
+                        "user_input": "500",
+                        "status": true
+                    }
+                },
+                "param_overall_status": false,
+                "number_of_mismatches": 2,
+                "total_number_of_param": 17
+            },
+            "inputs_connection": {
+                "expected_input_source": [
+                    "datasets",
+                    "velvetg"
+                ],
+                "user_input_source": [
+                    "datasets"
+                ],
+                "status": true
+            }
+        }
+    },
+    "number_of_steps": 7,
+    "number_of_wrong_steps": 0
+}

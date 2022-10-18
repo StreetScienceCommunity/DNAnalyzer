@@ -1,0 +1,87 @@
+chapter_name: Sequencing
+
+video_url: scgl-_tF4jU
+
+total_score: 16
+
+questions:
+
+# 1
+- title: What is a different name for Sanger sequencing?
+  type: choose_one
+  hint: Since Sanger sequencing was this first it is also the least scalable sequencing technique. 
+  explanation: Sanger DNA sequencing is also known as the chain-termination method of sequencing. The Sanger technique uses dideoxynucleotides or ddNTPs in addition to typical deoxynucleotides (dNTPs) in the reaction. ddNTPs result in termination of the DNA strand because ddNTPs lack the 3’-OH group required for phosphodiester bond formation between nucleotides. Without this bond, the chain of nucleotides being formed is terminated.
+  image_name:
+  point: 3
+  choices:
+    - 1: Chain termination
+      correct: true
+    - 2: sequencing by synthesis
+      correct: false
+    - 3: Next-generation sequencing
+      correct: false
+    - 4: nanopore sequencing
+      correct: false
+
+# 2
+- title: Sanger sequencing is
+  type: choose_one
+  hint: Used in the human genome project.
+  explanation: Sanger sequencing is the first generation of sequencers. Compared to subsequent methods it is very slow and cost-intensive. But it enabled the start of the first complete sequencing of the human genome (human genome project) and all development it engendered. 
+  image_name:
+  point: 2
+  choices:
+    - 1: 1st generation
+      correct: true
+    - 2: 2nd generation
+      correct: false
+    - 3: 3rd generation
+      correct: false
+    - 4: 4th generation
+      correct: false
+
+
+# 3
+- title: Which of these DNA sequencing methods are called the 3rd generation?
+  type: choose_one
+  hint: The 3rd generation sequencing methods are the latest sequencing techniques. 
+  explanation: Nanopore sequencing is called the 3rd sequencing generation. By passing the DNA through a nanopore a current pattern is generated and the sequence is deducted from that current pattern.   
+  image_name:
+  point: 3
+  choices:
+    - 1: Passing DNA through nanopores in protein molecules
+      correct: true
+    - 2: The chain termination method
+      correct: false
+    - 2: Gel electrophoresis.
+      correct: false
+
+# 4
+- title: The nanopore sequencing method was developed by ...
+  type: choose_one
+  hint: The nanopore sequencing method was developed by a group of people. 
+  explanation:  In 2014 the company Oxford Nanopore released its first portable nanopore sequencing device.
+  image_name:
+  point: 2
+  choices:
+    - 1: Allan Maxam and Walter Gilbert
+      correct: false
+    - 2: Oxford Nanopore
+      correct: true
+    - 2: Frederick Sanger
+      correct: false
+
+# 5
+- title: A fresh cheese sample, form the  French cheese Bleu de Velay, can still ripe while it its prepared for DNA sequencing.  What should you do?
+  type: choose_one
+  hint: DNA does not change rapidly over time. 
+  explanation: The ripening of cheese is a process with numerous chemical processes. However, if cells are not damaged within the process, the DNA is not changed. There are numerous studies investigating the microbiome of different cheeses. 
+  image_name:
+  point: 6
+  choices:
+    - 1: use nanopore sequencing device MinION as it’s the fastest method and the device is portable to take it to France
+      correct: false
+    - 2: it doesn't matter if the cheese would be overripe as the DNA would remain the same
+      correct: true
+    - 2: use any method of sequencing
+      correct: true

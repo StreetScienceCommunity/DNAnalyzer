@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<div class="quiz_wrapper columns mb-6">
+	{% include 'chapter_menu.html' %}
+	<div class="quiz column is-four-fifths p-6">
+		<div class="section">
+			<p class="is-size-3 has-text-weight-bold mb-3">Welcome to the second level of the DNAnalyzer!</p>
+			<p class="my-4">Sam would like to learn how one can identify what species are living in a specific environment. </p>
+			<p class="my-4"> One day he is meeting one of his new human finds and expresses his desire to him. Kim his friends know about the BeerDEcoded project, where participants extract, sequence and analyze the yeast inside different beers. </p>
+			<p class="my-4"> Sam is intrigued and would like to do a workshop. Would you like to join Sam?</p>
+			<img src="/static/quiz_images/workflow.png" alt="">
+			<p class="my-4"><a href="/level/2/chapter/1" class="button is-link is-large is-fullwidth start_tbn"><strong>Start</strong></a></p>
+		</div>
+	</div>
+</div>
+{% endblock %}

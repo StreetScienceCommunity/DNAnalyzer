@@ -49,4 +49,79 @@ And feel free to contact us with new ideas at any time via the [an issue](issues
 
 ## More specific questions and answers
 
+### How do I add new questions?
 
+There's a folder `game` in the project root. The folder structure is shown below:
+```bash
+├──   game
+│   └──   level1
+│       ├──   chapter1
+│       │   ├──   quiz.yaml
+│       │   ├──   images
+│       │   │   ├──   bird_and_lizard.png
+│       │   │   ├──   cell.png
+│       │   │   ├──   ...
+│       ├──   chapter2
+│       │   ├──   quiz.yaml
+│       │   ├──  images
+│       │   │   ├──   dna-with-mutation.png
+│       │   │   ├──   ...
+│       ├──   chapter3
+│       │   ├──   quiz.yaml
+│       │   ├──   images
+│       │   │   ├──   dna-sequencing_med.png
+│       │   │   ├──   ...
+│   └──   level2
+│       ├──   chapter1
+│       │   ├──   quiz.yaml
+│       │   ├──   images
+│       │   │   ├──   ...
+```
+
+In order to add a new chapter:
+1. Add the new chapter folder with the name "chapter", followed by the incremental chapter ID.
+2. In this folder, create a new file `quiz.yaml`, which stores all the questions within the chapter. 
+3. Create a new folder `images`, and put all the images needed for the chapter into it.
+
+For adding questions to a `quiz.yaml`, we need to add each one under the variable `questions`.
+There are 4 types of questions (choose_one, choose_many, grid, grid_checkbox), which can be added in two different templates types:
+For choose_one and choose_many type questions:
+```
+- title: # title of the question
+  type: choose_one / choose_many
+  hint: # hint of the question
+  explanation: # explanation of the question shown on the result page
+  image_name: # name with extension of the image file (which is stored in the images folder in the current chapter)
+  point: # points the user will get if it's answered correctly
+  choices:
+    - 1: # text of the choice
+      correct: true / false
+    - 2: # text of the choice
+      correct: true / false
+     ...
+```
+
+For grid, grid_checkbox questions:
+```
+- title: # title of the question
+  type: grid / grid_checkbox
+  hint: # hint of the question
+  explanation: # explanation of the question shown on the result page
+  image_name: # name with extension of the image file (which is stored in the images folder in the current chapter)
+  point: # points the user will get if it's answered correctly
+  choices:
+    1: # text of the choice
+    2: # text of the choice
+    3: # text of the choice
+    4: # text of the choice
+  questions:
+    - text: # text of the sub-question
+      answers: [3] # list of choices which are correct, for grid questions, there should only be one element in the list
+    - text: # text of the sub-question
+      answers: [1,3] # list of choices which are correct, for grid questions, there should only be one element in the list
+    - text: # text of the sub-question
+      answers: [2] # list of choices which are correct, for grid questions, there should only be one element in the list
+    - text: # text of the sub-question
+      answers: [4, 2] # list of choices which are correct, for grid questions, there should only be one element in the list
+    ...
+```

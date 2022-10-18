@@ -3,22 +3,16 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - ffmpeg
-  - jq
-  - sox
-  - imagemagick
-  - gmp
-  - jemalloc
-  - nodejs
-  - openssl
-  - readline
-  - ruby=2.6.6
-  - yaml
-  - yamllint
-  - zlib
-  - libxml2
-  - pkg-config
-  - pandas
+  - postgresql
+  - python
+  - wheel
+  - Pillow
+  - flask
+  - flask-Login
+  - flask-marshmallow
+  - flask-SQLAlchemy
+  - marshmallow
+  - marshmallow-sqlalchemy
+  - psycopg2-binary
+  - psycopg2
   - pyyaml
-  - gxx_linux-64
-

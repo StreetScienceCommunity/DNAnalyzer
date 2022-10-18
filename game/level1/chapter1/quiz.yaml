@@ -1,0 +1,259 @@
+chapter_name: Introduction to the biology
+
+video_url: Y_8SuKF-YHY
+
+total_score: 54
+
+questions:
+# 1
+- title: What is the proper definition of evolution?
+  type: choose_one
+  hint: Even though evolution is taking place all around us, for many species the process operates so slowly that it is not observable except over thousands or hundreds of thousands of years, much too long to witness in a human lifetime.
+  explanation: Evolution is a change in a population of organisms through time leading to the appearance of new forms
+  image_name:
+  point: 4
+  choices:
+    - 1: changes in a population of organisms over a period of time
+      correct: true
+    - 2: changes in individual organisms during their lifetime
+      correct: false
+    - 3: organisms coming into existence at a defined moment in time and not changing
+      correct: false
+
+# 2
+- title: What are biological survival benefits for a population?
+  type: choose_one
+  hint: Change in an organism's environment forces the organism to adapt to fit the new environment. How can an organism adapt to this new environment?
+  explanation: Mutations occur throughout the natural world. Some mutations are beneficial and increase the possibility that an organism will thrive and pass on its genes to the next generation. When mutations improve survival or reproduction, the process of natural selection will cause the mutation to become more common over time. Therefore, mutations can be bad for the individual but overall beneficial for a population. Niche properties like the color changing of lizards can be crucial for there survival. They are not as easy to find by animals who would like to eat them and therefore can survive longer than other species.
+  image_name:
+  point: 2
+  choices:
+    - 1: genetic disease
+      correct: false
+    - 2: high mutation rate
+      correct: true
+    - 3: environmental changes
+      correct: false
+    - 4: niche advantages like the lizards' ability to change a color
+      correct: true
+
+# 3
+- title: This salamander did not use its eyes so it lost its vision. Who said if you don't use it you lose it?
+  type: choose_one
+  hint: Lamarck thought that organisms changed out of need and after a change in the environment. On the other hand, Darwin thought organisms changed by chance when they were born and before there was a change in the environment.
+  explanation: The Lamarck's idea is organisms gaining abilities if they need them and losing others if they don't need them.
+  image_name: salamander.jpg
+  point: 2
+  choices:
+    - 1: Malthus
+      correct: false
+    - 2: Lamarck
+      correct: true
+    - 3: Darwin
+      correct: false
+
+# 4
+- title: How did Lamarck's theory of evolution differ from Darwin's?
+  type: choose_one
+  hint: Darwin thought, that environment performs the cruel but immensely important task of selecting the fittest organisms.
+  explanation: For Lamarck, the environment governs adaptive change by inheritance of acquired traits, while in Darwin thought, it performs the cruel but immensely important task of selecting the fittest organisms.
+  image_name:
+  point: 3
+  choices:
+    - 1: Lamarck believed that characteristics acquired during an organism’s lifetime could be passed on to the next generation.
+      correct: true
+    - 2: Lamarck believed that Earth was old enough to provide a sufficient time scale for the process of evolution.
+      correct: false
+    - 3: Lamarck believed that the organisms of a population that have suvival benefits will produce more offsprings
+      correct: false
+
+# 5
+- title: Lamarck’s ideas about evolution include the concept that differences among the traits of organisms arise as a result of
+  type: choose_one
+  hint: Lamarck thought that organisms changed out of need and after a change in the environment.
+  explanation: The Lamarck's idea about organisms gaining some abilities if they need them and losing others if they don't need them is applicable here.
+  image_name:
+  point: 3
+  choices:
+    - 1: continual increases in population size.
+      correct: false
+    - 2: the actions of organisms as they use or fail to use body structures.
+      correct: true
+    - 3: an unchanging local environment.
+      correct: false
+    - 4: the natural variations already present within the population of organisms.
+      correct: false
+
+# 6
+- title: What do humans and bananas have in common?
+  type: choose_many
+  hint: There are processes and actions within organisms that are the same and therefore use the same 'tool kit'.
+  explanation: All living things evolved from a common ancestor. Therefore, humans, animals and other organisms share many of the same genes, and the molecules made from them function in similar ways. For example, the human and mouse genomes are about 85 percent the same.
+  image_name:
+  point: 4
+  choices:
+    - 1: genome
+      correct: false
+    - 2: part of their genomes
+      correct: true
+    - 3: distant ancestor
+      correct: true
+    - 4: some amount of genes
+      correct: true
+
+# 7
+- title: https://www.pbs.org/wgbh/nova/labs//lab/evolution/research#/chooser - here you can play and learn. In this game, you'll climb around the tree of life, building out parts of it to better understand how evolution works. You'll be organising the collection of species into a tree. Build a tree by drugging species icons and then traits into the center of the screen. The split point represents the evolutionary moment when the common ancestor of these species diverged into two specific species. Click the button "Play" under the "Mission 1 - Training trees". And then, click “Play” again under “Red, green, and gecko”. Come back here and choose common traits of gecko and fungus.
+  type: choose_many
+  hint:
+  explanation:
+  image_name: tree_game.png
+  point: 2
+  choices:
+    - 1: heterotrophic
+      correct: true
+    - 2: cells with nuclei
+      correct: true
+    - 3: photosynthetic autotroph
+      correct: false
+
+# 8
+- title: Choose the non-hereditary traits
+  type: choose_many
+  hint:
+  explanation: Genetic relations among languages are not biologically based, but are defined by cultural transmission from generation to generation. That is, languages are learned, not inherited via the genes. The fingerprint of identical twins (same set of chromosomes) is different and not inherited genetically.
+  image_name:
+  point: 3
+  choices:
+    - 1: eye color
+      correct: false
+    - 2: pattern of the fingerprint
+      correct: true
+    - 3: language
+      correct: true
+    - 4: color of the skin
+      correct: false
+    - 5: height
+      correct: false
+
+# 9
+- title: Choose the hereditary traits
+  type: choose_one1
+  hint:
+  explanation:
+  image_name:
+  point: 4
+  choices:
+    - 1: hair length
+      correct: false
+    - 2: color of the skin
+      correct: true
+    - 3: piercing
+      correct: false
+    - 4: height
+      correct: true
+    - 5: hair color
+      correct: true
+
+# 10
+- title: Bacteria are
+  type: choose_one
+  hint: 'There are 3 domains existing: Archaea, Bacteria, and Eukarya'
+  explanation: Prokaryotic organisms belong either to the domain Archaea or the domain Bacteria; organisms with eukaryotic cells belong to the domain Eukarya
+  image_name:
+  point: 2
+  choices:
+    - 1: prokaryotic organisms
+      correct: true
+    - 2: eukaryotic organisms
+      correct: false
+
+# 11
+- title: Prokaryotic cells consist of ...
+  type: choose_many
+  hint: Prokaryotic cells do not inner membrane-based partitions or compartments.
+  explanation: Prokaryotic cells do not have a nucleus; rather, they have a membraneless nucleoid region (open part of the cell) that holds free-floating DNA. Furthermore, they do not mitochondria, instead they produce their ATP on the cell surface membrane.
+  image_name:
+  point: 6
+  choices:
+    - 1: nucleus
+      correct: false
+    - 2: nucleoid
+      correct: true
+    - 3: mitochondria
+      correct: false
+    - 4: DNA
+      correct: true
+    - 5: genes
+      correct: true
+    - 6: plasma
+      correct: true
+
+# 12
+- title: What is the size of prokaryotic cell?
+  type: choose_one
+  hint: A eukaryotic cell is from 10 to 100 micrometres wide.
+  explanation: Eukaryotic cell size is from 10 to 100 micrometres, prokaryotic cell size is smaller - from 0.1 to 5 micrometres.
+  image_name:
+  point: 2
+  choices:
+    - 1: from 0.1 to 5 nanometres
+      correct: false
+    - 2: from 0.1 to 5 micrometres
+      correct: true
+    - 3: from 10 to 100 micrometres
+      correct: false
+
+#13
+- title: Sort the following objects in ascending order, from smallest (Size 1) to largest (Size 7).
+  type: grid
+  hint: Change in an organism's environment forces the organism to adapt to fit the new environment, eventually causing it to evolve into a new species. But it might be just one of conditions for evolution, not the biological reason. 
+  explanation: Mutations occur throughout the natural world. Some mutations are beneficial and increase the possibility that an organism will thrive and pass on its genes to the next generation. When mutations improve survival or reproduction, the process of natural selection will cause the mutation to become more common over time. Therefore, mutations can be bad for the individual but overall beneficial for a population. Niche properties like the color changing of lizards can be crucial for there survival. They are not as easy to find by animals who would like to eat them and therefore can survive longer than other species.
+  image_name:
+  point: 7
+  choices:
+    1: protein
+    2: flu virus
+    3: atom
+    4: monkey
+    5: DNA (nucleotide)
+    6: leaf cell
+    7: frog egg
+  questions:
+    - text: Size 1
+      answers: [3]
+    - text: Size 2
+      answers: [5]
+    - text: Size 3
+      answers: [1]
+    - text: Size 4
+      answers: [2]
+    - text: Size 5
+      answers: [6]
+    - text: Size 6
+      answers: [7]
+    - text: Size 7
+      answers: [4]
+
+# 14
+- title: Determine the items which you can see under different types of microscopes or with naked eye.
+  type: grid_checkbox
+  hint: Change in an organism's environment forces the organism to adapt to fit the new environment, eventually causing it to evolve into a new species. But it might be just one of conditions for evolution, not the biological reason.
+  explanation: Mutations occur throughout the natural world. Some mutations are beneficial and increase the possibility that an organism will thrive and pass on its genes to the next generation. When mutations improve survival or reproduction, the process of natural selection will cause the mutation to become more common over time. Therefore, mutations can be bad for the individual but overall beneficial for a population. Niche properties like the color changing of lizards can be crucial for there survival. They are not as easy to find by animals who would like to eat them and therefore can survive longer than other species.
+  image_name:
+  point: 10
+  choices:
+    1: protein
+    2: flu virus
+    3: atom
+    4: monkey
+    5: DNA (nucleotide)
+    6: leaf cell
+    7: frog egg
+    8: chicken egg
+  questions:
+    - text: electron microscope
+      answers: [1, 2, 3, 5, 6]
+    - text: light microscope
+      answers: [6, 7]
+    - text: naked eye
+      answers: [4, 7, 8]

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<div class="quiz_wrapper columns mb-6">
+	{% include 'chapter_menu.html' %}
+	<div class="quiz column is-four-fifths p-6">
+		<div class="section">
+			<p class="is-size-3 has-text-weight-bold mb-3">Let’s start the Game!</p>
+			<p class="my-4">Sam, a curious young alien robot from a faraway galaxy, invites you to discover a little blue planet in the Milky Way.</p>
+			<figure class="image is-16by9">
+				<iframe class="has-ratio" width="600" height="450" src="https://www.youtube.com/embed/x9o0BIf-Kzs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			</figure>
+			<p class="mt-5">Sam will guide you through the game and you will learn about the Earth and life on it with him. Press the button to start.</p>
+			<p class="my-4"><a href="/level/1/chapter/1" class="button is-link is-large is-fullwidth start_tbn"><strong>Start</strong></a></p>
+		</div>
+	</div>
+</div>
+{% endblock %}

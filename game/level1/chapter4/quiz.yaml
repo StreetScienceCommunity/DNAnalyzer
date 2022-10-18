@@ -1,0 +1,65 @@
+chapter_name: Alignment
+
+video_url: A8EEYZ4bV10
+
+total_score: 9
+
+questions:
+
+# 1
+- title: We have the following alignment. What is colored by red?
+  type: choose_one
+  hint: A match means the nucleotides are the same in both sequences. 
+  explanation: Comparing the sequences it could be that one of the sequences has a different nucleotide in one position. This is called a mismatch like the C to T in the red box. Mismatches in the alignment correspond to mutations.
+  image_name: alignment_question.png
+  point: 3
+  choices:
+    - 1: match
+      correct: false
+    - 2: coincidence
+      correct: false
+    - 3: mismatch
+      correct: true
+    - 4: overlap
+      correct: false
+    - 5: gap
+      correct: false
+
+# 2
+- title: We have the following alignment. What is colored by green?
+  type: choose_one
+  hint: Is there a difference between the two green-colored nucleotides?
+  explanation: If the nucleotide is the same in the first and second sequences it is called a match, here indicated by the green color. 
+  image_name: alignment_question.png
+  point: 3
+  choices:
+    - 1: match
+      correct: true
+    - 2: coincidence
+      correct: false
+    - 3: mismatch
+      correct: false
+    - 4: overlap
+      correct: false
+    - 5: gap
+      correct: false
+
+
+# 3
+- title: We have the following alignment. What is colored by blue?
+  type: choose_one
+  hint: A insertion or deletion means that over time a new nucleotide is added or is missing in the DNA sequence. 
+  explanation: Comparing the sequences it could be that one of the sequences has a different nucleotide in one position. It could also happen that there is no nucleotide in the second sequence to the one in the first like the G in the blue box. This is called a gap. Mismatches in the alignment correspond to mutations, and gaps correspond to insertions or deletions.
+  image_name: alignment_question.png
+  point: 3
+  choices:
+    - 1: match
+      correct: false
+    - 2: coincidence
+      correct: false
+    - 3: mismatch
+      correct: false
+    - 4: overlap
+      correct: false
+    - 5: gap
+      correct: true

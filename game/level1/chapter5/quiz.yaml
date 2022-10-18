@@ -1,0 +1,87 @@
+chapter_name: Metagenomics
+
+video_url: 2JGp4CJrJi4
+
+total_score: 18
+
+questions:
+
+# 1
+- title: How is the research area called where environmental samples are analyzed for genetic diversity?
+  type: choose_one
+  hint: It is investigate how many organisms are within this one environmental sample, e.g. by sequencing the whole genetic material of the sample. 
+  explanation: Metagenomics is the study of genetic material recovered directly from environmental samples. Biology is a branch of science that deals with living organisms and their vital processes. Bioinformatics is an interdisciplinary field that combines general biology, molecular biology, cybernetics, genetics, chemistry, computer science, mathematics and statistics. Genomics is an interdisciplinary field of biology focusing on the structure, function, evolution, mapping, and editing of genomes.
+  image_name:
+  point: 3
+  choices:
+    - 1: Biology
+      correct: false
+    - 2: Bioinformatics
+      correct: false
+    - 3: Metagenomics
+      correct: true
+    - 4: Genomics
+      correct: false
+
+# 2
+- title: What can we use to detect and identify different types of microbes stemming from an environmental sample?
+  type: choose_many
+  hint: The microbes are very very small.
+  explanation: The samples are sent to a laboratory for DNA extraction and sequencing.
+  image_name:
+  point: 3
+  choices:
+    - 1: microscope
+      correct: false
+    - 2: DNA extraction
+      correct: true
+    - 3: DNA sequencing
+      correct: true
+
+
+# 3
+- title: Here are all steps of a metagenomics experiment listed. Please sort them into the correct order (steps).
+  type: grid
+  hint: You start with collecting and end up analyzing the sample.
+  explanation: First you would like to collect the sample. Then you would prepare the sample by extracting the DNA and sequence it. Next, you would like to assess the DNA, so the different DNA pieces can be classified. Then you can start with the annotation and further analysis. 
+  image_name:
+  point: 6
+  choices:
+    1: collecting samples
+    2: assembly
+    3: DNA sequencing
+    4: classifying
+    5: annotation
+    6: analysis
+  questions:
+    - text: Size 1
+      answers: [1]
+    - text: Size 2
+      answers: [3]
+    - text: Size 3
+      answers: [2]
+    - text: Size 4
+      answers: [4]
+    - text: Size 5
+      answers: [5]
+    - text: Size 6
+      answers: [6]
+
+# 4
+- title: Where can we collect samples for a metagenomics analysis?
+  type: choose_many
+  hint:
+  explanation: Samples can be collected anywhere.
+  image_name:
+  point: 6
+  choices:
+    - 1: soil
+      correct: true
+    - 2: water
+      correct: true
+    - 3: skin
+      correct: true
+    - 2: gut
+      correct: true
+    - 3: air
+      correct: true
