@@ -1,8 +1,7 @@
-from flask import Flask, render_template, request, flash
-from flask_marshmallow import Marshmallow
+from flask import Flask, render_template
 import os
 from utils import db, ma
-from flask_login import LoginManager, login_required
+from flask_login import LoginManager
 from db_config import DB_CONFIG
 from init_yaml_to_db import yaml_to_db
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -10,8 +9,8 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 def register_extensions(app):
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%s:%s@localhost/%s' % (
-        DB_CONFIG['USERNAME'], DB_CONFIG['PASSWORD'], DB_CONFIG['DB_NAME'])
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%s:%s@%s/%s' % (
+        DB_CONFIG['USERNAME'], DB_CONFIG['PASSWORD'], DB_CONFIG['DB_HOST'], DB_CONFIG['DB_NAME'])
     db.init_app(app)
     from routes import main
     app.register_blueprint(main.bp)

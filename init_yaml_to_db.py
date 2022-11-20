@@ -307,8 +307,6 @@ def load_tables(host, port, db_name, user, password, base_dir):
 
 def yaml_to_db():
     base_dir = 'game/'
-    host = "localhost"
-    port = 5432
     max_lvl = 0
     lvl_dict = {}
     global q_id, choice_id, chapter_id_overall
@@ -326,13 +324,13 @@ def yaml_to_db():
     lvl_dict = collections.OrderedDict(sorted(lvl_dict.items()))
 
     # clear level chapter and choice tables in the database
-    if clear_tables(host, port, DB_CONFIG['DB_NAME'], DB_CONFIG['USERNAME'], DB_CONFIG['PASSWORD']):
+    if clear_tables(DB_CONFIG['DB_HOST'], DB_CONFIG['DB_PORT'], DB_CONFIG['DB_NAME'], DB_CONFIG['USERNAME'], DB_CONFIG['PASSWORD']):
         print("could clear the tables")
         exit(1)
     print("successfully emptied database tables")
 
     # load all levels to the database first
-    if process_level(base_dir, host, port, DB_CONFIG['DB_NAME'], DB_CONFIG['USERNAME'], DB_CONFIG['PASSWORD']):
+    if process_level(base_dir, DB_CONFIG['DB_HOST'], DB_CONFIG['DB_PORT'], DB_CONFIG['DB_NAME'], DB_CONFIG['USERNAME'], DB_CONFIG['PASSWORD']):
         print("could process levels")
         exit(1)
     print("successfully loaded data for level table")
@@ -344,7 +342,7 @@ def yaml_to_db():
             chapter_id = str(idx)
             chapter_dir = os.path.join(level_dir, 'chapter' + chapter_id)
             show_json(chapter_dir, chapter_id, cur_lvl)
-            if load_tables(host, port, DB_CONFIG['DB_NAME'], DB_CONFIG['USERNAME'],
+            if load_tables(DB_CONFIG['DB_HOST'], DB_CONFIG['DB_PORT'], DB_CONFIG['DB_NAME'], DB_CONFIG['USERNAME'],
                            DB_CONFIG['PASSWORD'], chapter_dir):
                 print("could not load data to tables for chapter%s" % chapter_id)
                 exit(1)
