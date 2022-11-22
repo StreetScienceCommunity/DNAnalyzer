@@ -3,8 +3,8 @@
 This document contains 3 instructions:
 
 1. [to deploy locally on a linux PC](#part-1-instructions-for-deploying-the-project-locally-on-linux)
-2. [to deploy on a linux server](#part2-instructions-for-deploying-the-project-on-a-linux-server)
-3. to deploy using Dokku on a linux server
+2. [to deploy on a linux server](#part-2-instructions-for-deploying-the-project-on-a-linux-server)
+3. [to deploy using Dokku on a linux server](#part-3-instructions-for-deploying-the-project-on-a-linux-server-with-dokku)
 
 ## Part 1: Instructions for deploying the project locally on Linux
 
@@ -115,7 +115,7 @@ Firstly make sure Git is installed, then:
 $ python app.py
 ```
 
-## Part2: Instructions for deploying the project on a Linux server
+## Part 2: Instructions for deploying the project on a Linux server
 
 ### Firstly you should have access to the server using tools like ssh
 
