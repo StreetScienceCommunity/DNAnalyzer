@@ -325,6 +325,26 @@ Linking the Postgres service to the app
 dokku postgres:link dnanalyzer dnanalyzer
 ```
 
+Get the host and port infos of the database using
+```
+# on the Dokku host
+dokku postgres:info dnanalyzer
+```
+
+In the DNS field, you can get the host and port infos.
+
+### Setting up the database details in the project
+```
+# from your local machine
+cd DNAnalyzer
+cp db_config.py.in db_config.py
+# edit the config file to change database, username, password according your own
+vi db_config.py
+# forcely add and commit the config file to the git
+git add --force db_config.py
+git commit -m "add db_config"
+```
+
 ### Deploy the project
 
 This part use ```dokku.me``` as the ip address of the server, remember to substitute it with the real ip address of your server.
@@ -332,7 +352,6 @@ This part use ```dokku.me``` as the ip address of the server, remember to substi
 ```
 # from your local machine
 # the remote username *must* be dokku or pushes will fail
-cd DNAnalyzer
 git remote add dokku dokku@dokku.me:dnanalyzer
 git push dokku main:master
 ```
