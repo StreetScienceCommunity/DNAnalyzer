@@ -1,6 +1,10 @@
 # Deployment instructions
 
-This document contains 2 instructions for the deployment of the project, one is for local environment and the other is for a complete new Linux server.
+This document contains 3 instructions:
+
+1. [to deploy locally on a linux PC](#part-1-instructions-for-deploying-the-project-locally-on-linux)
+2. [to deploy on a linux server](#part-2-instructions-for-deploying-the-project-on-a-linux-server)
+3. [to deploy using Dokku on a linux server](#part-3-instructions-for-deploying-the-project-on-a-linux-server-with-dokku)
 
 ## Part 1: Instructions for deploying the project locally on Linux
 
@@ -11,7 +15,7 @@ Firstly make sure Git is installed, then:
 1. Clone the project
 
     ```
-    $ git clone https://github.com/YedilSerzhan/DNAnalyzer.git
+    $ git clone https://github.com/StreetScienceCommunity/DNAnalyzer.git
     ```
 
 2. Move into the project folder
@@ -111,7 +115,7 @@ Firstly make sure Git is installed, then:
 $ python app.py
 ```
 
-## Part2: Instructions for deploying the project on a complete new Linux server
+## Part 2: Instructions for deploying the project on a Linux server
 
 ### Firstly you should have access to the server using tools like ssh
 
@@ -132,7 +136,7 @@ install necessary tools
 
 clone the project
 ```
-    git clone https://github.com/YedilSerzhan/DNAnalyzer.git
+    git clone https://github.com/StreetScienceCommunity/DNAnalyzer.git
 ```
 
 install conda
@@ -269,3 +273,87 @@ Finally, restart the Nginx service to apply the changes:
     systemctl restart nginx
 ```
 At this point, your Flask application is installed, configured, and hosted with an Nginx proxy. You can now access it using your domain http://flask.example.com.
+
+
+
+## Part 3: Instructions for deploying the project on a Linux server with Dokku
+
+### Server requirment
+
+To start using Dokku, you'll need a system that meets the following minimum requirements:
+A fresh installation of any of the following operating systems:
+1. Ubuntu 18.04/20.04/22.04
+2. Debian 10+ x64
+
+To avoid memory pressure during builds or runtime of the project applications, system memory should be at least 1 GB.
+
+### Install dokku and setup SSH key
+
+the instructions for installing dukku and setuping ssh key can be found on the official [Dokku Documentation](https://dokku.com/docs/getting-started/installation/).
+
+
+### Setup Dokku apps and services
+
+Get the project on the your pc and also on the server
+
+
+```
+git clone https://github.com/StreetScienceCommunity/DNAnalyzer.git
+```
+
+Create the app
+```
+# on the Dokku host
+dokku apps:create dnanalyzer
+```
+
+Install the Dokku Postgres plugin
+```
+# on the Dokku host
+# install the postgres plugin
+# plugin installation requires root, hence the user change
+sudo dokku plugin:install https://github.com/dokku/dokku-postgres.git
+
+# create a postgres service with the name dnanalyzer
+dokku postgres:create dnanalyzer
+```
+
+Linking the Postgres service to the app
+```
+# on the Dokku host
+# each official datastore offers a `link` method to link a service to any application
+dokku postgres:link dnanalyzer dnanalyzer
+```
+
+Get the host and port infos of the database using
+```
+# on the Dokku host
+dokku postgres:info dnanalyzer
+```
+
+In the DNS field, you can get the host and port infos.
+
+### Setting up the database details in the project
+```
+# from your local machine
+cd DNAnalyzer
+cp db_config.py.in db_config.py
+# edit the config file to change database, username, password according your own
+vi db_config.py
+# forcely add and commit the config file to the git
+git add --force db_config.py
+git commit -m "add db_config"
+```
+
+### Deploy the project
+
+This part use ```dokku.me``` as the ip address of the server, remember to substitute it with the real ip address of your server.
+
+```
+# from your local machine
+# the remote username *must* be dokku or pushes will fail
+git remote add dokku dokku@dokku.me:dnanalyzer
+git push dokku main:master
+```
+
+Once the deployment is finished, you should have output indicting that ```Application deployed```.
