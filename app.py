@@ -10,7 +10,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 def register_extensions(app):
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     if 'DATABASE_URL' in os.environ:
-        app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+        app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL'].replace('postgres://', 'postgresql://')
     else:
         app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%s:%s@%s/%s' % (
             DB_CONFIG['USERNAME'], DB_CONFIG['PASSWORD'], DB_CONFIG['DB_HOST'], DB_CONFIG['DB_NAME'])
