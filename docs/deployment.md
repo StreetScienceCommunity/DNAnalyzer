@@ -316,7 +316,8 @@ sudo dokku plugin:install https://github.com/dokku/dokku-postgres.git
 dokku postgres:create dnanalyzer
 ```
 
-Linking the Postgres service to the app
+Linking the Postgres service to the app, which will make the database URL available to the application in the environment variable `DATABASE_URL`
+
 ```
 # on the Dokku host
 # each official datastore offers a `link` method to link a service to any application
