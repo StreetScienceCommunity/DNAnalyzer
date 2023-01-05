@@ -106,8 +106,7 @@ Firstly make sure Git is installed, then:
     ```
 
 2. Configure the database details for the project:
-    1. Copy the `db_config.py.in` to `db_config.py`
-    2. Edit `db_config.py` to change username, password according the previous setup
+    1. Edit `db_config.py` to change username, password according the previous setup
 
 ### Launch the project
 
@@ -165,7 +164,6 @@ install conda
     cd /path/to/the/project
     conda activate myenv
     pip3 install -r requirements.txt
-    cp db_config.py.in db_config.py
     vi db_config.py # edit the config file to change database, username, password according your own
 ```
 
