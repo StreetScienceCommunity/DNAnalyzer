@@ -1,4 +1,5 @@
 import psycopg2
+import os
 
 
 class PGDB:
@@ -9,8 +10,11 @@ class PGDB:
 
     def __init__(self, host, port, db_name, user, password):
         # Exception handling is done by the method using this.
-        self.__connection__ = psycopg2.connect("host='%s' port='%s' dbname='%s' user='%s' password='%s'" %
-                                               (host, port, db_name, user, password))
+        if 'DATABASE_URL' in os.environ:
+            self.__connection__ = psycopg2.connect(os.environ['DATABASE_URL'])
+        else:
+            self.__connection__ = psycopg2.connect("host='%s' port='%s' dbname='%s' user='%s' password='%s'" %
+                                                   (host, port, db_name, user, password))
         # self.__connection__ = psycopg2.connect("host='%s'  dbname='%s'" %
         #                                        (host, db_name))
         self.__cursor__ = self.__connection__.cursor()

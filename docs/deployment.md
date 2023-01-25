@@ -106,8 +106,7 @@ Firstly make sure Git is installed, then:
     ```
 
 2. Configure the database details for the project:
-    1. Copy the `db_config.py.in` to `db_config.py`
-    2. Edit `db_config.py` to change username, password according the previous setup
+    1. Edit `db_config.py` to change username, password according the previous setup
 
 ### Launch the project
 
@@ -165,7 +164,6 @@ install conda
     cd /path/to/the/project
     conda activate myenv
     pip3 install -r requirements.txt
-    cp db_config.py.in db_config.py
     vi db_config.py # edit the config file to change database, username, password according your own
 ```
 
@@ -318,41 +316,22 @@ sudo dokku plugin:install https://github.com/dokku/dokku-postgres.git
 dokku postgres:create dnanalyzer
 ```
 
-Linking the Postgres service to the app
+Linking the Postgres service to the app, which will make the database URL available to the application in the environment variable `DATABASE_URL`
+
 ```
 # on the Dokku host
 # each official datastore offers a `link` method to link a service to any application
 dokku postgres:link dnanalyzer dnanalyzer
 ```
 
-Get the host and port infos of the database using
-```
-# on the Dokku host
-dokku postgres:info dnanalyzer
-```
-
-In the DNS field, you can get the host and port infos.
-
-### Setting up the database details in the project
-```
-# from your local machine
-cd DNAnalyzer
-cp db_config.py.in db_config.py
-# edit the config file to change database, username, password according your own
-vi db_config.py
-# forcely add and commit the config file to the git
-git add --force db_config.py
-git commit -m "add db_config"
-```
-
 ### Deploy the project
 
-This part use ```dokku.me``` as the ip address of the server, remember to substitute it with the real ip address of your server.
+This part use ```example.org``` as the ip address of the server, remember to substitute it with the real ip address of your server.
 
 ```
 # from your local machine
 # the remote username *must* be dokku or pushes will fail
-git remote add dokku dokku@dokku.me:dnanalyzer
+git remote add dokku dokku@example.org:dnanalyzer
 git push dokku main:master
 ```
 
