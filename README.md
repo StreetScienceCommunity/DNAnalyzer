@@ -89,7 +89,6 @@ $ sudo apt-get install libsox-fmt-mp3
 
 In different terminals:
 
-1. Run website
 1. Launch MozillaTTS for speech
 
    ```
@@ -100,5 +99,6 @@ In different terminals:
 
    ```
    $ conda activate dnanalyzer
-   $ ./bin/ari-make.sh <path to slide>
+   $ ./bin/ari-make.sh <path to slide> 
+   # for exmaple: ./bin/ari-make.sh game/level1/intro/slides.html
    ```
