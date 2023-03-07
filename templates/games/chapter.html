@@ -14,9 +14,6 @@
 				{% endif %}
 			</div>
 			<hr>
-			{% if questions %}
-				<div id="quiz"></div>
-			{% endif %}
 			{% if chapter.id == 6 %}
 				<p class="is-size-5 my-4"> Starting from a beer bottle the cellwals of living organisms in the liquid are destroyed.
 				In several washing and cleaning steps the DNA is isolated until finally the liquid is tested for if it contains engah amount of DNA. </p>
@@ -71,6 +68,15 @@
 						</div>
 					</form>
 				</div>
+			{% endif %}
+            {% if chapter.id == 9 %}
+				<p class="is-size-5 my-4"> Kombucha is a fermented tea that has gained popularity in recent years due to its potential health benefits, but the microbial composition of Kombucha remains poorly understood.</p>
+                <p class="my-4"><a href="https://ift.onlinelibrary.wiley.com/doi/10.1111/1750-3841.14992" class="button is-link is-fullwidth start_tbn"><strong>Paper: Microbial composition of Kombucha ...</strong></a></p>
+                <p class="is-size-5 my-4"> In this paper, the authors aimed to investigate the microbial communities of homemade Kombucha fermentations using both amplicon sequencing and shotgun metagenomics.</p>
+                <p class="is-size-5 my-4"> Please read this paper, and here is a set of quiz questions that can help you understand the paper more:</p>
+			{% endif %}
+			{% if questions %}
+				<div id="quiz"></div>
 			{% endif %}
 		</div>
 </div>
