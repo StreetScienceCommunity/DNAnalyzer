@@ -158,17 +158,18 @@ def show_json(base_dir, chapter_id, cur_lvl):
                   int_to_string_helper(yaml_to_dict['video_url']) + '|' \
                   + int_to_string_helper(yaml_to_dict['chapter_name']) + '|' \
                   + str(chapter_id)
-    chapter_id_overall += 1
 
     if yaml_to_dict['questions']:
         for q in yaml_to_dict['questions']:
             if q['type'] in ['choose_one', 'choose_many']:
-                q_csv.append(parse_normal_question(q, chapter_id))
+                q_csv.append(parse_normal_question(q, str(chapter_id_overall)))
                 c_csv.extend(parse_normal_choices(q))
             if q['type'] in ['grid_checkbox', 'grid']:
-                tmp_q, tmp_c = parse_grid_question(q, chapter_id)
+                tmp_q, tmp_c = parse_grid_question(q, str(chapter_id_overall))
                 q_csv.extend(tmp_q)
                 c_csv.extend(tmp_c)
+
+    chapter_id_overall += 1
 
     try:
         with open(chapter_file, "w") as out_file:
