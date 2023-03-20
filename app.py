@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 import os
-from utils import db, ma
+from utils import db, ma, migrate
 from flask_login import LoginManager
 from db_config import DB_CONFIG
 from init_yaml_to_db import yaml_to_db
@@ -15,6 +15,7 @@ def register_extensions(app):
         app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%s:%s@%s/%s' % (
             DB_CONFIG['USERNAME'], DB_CONFIG['PASSWORD'], DB_CONFIG['DB_HOST'], DB_CONFIG['DB_NAME'])
     db.init_app(app)
+    migrate.init_app(app, db)
     from routes import main
     app.register_blueprint(main.bp)
     ma.init_app(app)
