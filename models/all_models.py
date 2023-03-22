@@ -164,9 +164,7 @@ class Score(db.Model):
 
 class History(db.Model):
     id = db.Column(db.BigInteger, primary_key=True)
-    score = db.Column(db.Integer, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     user = db.relationship('Users', backref=db.backref('histories', lazy=True))
     chapter_id = db.Column(db.BigInteger, nullable=False)
-    add_time = db.Column(db.DateTime(), nullable=False, default=datetime.utcnow)
     history_link = db.Column(db.String(), unique=True, nullable=False)
