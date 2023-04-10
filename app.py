@@ -54,6 +54,5 @@ with app.app_context():
 
 # Run server
 if __name__ == '__main__':
-    yaml_to_db()
     app.run(debug=True)
 
