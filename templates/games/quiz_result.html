@@ -8,7 +8,7 @@
 			<div id="quiz"></div>
 			<hr>
 			<div>
-				<p class="quiz_title mb-3">Top 5 rankings on Chapter {{chapter.id}} </p>
+				<p class="quiz_title mb-3">Top 5 rankings on Chapter {{chapter.order_id}} </p>
 				<table class="table is-striped is-fullwidth">
 					  <thead>
 						<tr>
@@ -84,7 +84,7 @@ function add_option_input_field(question, choice, type){
         let questions = {{questions | tojson}};
         let chapter = {{chapter| tojson}};
         let myHTML = '';
-        myHTML += `<p class="quiz_title"> <span>Level ${chapter.level_id} / Chapter ${chapter.id} Quiz result</span>  <span>{{score}} / {{chapter.total_score}} points</span></p>`;
+        myHTML += `<p class="quiz_title"> <span>Level ${chapter.level_id} / Chapter ${chapter.order_id} Quiz result</span>  <span>{{score}} / {{chapter.total_score}} points</span></p>`;
         for (let i = 0; i < questions.length; i++) {
             myHTML += '<hr>'
             myHTML += '<div class="quiz_text">';
@@ -128,7 +128,8 @@ function add_option_input_field(question, choice, type){
                 }
                 myHTML += '  </tbody></table>';
                 i = k -1;
-            } else {
+            }
+            else if(questions[i].type === "choose_one" || questions[i].type === "choose_many") {
                 myHTML += '<div id="q_choices" class="q_choices">';
                 if(questions[i].type=="choose_one"){
                     for (let j = 0; j < choices.length; j++) {
@@ -155,8 +156,9 @@ function add_option_input_field(question, choice, type){
                 }
                 myHTML += '</div>';
             }
+            else if(questions[i].type === "open") {}
         }
-		myHTML += `<a href="/level/{{cur_lvl}}/chapter/${chapter.id}" style="text-decoration:none;"><button type="button" class="button is-fullwidth start_tbn mt-3 "> Retry </button></a>`
+		myHTML += `<a href="/level/{{cur_lvl}}/chapter/${chapter.order_id}" style="text-decoration:none;"><button type="button" class="button is-fullwidth start_tbn mt-3 "> Retry </button></a>`
         $('#quiz').html(myHTML);
     });
 </script>
