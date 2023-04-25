@@ -106,7 +106,6 @@
 
 <script>
     $(document).ready(function () {
-
         let questions = {{questions | tojson}};
         let chapter = {{chapter| tojson}};
         let myHTML = `<form action="/quiz/${chapter.id}/submit" method="post">`;
@@ -198,11 +197,11 @@
                         <div class="field">
                           <div class="control">
                             <label class="radio">
-                              <input type="radio" name="q${questions[i].id}" value="yes">
+                              <input type="radio" class="toggler" name="open${questions[i].id}" value="yes">
                               Yes
                             </label>
                             <label class="radio">
-                              <input type="radio" name="q${questions[i].id}" value="no">
+                              <input type="radio" class="toggler" name="open${questions[i].id}" value="no">
                               No
                             </label>
                           </div>
@@ -229,9 +228,9 @@
 			  $(this).find('.button-text').text("show hint");
 		  }
 		});
-        $('input[type="radio"]').each(function() {
+        $('input[type="radio"].toggler').each(function() {
             $(this).on('change', function() {
-                const answerDiv = $(`#answer${this.name.substr(1)}`);
+                const answerDiv = $(`#answer${this.name.substring(4)}`);
                 if (this.checked && this.value === 'yes') {
                     answerDiv.css('display', 'block');
                 } else {

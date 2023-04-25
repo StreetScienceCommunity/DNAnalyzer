@@ -8,6 +8,7 @@ from flask import Blueprint, flash, g, redirect, request, session, url_for, json
 from models.all_models import *
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
+from werkzeug.datastructures import ImmutableMultiDict
 
 bp = Blueprint('dnapi', __name__, url_prefix='/')
 
@@ -124,55 +125,34 @@ def quiz_submit(chapter_id):
                 chapter_id, current_user.id))
         db.engine.execute("delete from score where chapter_id = %s and user_id=%s" % (chapter_id, current_user.id))
 
-    # check score for each question
-    i = 0
-    while i < len(questions_dump):
-        j = i
+    # handle open questions if there are any
+    multiple_choice_form = ImmutableMultiDict(open_question_handler(form))
 
-        submitted_answers = set(form.getlist(questions_dump[i]['id']))
+    if multiple_choice_form:
+        # check score for each question
+        i = 0
+        while i < len(questions_dump):
+            j = i
 
-        # if the user is_authenticated, update answer to the database for each choice selected
-        if current_user.is_authenticated:
-            for aws_id in submitted_answers:
-                new_answer = Answer(
-                    user_id=current_user.id,
-                    choice_id=aws_id
-                )
-                db.session.add(new_answer)
-                db.session.commit()
+            submitted_answers = set(multiple_choice_form.getlist(questions_dump[i]['id']))
+            print(submitted_answers)
+            # if the user is_authenticated, update answer to the database for each choice selected
+            if current_user.is_authenticated:
+                for aws_id in submitted_answers:
+                    new_answer = Answer(
+                        user_id=current_user.id,
+                        choice_id=aws_id
+                    )
+                    db.session.add(new_answer)
+                    db.session.commit()
 
-        # start counting selected correct choices and wrong choices that user didn't select
-        selected_correct = 0
-        missed_wrong = 0
-        if questions_dump[i]['type'] in ['choose_one', 'grid']:
-            if not form.get(questions_dump[i]['id']):
-                questions_dump[i]['missed'] = True
-            for choice in questions_dump[i]['choices']:
-                if choice['correctness']:
-                    if choice['id'] in submitted_answers:
-                        choice['state'] = 'correct'
-                        selected_correct += 1
-                    else:
-                        choice['state'] = 'missed'
-                else:
-                    if choice['id'] in submitted_answers:
-                        choice['state'] = 'wrong'
-                    else:
-                        missed_wrong += 1
-            if selected_correct > 0:
-                questions_dump[i]['score'] = questions_dump[i]['point']
-                cur_score += questions_dump[i]['point']
-            else:
-                questions_dump[i]['score'] = 0
-        else:
-            total_choice_num = 0
-            while j < len(questions_dump):
-                if questions_dump[j]['title'] != questions_dump[i]['title']:
-                    break
-                if not form.get(questions_dump[j]['id']):
-                    questions_dump[j]['missed'] = True
-                for choice in questions_dump[j]['choices']:
-                    total_choice_num += 1
+            # start counting selected correct choices and wrong choices that user didn't select
+            selected_correct = 0
+            missed_wrong = 0
+            if questions_dump[i]['type'] in ['choose_one', 'grid']:
+                if not multiple_choice_form.get(questions_dump[i]['id']):
+                    questions_dump[i]['missed'] = True
+                for choice in questions_dump[i]['choices']:
                     if choice['correctness']:
                         if choice['id'] in submitted_answers:
                             choice['state'] = 'correct'
@@ -184,28 +164,53 @@ def quiz_submit(chapter_id):
                             choice['state'] = 'wrong'
                         else:
                             missed_wrong += 1
-                j += 1
-            correct_sum = selected_correct + missed_wrong
-            question_score = 0
-            if correct_sum == 0:
-                question_score = 0
+                if selected_correct > 0:
+                    questions_dump[i]['score'] = questions_dump[i]['point']
+                    cur_score += questions_dump[i]['point']
+                else:
+                    questions_dump[i]['score'] = 0
             else:
-                question_score = round(correct_sum / total_choice_num * questions_dump[i]['point'])
-            cur_score += question_score
-            for k in range(i, j):
-                questions_dump[k]['score'] = question_score
-            i = j - 1
-        i += 1
+                total_choice_num = 0
+                while j < len(questions_dump):
+                    if questions_dump[j]['title'] != questions_dump[i]['title']:
+                        break
+                    if not multiple_choice_form.get(questions_dump[j]['id']):
+                        questions_dump[j]['missed'] = True
+                    for choice in questions_dump[j]['choices']:
+                        total_choice_num += 1
+                        if choice['correctness']:
+                            if choice['id'] in submitted_answers:
+                                choice['state'] = 'correct'
+                                selected_correct += 1
+                            else:
+                                choice['state'] = 'missed'
+                        else:
+                            if choice['id'] in submitted_answers:
+                                choice['state'] = 'wrong'
+                            else:
+                                missed_wrong += 1
+                    j += 1
+                correct_sum = selected_correct + missed_wrong
+                question_score = 0
+                if correct_sum == 0:
+                    question_score = 0
+                else:
+                    question_score = round(correct_sum / total_choice_num * questions_dump[i]['point'])
+                cur_score += question_score
+                for k in range(i, j):
+                    questions_dump[k]['score'] = question_score
+                i = j - 1
+            i += 1
 
-    # if the user is authenticated, update final score to the database
-    if current_user.is_authenticated:
-        new_score = Score(
-            score=cur_score,
-            user_id=current_user.id,
-            chapter_id=chapter_id
-        )
-        db.session.add(new_score)
-        db.session.commit()
+        # if the user is authenticated, update final score to the database
+        if current_user.is_authenticated:
+            new_score = Score(
+                score=cur_score,
+                user_id=current_user.id,
+                chapter_id=chapter_id
+            )
+            db.session.add(new_score)
+            db.session.commit()
 
     ranking = get_ranking(chapter_id)
     return render_template("games/quiz_result.html", questions=questions_dump, cur_lvl=chapter_dump['level_id'],
@@ -402,3 +407,25 @@ def provide_menu():
     """
     level_dict = left_chapter_menu_helper()
     return {'level_dict': level_dict}
+
+
+def open_question_handler(form_data):
+    """
+    function for receiving paper answers, store the answers & scores and return to the result page
+    @return: return the quiz result page
+    @rtype: flask template
+    """
+    open_questions = {}
+    left_data = {}
+    for key, value in form_data.items():
+        if key.startswith('open'):
+            open_questions[key] = value
+            q_key = key[4:]
+            if q_key in form_data:
+                open_questions[q_key] = form_data[q_key]
+
+    for key, value in form_data.items():
+        if key not in open_questions:
+            left_data[key] = value
+
+    return left_data
