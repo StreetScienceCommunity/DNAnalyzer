@@ -2,6 +2,45 @@ chapter_name: Data analysis
 
 video_url:
 
-total_score: 0
+total_score: 20
 
 questions:
+# 1
+- title: Have you acquired and preprocessed the raw data?
+  type: open
+  description: What is the data source and what tools have you applied?
+  hint:
+  explanation:
+  point: 4
+
+# 2
+- title: Have you performed quality control checks on the data to ensure it is suitable for analysis?
+  type: open
+  description: What tools have you applied?
+  hint:
+  explanation:
+  point: 4
+
+# 3
+- title: Have you conducted taxonomic classification?
+  type: open
+  description: What tools have you chosen to use?
+  hint:
+  explanation:
+  point: 4
+
+# 4
+- title: Have you conducted Operational Taxonomic Units (OTUs) / Amplicon Sequence Variants (ASVs) clustering?
+  type: open
+  description: What tools have you chosen to use?
+  hint:
+  explanation:
+  point: 4
+
+# 5
+- title: Have you conducted Operational Taxonomic Units (OTUs) / Amplicon Sequence Variants (ASVs) clustering?
+  type: open
+  description: What tools have you chosen to use?
+  hint:
+  explanation:
+  point: 4

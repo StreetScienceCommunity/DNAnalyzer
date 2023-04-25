@@ -2,6 +2,30 @@ chapter_name: Critical assessment
 
 video_url:
 
-total_score: 0
+total_score: 12
 
 questions:
+
+# 1
+- title: Have you visualized and interpreted the results in a meaningful way for others to understand and draw conclusions from?
+  type: open
+  description: What tools have you used and what kind of visualization have been created?
+  hint:
+  explanation:
+  point: 4
+
+# 2
+- title: Have you found any dominant species?
+  type: open
+  description: What are they?
+  hint:
+  explanation:
+  point: 4
+
+# 3
+- title: Have there been any new species discovered or any species missed compared to the original results of the paper?
+  type: open
+  description: What are they?
+  hint:
+  explanation:
+  point: 4
