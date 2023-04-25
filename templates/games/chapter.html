@@ -90,207 +90,13 @@
                         </ul>
                     </div>
 					<hr>
-					<p class="is-size-4 my-4">Once the analysis is done, share your Galaxy history via link to gain points</p>
-					<form action="/galaxy_history">
-						<div class="field mb-4">
-						  <p class="control has-icons-left">
-							<input class="input" type="url" placeholder="History Link">
-						  </p>
-						</div>
-						<div class="field">
-						  <p class="control">
-							  <button type="submit" class="button is-fullwidth start_tbn mt-3 "> Submit Your URL</button>
-						  </p>
-						</div>
-					</form>
 				</div>
 			{% endif %}
             {% if chapter.id == 11 %}
 				<div class="m-3">
                     <p class="is-size-4 mt-4">Congratulations on finishing the data analysis!</p>
                     <p class="is-size-4 mt-2 mb-6">Now let's rewind your methods and do a comparison with the original results.</p>
-                    <form>
-                        <div class="box">
-                        <h2 class="subtitle">Question 1:</h2>
-                        <p class="mb-2">Have you acquired and preprocessed the raw data? </p>
-                        <div class="field">
-                          <div class="control">
-                            <label class="radio">
-                              <input type="radio" name="q1" value="yes">
-                              Yes
-                            </label>
-                            <label class="radio">
-                              <input type="radio" name="q1" value="no">
-                              No
-                            </label>
-                          </div>
-                        </div>
-                        <div class="field" id="answer1" style="display:none;">
-                          <label class="label">What is the data source and what tools have you applied?</label>
-                          <div class="control">
-                            <textarea class="textarea" name="a1" placeholder="Write your answer here"></textarea>
-                          </div>
-                        </div>
-                      </div>
-                        <div class="box">
-                        <h2 class="subtitle">Question 2:</h2>
-                        <p class="mb-2">Have you performed quality control checks on the data to ensure it is suitable for analysis?</p>
-                        <div class="field">
-                          <div class="control">
-                            <label class="radio">
-                              <input type="radio" name="q2" value="yes">
-                              Yes
-                            </label>
-                            <label class="radio">
-                              <input type="radio" name="q2" value="no">
-                              No
-                            </label>
-                          </div>
-                        </div>
-                        <div class="field" id="answer2" style="display:none;">
-                          <label class="label">What tools have you applied?</label>
-                          <div class="control">
-                            <textarea class="textarea" name="a2" placeholder="Write your answer here"></textarea>
-                          </div>
-                        </div>
-                      </div>
-                        <div class="box">
-                        <h2 class="subtitle">Question 3:</h2>
-                        <p class="mb-2">Have you conducted taxonomic classification?</p>
-                        <div class="field">
-                          <div class="control">
-                            <label class="radio">
-                              <input type="radio" name="q3" value="yes">
-                              Yes
-                            </label>
-                            <label class="radio">
-                              <input type="radio" name="q3" value="no">
-                              No
-                            </label>
-                          </div>
-                        </div>
-                        <div class="field" id="answer3" style="display:none;">
-                          <label class="label">What tools have you chosen to use:</label>
-                          <div class="control">
-                            <textarea class="textarea" name="a3" placeholder="Write your answer here"></textarea>
-                          </div>
-                        </div>
-                      </div>
-                        <div class="box">
-                        <h2 class="subtitle">Question 4:</h2>
-                        <p class="mb-2">Have you conducted Operational Taxonomic Units (OTUs) / Amplicon Sequence Variants (ASVs) clustering?</p>
-                        <div class="field">
-                          <div class="control">
-                            <label class="radio">
-                              <input type="radio" name="q4" value="yes">
-                              Yes
-                            </label>
-                            <label class="radio">
-                              <input type="radio" name="q4" value="no">
-                              No
-                            </label>
-                          </div>
-                        </div>
-                        <div class="field" id="answer4" style="display:none;">
-                          <label class="label">What tools have you chosen to use:</label>
-                          <div class="control">
-                            <textarea class="textarea" name="a4" placeholder="Write your answer here"></textarea>
-                          </div>
-                        </div>
-                      </div>
-                        <div class="box">
-                        <h2 class="subtitle">Question 5:</h2>
-                        <p class="mb-2">Have you done Diversity analysis?</p>
-                        <div class="field">
-                          <div class="control">
-                            <label class="radio">
-                              <input type="radio" name="q5" value="yes">
-                              Yes
-                            </label>
-                            <label class="radio">
-                              <input type="radio" name="q5" value="no">
-                              No
-                            </label>
-                          </div>
-                        </div>
-                        <div class="field" id="answer5" style="display:none;">
-                          <label class="label">What kind of Diversity analysis have you done and what tools have been used:</label>
-                          <div class="control">
-                            <textarea class="textarea" name="a5" placeholder="Write your answer here"></textarea>
-                          </div>
-                        </div>
-                      </div>
-                        <div class="box">
-                        <h2 class="subtitle">Question 6:</h2>
-                        <p class="mb-2">Have you visualized and interpreted the results in a meaningful way for others to understand and draw conclusions from?</p>
-                        <div class="field">
-                          <div class="control">
-                            <label class="radio">
-                              <input type="radio" name="q6" value="yes">
-                              Yes
-                            </label>
-                            <label class="radio">
-                              <input type="radio" name="q6" value="no">
-                              No
-                            </label>
-                          </div>
-                        </div>
-                        <div class="field" id="answer6" style="display:none;">
-                          <label class="label">What tools have you used and what kind of visualization have been created:</label>
-                          <div class="control">
-                            <textarea class="textarea" name="a6" placeholder="Write your answer here"></textarea>
-                          </div>
-                        </div>
-                      </div>
-                        <div class="box">
-                        <h2 class="subtitle">Question 7:</h2>
-                        <p class="mb-2">Have you found any dominant species?</p>
-                        <div class="field">
-                          <div class="control">
-                            <label class="radio">
-                              <input type="radio" name="q7" value="yes">
-                              Yes
-                            </label>
-                            <label class="radio">
-                              <input type="radio" name="q7" value="no">
-                              No
-                            </label>
-                          </div>
-                        </div>
-                        <div class="field" id="answer7" style="display:none;">
-                          <label class="label">What are they:</label>
-                          <div class="control">
-                            <textarea class="textarea" name="a7" placeholder="Write your answer here"></textarea>
-                          </div>
-                        </div>
-                      </div>
-                        <div class="box">
-                        <h2 class="subtitle">Question 8:</h2>
-                        <p class="mb-2">Have there been any new species discovered or any species missed compared to the original results of the paper?</p>
-                        <div class="field">
-                          <div class="control">
-                            <label class="radio">
-                              <input type="radio" name="q8" value="yes">
-                              Yes
-                            </label>
-                            <label class="radio">
-                              <input type="radio" name="q8" value="no">
-                              No
-                            </label>
-                          </div>
-                        </div>
-                        <div class="field" id="answer8" style="display:none;">
-                          <label class="label">What are they:</label>
-                          <div class="control">
-                            <textarea class="textarea" name="a8" placeholder="Write your answer here"></textarea>
-                          </div>
-                        </div>
-                      </div>
-                        <div class="control">
-                          <button type="submit" class="button is-fullwidth start_tbn mt-3 "> Submit Your URL</button>
-                        </div>
-                    </form>
-				</div>
+                </div>
 			{% endif %}
 			{% if questions %}
 				<div id="quiz"></div>
@@ -299,18 +105,8 @@
 </div>
 
 <script>
-    const radios = document.querySelectorAll('input[type="radio"]');
-    radios.forEach(radio => {
-        radio.addEventListener('change', () => {
-            const answerDiv = document.querySelector(`#answer${radio.name.substr(1)}`);
-            if (radio.checked && radio.value === 'yes') {
-                answerDiv.style.display = 'block';
-            } else {
-                answerDiv.style.display = 'none';
-            }
-        });
-    });
     $(document).ready(function () {
+
         let questions = {{questions | tojson}};
         let chapter = {{chapter| tojson}};
         let myHTML = `<form action="/quiz/${chapter.id}/submit" method="post">`;
@@ -366,7 +162,7 @@
 				}
                 myHTML += '</div>';
                 i = k -1;
-            } else {
+            } else if(questions[i].type === "choose_one" || questions[i].type === "choose_many"){
                 myHTML += '<div id="q_choices" class="q_choices">';
                 if(questions[i].type.trim() == "choose_one"){
                     for (let j = 0; j < choices.length; j++) {
@@ -397,6 +193,29 @@
 							</div>`
 				}
                 myHTML += '</div>';
+            }else if(questions[i].type === "open"){
+                myHTML += `
+                        <div class="field">
+                          <div class="control">
+                            <label class="radio">
+                              <input type="radio" name="q${questions[i].id}" value="yes">
+                              Yes
+                            </label>
+                            <label class="radio">
+                              <input type="radio" name="q${questions[i].id}" value="no">
+                              No
+                            </label>
+                          </div>
+                        </div>
+                        <div class="field" id="answer${questions[i].id}"
+                        style="display:none;"
+                        >
+                          <label class="label">${questions[i].description}</label>
+                          <div class="control">
+                            <textarea class="textarea" name="${questions[i].id}" placeholder="Write your answer here"></textarea>
+                          </div>
+                        </div>
+                      `
             }
         }
         myHTML += `<button type="submit" class="button is-fullwidth start_tbn mt-3 "> Submit my anwers</button></form>`
@@ -410,6 +229,16 @@
 			  $(this).find('.button-text').text("show hint");
 		  }
 		});
+        $('input[type="radio"]').each(function() {
+            $(this).on('change', function() {
+                const answerDiv = $(`#answer${this.name.substr(1)}`);
+                if (this.checked && this.value === 'yes') {
+                    answerDiv.css('display', 'block');
+                } else {
+                    answerDiv.css('display', 'none');
+                }
+            });
+        });
     });
 </script>
 
