@@ -156,7 +156,14 @@ function add_option_input_field(question, choice, type){
                 }
                 myHTML += '</div>';
             }
-            else if(questions[i].type === "open") {}
+            else if(questions[i].type === "open") {
+                myHTML += `
+                    <div class="field" id="answer${questions[i].id}">
+                      <div class="control">
+                        <textarea class="textarea" name="${questions[i].id}" readonly>${questions[i].ans}</textarea>
+                      </div>
+                    </div>`
+            }
         }
 		myHTML += `<a href="/level/{{cur_lvl}}/chapter/${chapter.order_id}" style="text-decoration:none;"><button type="button" class="button is-fullwidth start_tbn mt-3 "> Retry </button></a>`
         $('#quiz').html(myHTML);

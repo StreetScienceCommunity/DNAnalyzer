@@ -194,22 +194,7 @@
                 myHTML += '</div>';
             }else if(questions[i].type === "open"){
                 myHTML += `
-                        <div class="field">
-                          <div class="control">
-                            <label class="radio">
-                              <input type="radio" class="toggler" name="open${questions[i].id}" value="yes">
-                              Yes
-                            </label>
-                            <label class="radio">
-                              <input type="radio" class="toggler" name="open${questions[i].id}" value="no">
-                              No
-                            </label>
-                          </div>
-                        </div>
-                        <div class="field" id="answer${questions[i].id}"
-                        style="display:none;"
-                        >
-                          <label class="label">${questions[i].description}</label>
+                        <div class="field" id="answer${questions[i].id}">
                           <div class="control">
                             <textarea class="textarea" name="${questions[i].id}" placeholder="Write your answer here"></textarea>
                           </div>
@@ -228,16 +213,6 @@
 			  $(this).find('.button-text').text("show hint");
 		  }
 		});
-        $('input[type="radio"].toggler').each(function() {
-            $(this).on('change', function() {
-                const answerDiv = $(`#answer${this.name.substring(4)}`);
-                if (this.checked && this.value === 'yes') {
-                    answerDiv.css('display', 'block');
-                } else {
-                    answerDiv.css('display', 'none');
-                }
-            });
-        });
     });
 </script>
 
