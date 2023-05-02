@@ -98,9 +98,13 @@ def chapter(level_id, chapter_id):
     @return: flask template for quiz
     @rtype: flask template
     """
+    print("***********************************")
+    print(level_id, chapter_id)
     cur_chapter_raw = db.engine.execute(
         'select * from chapter where level_id = %s and order_id = %s' % (level_id, chapter_id))
     cur_chapter = [dict(row) for row in cur_chapter_raw]
+    print(cur_chapter)
+    print("***********************************")
     chapter_dump, questions_dump = quiz_questions_helper(cur_chapter[0]['id'])
     return render_template("games/chapter.html", questions=questions_dump, chapter=chapter_dump)
 
@@ -123,19 +127,17 @@ def quiz_submit(chapter_id):
         db.engine.execute(
             "delete from answer where answer.choice_id in  ( select answer.choice_id from answer, choice, chapter, users, question where answer.choice_id = choice.id and choice.question_id = question.id and question.chapter_id = chapter.id and chapter.id = %s and users.id = %s )" % (
                 chapter_id, current_user.id))
+        db.engine.execute(
+            "delete from open_answer where open_answer.id in  ( select open_answer.id from open_answer, question where open_answer.question_id = question.id and question.chapter_id = %s and open_answer.user_id = %s )" % (
+                chapter_id, current_user.id))
         db.engine.execute("delete from score where chapter_id = %s and user_id=%s" % (chapter_id, current_user.id))
 
-    # handle open questions if there are any
-    multiple_choice_form = ImmutableMultiDict(open_question_handler(form))
-
-    if multiple_choice_form:
-        # check score for each question
-        i = 0
-        while i < len(questions_dump):
-            j = i
-
-            submitted_answers = set(multiple_choice_form.getlist(questions_dump[i]['id']))
-            print(submitted_answers)
+    # check score for each question
+    i = 0
+    while i < len(questions_dump):
+        j = i
+        if questions_dump[i]['type'] in ['choose_one', 'grid', 'choose_many', 'grid_checkbox']:
+            submitted_answers = set(form.getlist(questions_dump[i]['id']))
             # if the user is_authenticated, update answer to the database for each choice selected
             if current_user.is_authenticated:
                 for aws_id in submitted_answers:
@@ -145,14 +147,54 @@ def quiz_submit(chapter_id):
                     )
                     db.session.add(new_answer)
                     db.session.commit()
-
-            # start counting selected correct choices and wrong choices that user didn't select
-            selected_correct = 0
-            missed_wrong = 0
-            if questions_dump[i]['type'] in ['choose_one', 'grid']:
-                if not multiple_choice_form.get(questions_dump[i]['id']):
-                    questions_dump[i]['missed'] = True
-                for choice in questions_dump[i]['choices']:
+        elif questions_dump[i]['type'] in ['open']:
+            submitted_answer = form[questions_dump[i]['id']]
+            # if the user is_authenticated, update answer to the database for each choice selected
+            if not submitted_answer:
+                questions_dump[i]['missed'] = True
+            else:
+                questions_dump[i]['score'] = questions_dump[i]['point']
+                cur_score += questions_dump[i]['point']
+            if current_user.is_authenticated:
+                new_answer = OpenAnswer(
+                    user_id=current_user.id,
+                    answer=submitted_answer,
+                    question_id=questions_dump[i]['id'],
+                )
+                db.session.add(new_answer)
+                db.session.commit()
+        # start counting selected correct choices and wrong choices that user didn't select
+        selected_correct = 0
+        missed_wrong = 0
+        if questions_dump[i]['type'] in ['choose_one', 'grid']:
+            if not form.get(questions_dump[i]['id']):
+                questions_dump[i]['missed'] = True
+            for choice in questions_dump[i]['choices']:
+                if choice['correctness']:
+                    if choice['id'] in submitted_answers:
+                        choice['state'] = 'correct'
+                        selected_correct += 1
+                    else:
+                        choice['state'] = 'missed'
+                else:
+                    if choice['id'] in submitted_answers:
+                        choice['state'] = 'wrong'
+                    else:
+                        missed_wrong += 1
+            if selected_correct > 0:
+                questions_dump[i]['score'] = questions_dump[i]['point']
+                cur_score += questions_dump[i]['point']
+            else:
+                questions_dump[i]['score'] = 0
+        elif questions_dump[i]['type'] in ['choose_many', 'grid_checkbox']:
+            total_choice_num = 0
+            while j < len(questions_dump):
+                if questions_dump[j]['title'] != questions_dump[i]['title']:
+                    break
+                if not form.get(questions_dump[j]['id']):
+                    questions_dump[j]['missed'] = True
+                for choice in questions_dump[j]['choices']:
+                    total_choice_num += 1
                     if choice['correctness']:
                         if choice['id'] in submitted_answers:
                             choice['state'] = 'correct'
@@ -164,53 +206,30 @@ def quiz_submit(chapter_id):
                             choice['state'] = 'wrong'
                         else:
                             missed_wrong += 1
-                if selected_correct > 0:
-                    questions_dump[i]['score'] = questions_dump[i]['point']
-                    cur_score += questions_dump[i]['point']
-                else:
-                    questions_dump[i]['score'] = 0
-            else:
-                total_choice_num = 0
-                while j < len(questions_dump):
-                    if questions_dump[j]['title'] != questions_dump[i]['title']:
-                        break
-                    if not multiple_choice_form.get(questions_dump[j]['id']):
-                        questions_dump[j]['missed'] = True
-                    for choice in questions_dump[j]['choices']:
-                        total_choice_num += 1
-                        if choice['correctness']:
-                            if choice['id'] in submitted_answers:
-                                choice['state'] = 'correct'
-                                selected_correct += 1
-                            else:
-                                choice['state'] = 'missed'
-                        else:
-                            if choice['id'] in submitted_answers:
-                                choice['state'] = 'wrong'
-                            else:
-                                missed_wrong += 1
-                    j += 1
-                correct_sum = selected_correct + missed_wrong
+                j += 1
+            correct_sum = selected_correct + missed_wrong
+            question_score = 0
+            if correct_sum == 0:
                 question_score = 0
-                if correct_sum == 0:
-                    question_score = 0
-                else:
-                    question_score = round(correct_sum / total_choice_num * questions_dump[i]['point'])
-                cur_score += question_score
-                for k in range(i, j):
-                    questions_dump[k]['score'] = question_score
-                i = j - 1
-            i += 1
+            else:
+                question_score = round(correct_sum / total_choice_num * questions_dump[i]['point'])
+            cur_score += question_score
+            for k in range(i, j):
+                questions_dump[k]['score'] = question_score
+            i = j - 1
+        else:
+            pass
+        i += 1
 
-        # if the user is authenticated, update final score to the database
-        if current_user.is_authenticated:
-            new_score = Score(
-                score=cur_score,
-                user_id=current_user.id,
-                chapter_id=chapter_id
-            )
-            db.session.add(new_score)
-            db.session.commit()
+    # if the user is authenticated, update final score to the database
+    if current_user.is_authenticated:
+        new_score = Score(
+            score=cur_score,
+            user_id=current_user.id,
+            chapter_id=chapter_id
+        )
+        db.session.add(new_score)
+        db.session.commit()
 
     ranking = get_ranking(chapter_id)
     return render_template("games/quiz_result.html", questions=questions_dump, cur_lvl=chapter_dump['level_id'],
@@ -340,6 +359,11 @@ def chapter_result(level_id, chapter_id):
             current_user.id, cur_chapter[0]['id']))
     ranking = get_ranking(cur_chapter[0]['id'])
 
+    open_anwser_raw = db.engine.execute(
+        'select question.id as q_id, answer as ans from open_answer, question, chapter where question.chapter_id = chapter.id and question.id = open_answer.question_id and user_id = %s and chapter.id = %s' % (current_user.id, cur_chapter[0]['id']))
+    open_anwers = [dict(row) for row in open_anwser_raw]
+
+    print(open_anwers)
     selected_choices = {}
     for row in selected_choices_raw:
         if str(row[0]) not in selected_choices:
@@ -349,17 +373,25 @@ def chapter_result(level_id, chapter_id):
     score = Score.query.filter_by(user_id=current_user.id, chapter_id=cur_chapter[0]['id']).first()
 
     for question in questions_dump:
-        if question['id'] not in selected_choices:
-            question['missed'] = True
-        for choice in question['choices']:
-            if choice['correctness']:
-                if question['id'] in selected_choices and choice['id'] in selected_choices[question['id']]:
-                    choice['state'] = 'correct'
+        if question['type'] in ['choose_one', 'grid', 'choose_many', 'grid_checkbox']:
+            if question['id'] not in selected_choices:
+                question['missed'] = True
+            for choice in question['choices']:
+                if choice['correctness']:
+                    if question['id'] in selected_choices and choice['id'] in selected_choices[question['id']]:
+                        choice['state'] = 'correct'
+                    else:
+                        choice['state'] = 'missed'
                 else:
-                    choice['state'] = 'missed'
-            else:
-                if question['id'] in selected_choices and choice['id'] in selected_choices[question['id']]:
-                    choice['state'] = 'wrong'
+                    if question['id'] in selected_choices and choice['id'] in selected_choices[question['id']]:
+                        choice['state'] = 'wrong'
+        elif question['type'] in ['open']:
+            for oa in open_anwers:
+                if str(oa['q_id']) == str(question['id']):
+                    print("YUP!!!!!!!!!!!!!!")
+                    question['ans'] = oa['ans']
+    print("########################")
+    print(questions_dump)
     return render_template("games/quiz_result.html", questions=questions_dump, cur_lvl=level_id,
                            chapter=chapter_dump, score=score.score, ranking=ranking)
 
@@ -409,7 +441,7 @@ def provide_menu():
     return {'level_dict': level_dict}
 
 
-def open_question_handler(form_data):
+def open_question_handler(form_data, chapter_id):
     """
     function for receiving paper answers, store the answers & scores and return to the result page
     @return: return the quiz result page
@@ -428,4 +460,28 @@ def open_question_handler(form_data):
         if key not in open_questions:
             left_data[key] = value
 
+    questions = Question.query.filter_by(chapter_id=chapter_id, type="open").order_by(Question.id).all()
+    print(questions)
+    # questions_dump = questionswithanswers_schema.dump(questions)
+    # cur_chapter = Chapter.query.get(chapter_id)
+    # chapter_dump = chapter_schema.dump(cur_chapter)
+    #
+    # if current_user.is_authenticated:
+    #     for aws_id in submitted_answers:
+    #         new_answer = Answer(
+    #             user_id=current_user.id,
+    #             choice_id=aws_id
+    #         )
+    #         db.session.add(new_answer)
+    #         db.session.commit()
+    #
+    # # if the user is authenticated, update final score to the database
+    # if current_user.is_authenticated:
+    #     new_score = Score(
+    #         score=cur_score,
+    #         user_id=current_user.id,
+    #         chapter_id=chapter_id
+    #     )
+    #     db.session.add(new_score)
+    #     db.session.commit()
     return left_data

@@ -6,41 +6,41 @@ total_score: 20
 
 questions:
 # 1
-- title: Have you acquired and preprocessed the raw data?
+- title: Where have you gotten the raw data and what tools have you applied to preprocess them?
   type: open
-  description: What is the data source and what tools have you applied?
+  description:
   hint:
   explanation:
   point: 4
 
 # 2
-- title: Have you performed quality control checks on the data to ensure it is suitable for analysis?
+- title: What tools have you applied to perform quality control checks on the data to ensure it is suitable for analysis?
   type: open
-  description: What tools have you applied?
+  description:
   hint:
   explanation:
   point: 4
 
 # 3
-- title: Have you conducted taxonomic classification?
+- title: What tools have you chosen for taxonomic classification?
   type: open
-  description: What tools have you chosen to use?
+  description:
   hint:
   explanation:
   point: 4
 
 # 4
-- title: Have you conducted Operational Taxonomic Units (OTUs) / Amplicon Sequence Variants (ASVs) clustering?
+- title: What tools have you chosen for Operational Taxonomic Units (OTUs) / Amplicon Sequence Variants (ASVs) clustering?
   type: open
-  description: What tools have you chosen to use?
+  description:
   hint:
   explanation:
   point: 4
 
 # 5
-- title: Have you conducted Operational Taxonomic Units (OTUs) / Amplicon Sequence Variants (ASVs) clustering?
+- title: What kind of Diversity analysis have you done and what tools have been used?
   type: open
-  description: What tools have you chosen to use?
+  description:
   hint:
   explanation:
   point: 4
