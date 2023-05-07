@@ -7,25 +7,28 @@ total_score: 12
 questions:
 
 # 1
-- title: Have you visualized and interpreted the results in a meaningful way for others to understand and draw conclusions from?
+- title: What kind of visualizations and how have you created to visualize and interpret the results in a meaningful way for others to understand and draw conclusions from?
   type: open
-  description: What tools have you used and what kind of visualization have been created?
+  description:
   hint:
   explanation:
   point: 4
+  transition_sentence: The results section begins with the presentation of various visualizations, effectively illustrating the patterns and relationships observed in the bioinformatics analysis, and providing a clear, concise overview of the findings.
 
 # 2
-- title: Have you found any dominant species?
+- title: Have you found any dominant species? What are they?
   type: open
-  description: What are they?
+  description:
   hint:
   explanation:
   point: 4
+  transition_sentence: Building upon the visualizations, the analysis then focuses on the identification of dominant species within the dataset, highlighting their relative abundance and potential significance in the studied microbial communities.
 
 # 3
-- title: Have there been any new species discovered or any species missed compared to the original results of the paper?
+- title: Have there been any new species discovered or any species missed compared to the original results of the paper? What are they?
   type: open
-  description: What are they?
+  description:
   hint:
   explanation:
   point: 4
+  transition_sentence: Finally, the results delve into any novel species that were uncovered during the analysis, offering insights into their characteristics and potential implications for the understanding of the investigated microbial ecosystems.
