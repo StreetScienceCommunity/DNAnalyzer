@@ -160,7 +160,7 @@ function add_option_input_field(question, choice, type){
                 myHTML += `
                     <div class="field" id="answer${questions[i].id}">
                       <div class="control">
-                        <textarea class="textarea" name="${questions[i].id}" readonly>${questions[i].ans}</textarea>
+                        <textarea class="textarea" name="${questions[i].id}" readonly> ${questions[i].ans ? questions[i].ans : ""}</textarea>
                       </div>
                     </div>`
             }
