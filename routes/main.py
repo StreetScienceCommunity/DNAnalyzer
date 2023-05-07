@@ -98,13 +98,13 @@ def chapter(level_id, chapter_id):
     @return: flask template for quiz
     @rtype: flask template
     """
-    print("***********************************")
-    print(level_id, chapter_id)
+
+    if level_id == "3" and chapter_id == "4":
+        return redirect(url_for('dnapi.paper_writing', ifFinished=False))
     cur_chapter_raw = db.engine.execute(
         'select * from chapter where level_id = %s and order_id = %s' % (level_id, chapter_id))
     cur_chapter = [dict(row) for row in cur_chapter_raw]
-    print(cur_chapter)
-    print("***********************************")
+
     chapter_dump, questions_dump = quiz_questions_helper(cur_chapter[0]['id'])
     return render_template("games/chapter.html", questions=questions_dump, chapter=chapter_dump)
 
@@ -154,6 +154,7 @@ def quiz_submit(chapter_id):
                 questions_dump[i]['missed'] = True
             else:
                 questions_dump[i]['score'] = questions_dump[i]['point']
+                questions_dump[i]['ans'] = submitted_answer
                 cur_score += questions_dump[i]['point']
             if current_user.is_authenticated:
                 new_answer = OpenAnswer(
@@ -232,6 +233,7 @@ def quiz_submit(chapter_id):
         db.session.commit()
 
     ranking = get_ranking(chapter_id)
+
     return render_template("games/quiz_result.html", questions=questions_dump, cur_lvl=chapter_dump['level_id'],
                            chapter=chapter_dump, score=cur_score, ranking=ranking)
 
@@ -350,6 +352,8 @@ def chapter_result(level_id, chapter_id):
     @return: return result page
     @rtype: flask template
     """
+    if level_id == "3" and chapter_id == "4":
+        return redirect(url_for('dnapi.paper_writing', ifFinished=True))
     cur_chapter_raw = db.engine.execute(
         'select * from chapter where level_id = %s and order_id = %s' % (level_id, chapter_id))
     cur_chapter = [dict(row) for row in cur_chapter_raw]
@@ -363,7 +367,6 @@ def chapter_result(level_id, chapter_id):
         'select question.id as q_id, answer as ans from open_answer, question, chapter where question.chapter_id = chapter.id and question.id = open_answer.question_id and user_id = %s and chapter.id = %s' % (current_user.id, cur_chapter[0]['id']))
     open_anwers = [dict(row) for row in open_anwser_raw]
 
-    print(open_anwers)
     selected_choices = {}
     for row in selected_choices_raw:
         if str(row[0]) not in selected_choices:
@@ -388,10 +391,8 @@ def chapter_result(level_id, chapter_id):
         elif question['type'] in ['open']:
             for oa in open_anwers:
                 if str(oa['q_id']) == str(question['id']):
-                    print("YUP!!!!!!!!!!!!!!")
                     question['ans'] = oa['ans']
-    print("########################")
-    print(questions_dump)
+
     return render_template("games/quiz_result.html", questions=questions_dump, cur_lvl=level_id,
                            chapter=chapter_dump, score=score.score, ranking=ranking)
 
@@ -461,7 +462,6 @@ def open_question_handler(form_data, chapter_id):
             left_data[key] = value
 
     questions = Question.query.filter_by(chapter_id=chapter_id, type="open").order_by(Question.id).all()
-    print(questions)
     # questions_dump = questionswithanswers_schema.dump(questions)
     # cur_chapter = Chapter.query.get(chapter_id)
     # chapter_dump = chapter_schema.dump(cur_chapter)
@@ -485,3 +485,43 @@ def open_question_handler(form_data, chapter_id):
     #     db.session.add(new_score)
     #     db.session.commit()
     return left_data
+
+
+@bp.route('/paper_writing')
+def paper_writing():
+    """
+    view function for paper writing page, getting value from previous chapters and showing them here.
+    @return: return paper writing page
+    @rtype: flask template
+    """
+    ifFinished = request.args.get("ifFinished")
+    chapter = Chapter.query.filter_by(level_id=3, order_id=4).first()
+    chapter_dump, questions_dump = quiz_questions_helper(chapter.id)
+    if ifFinished == "False":
+        results_answers_raw = db.engine.execute(
+            'select question.transition_sentence as ts, answer as ans from open_answer, question where question.id = open_answer.question_id and user_id = %s and question.chapter_id = %s' % (
+            current_user.id, chapter.id-1))
+        results_answers = [dict(row) for row in results_answers_raw]
+        results = ""
+        for r in results_answers:
+            results = results + r['ts'] + " "
+            results = results + r['ans'] + " "
+        methods_answers_raw = db.engine.execute(
+            'select question.transition_sentence as ts, answer as ans from open_answer, question where question.id = open_answer.question_id and user_id = %s and question.chapter_id = %s' % (
+            current_user.id, chapter.id-2))
+        methods_answers = [dict(row) for row in methods_answers_raw]
+        methods = ""
+        for r in methods_answers:
+            methods = methods + r['ts'] + " "
+            methods = methods + r['ans'] + " "
+        return render_template("games/level3/paper_writing.html", chapter=chapter_dump, questions=questions_dump, methods=methods, results=results)
+    else:
+        open_anwser_raw = db.engine.execute(
+            'select question.id as q_id, answer as ans from open_answer, question, chapter where question.chapter_id = chapter.id and question.id = open_answer.question_id and user_id = %s and chapter.id = %s' % (
+            current_user.id, chapter.id))
+        open_anwers = [dict(row) for row in open_anwser_raw]
+        for question in questions_dump:
+            for oa in open_anwers:
+                if str(oa['q_id']) == str(question['id']):
+                    question['ans'] = oa['ans']
+        return render_template("games/level3/paper_writing.html", chapter=chapter_dump, questions=questions_dump)
