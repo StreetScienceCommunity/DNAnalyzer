@@ -12,9 +12,7 @@ keys = ['title',
         'explanation',
         'image_name',
         'point',
-        # 'chapter_id',
-        # 'choices',
-        # 'correct',
+        'transition_sentence',
         ]
 
 levels = [
