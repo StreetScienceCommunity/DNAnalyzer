@@ -77,9 +77,9 @@ class Question(db.Model):
     explanation = db.Column(db.String())
     image_name = db.Column(db.String())
     point = db.Column(db.Integer, nullable=False)
+    transition_sentence = db.Column(db.String())
     chapter_id = db.Column(db.Integer, db.ForeignKey('chapter.id'), nullable=False)
     choices = db.relationship('Choice', backref='question', order_by=Choice.id)
-    openAnswer = db.relationship('OpenAnswer', backref='question')
 
 
 class QuestionSchema(ma.SQLAlchemySchema):
@@ -94,6 +94,7 @@ class QuestionSchema(ma.SQLAlchemySchema):
     image_name = auto_field()
     point = auto_field()
     explanation = auto_field()
+    transition_sentence = auto_field()
     choices = Nested(ChoiceSchema, many=True)
 
 
@@ -114,8 +115,8 @@ class QuestionwithanswersSchema(ma.SQLAlchemySchema):
     point = auto_field()
     explanation = auto_field()
     chapter_id = auto_field()
+    transition_sentence = auto_field()
     choices = Nested(ChoicewithanwersSchema, many=True)
-    openAnswer = Nested(OpenAnswerSchema)
 
 
 questionwithanswers_schema = QuestionwithanswersSchema()
