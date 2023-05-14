@@ -109,20 +109,14 @@ def chapter(level_id, chapter_id):
     return render_template("games/chapter.html", questions=questions_dump, chapter=chapter_dump)
 
 
-@bp.route('/quiz/<chapter_id>/submit', methods=['POST'])
-def quiz_submit(chapter_id):
+def delete_previous_result(chapter_id):
     """
-    function for receiving quiz answers, checking them, store the score and return to the result page
-    @param chapter_id: the chapter id for showing related quiz questions
-    @type chapter_id: integer
-    @return: return the quiz result page
-    @rtype: flask template
+        function deleting previous results with given chapter_id and logged_in user
+        @param chapter_id: the chapter id for showing related quiz questions
+        @type chapter_id: integer
+        @return: return the quiz result page
+        @rtype: flask template
     """
-    form = request.form
-    chapter_dump, questions_dump = quiz_questions_helper(chapter_id)
-    cur_score = 0
-
-    # delete old results if the user is authenticated
     if current_user.is_authenticated:
         db.engine.execute(
             "delete from answer where answer.choice_id in  ( select answer.choice_id from answer, choice, chapter, users, question where answer.choice_id = choice.id and choice.question_id = question.id and question.chapter_id = chapter.id and chapter.id = %s and users.id = %s )" % (
@@ -131,6 +125,23 @@ def quiz_submit(chapter_id):
             "delete from open_answer where open_answer.id in  ( select open_answer.id from open_answer, question where open_answer.question_id = question.id and question.chapter_id = %s and open_answer.user_id = %s )" % (
                 chapter_id, current_user.id))
         db.engine.execute("delete from score where chapter_id = %s and user_id=%s" % (chapter_id, current_user.id))
+
+
+def store_quiz_results(chapter_id, form):
+    """
+        function for storing quiz results
+        @param chapter_id: the chapter id for showing related quiz questions
+        @type chapter_id: integer
+        @param form: user submitted form
+        @type form: dict
+        @return: return the quiz result page
+        @rtype: flask template
+    """
+    chapter_dump, questions_dump = quiz_questions_helper(chapter_id)
+    cur_score = 0
+
+    # delete old results if the user is authenticated
+    delete_previous_result(chapter_id)
 
     # check score for each question
     i = 0
@@ -233,6 +244,20 @@ def quiz_submit(chapter_id):
         db.session.commit()
 
     ranking = get_ranking(chapter_id)
+    return questions_dump, chapter_dump, cur_score, ranking
+
+
+@bp.route('/quiz/<chapter_id>/submit', methods=['POST'])
+def quiz_submit(chapter_id):
+    """
+    function for receiving quiz answers, checking them, store the score and return to the result page
+    @param chapter_id: the chapter id for showing related quiz questions
+    @type chapter_id: integer
+    @return: return the quiz result page
+    @rtype: flask template
+    """
+
+    questions_dump, chapter_dump, cur_score, ranking = store_quiz_results(chapter_id, request.form)
 
     return render_template("games/quiz_result.html", questions=questions_dump, cur_lvl=chapter_dump['level_id'],
                            chapter=chapter_dump, score=cur_score, ranking=ranking)
@@ -533,6 +558,7 @@ def paper_writing():
         for r in methods_answers:
             methods = methods + r['ts'] + " "
             methods = methods + r['ans'] + " "
+        print(questions_dump)
         return render_template("games/level3/paper_writing.html", chapter=chapter_dump, questions=questions_dump,
                                methods=methods, results=results, introduction=introduction)
     else:
@@ -545,3 +571,16 @@ def paper_writing():
                 if str(oa['q_id']) == str(question['id']):
                     question['ans'] = oa['ans']
         return render_template("games/level3/paper_writing.html", chapter=chapter_dump, questions=questions_dump)
+
+@bp.route('/paper_writing/submit', methods=['POST'])
+def paper_writing_submit():
+    """
+        function for receiving quiz answers, checking them, store the score and return to the result page
+        @param chapter_id: the chapter id for showing related quiz questions
+        @type chapter_id: integer
+        @return: return the quiz result page
+        @rtype: flask template
+    """
+    store_quiz_results(12, request.form)
+    return redirect(url_for('dnapi.paper_writing', ifFinished=True))
+
