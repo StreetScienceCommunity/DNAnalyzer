@@ -498,6 +498,25 @@ def paper_writing():
     chapter = Chapter.query.filter_by(level_id=3, order_id=4).first()
     chapter_dump, questions_dump = quiz_questions_helper(chapter.id)
     if ifFinished == "False":
+        introduction = 'Kombucha, a fermented beverage with roots tracing back over 2000 years to China, ' \
+                'has gained worldwide popularity due to its purported health benefits (Jayabalan, ' \
+                'Malbaša, Lončar, Vitas, & Sathishkumar, 2014). Over the years, extensive research ' \
+                'has been conducted to understand its biochemical properties, microbiology, toxicity, ' \
+                'cellulose production, and fermentation dynamics (Greenwalt, Steinkraus, & Ledford, 2000; ' \
+                'Jayabalan et al., 2014; Rosma, Karim, & Bhat, 2012; Sreeramulu, Zhu, & Knol, 2000). ' \
+                'The microbial diversity of Kombucha has been extensively studied using culture-based methods ' \
+                'and sequencing of phylogenetic marker genes (Chakravorty et al., 2016; Coton et al., 2017; ' \
+                'De Filippis, Troise, Vitaglione, & Ercolini, 2018; Marsh, O\'Sullivan, Hill, Ross, & Cotter, 2014; ' \
+                'Reva et al., 2015). To build upon these findings, our study will leverage the Galaxy bioinformatics ' \
+                'platform, a powerful, user-friendly, and open-source tool for the analysis and interpretation of ' \
+                'genomic data. Our objective is to reanalyze the metagenomic data from two Turkish Kombucha samples, ' \
+                'harvested at different stages of the fermentation process. We will employ WMS sequencing and ' \
+                'NGS-based amplicon sequencing (16S rRNA gene and Internal Transcribed Spacer 1 [ITS1]) to derive ' \
+                'detailed taxonomic and functional characteristics of the Kombucha samples. Through the Galaxy ' \
+                'platform\'s robust suite of tools for genomic analysis, we aim to reaffirm the findings of the ' \
+                'original study and potentially uncover additional insights into the microbial composition and ' \
+                'functional dynamics of Kombucha. Our work illustrates the potent synergy of traditional microbiological ' \
+                'studies and modern bioinformatics, paving the way for future explorations in this fascinating field.'
         results_answers_raw = db.engine.execute(
             'select question.transition_sentence as ts, answer as ans from open_answer, question where question.id = open_answer.question_id and user_id = %s and question.chapter_id = %s' % (
             current_user.id, chapter.id-1))
@@ -514,7 +533,8 @@ def paper_writing():
         for r in methods_answers:
             methods = methods + r['ts'] + " "
             methods = methods + r['ans'] + " "
-        return render_template("games/level3/paper_writing.html", chapter=chapter_dump, questions=questions_dump, methods=methods, results=results)
+        return render_template("games/level3/paper_writing.html", chapter=chapter_dump, questions=questions_dump,
+                               methods=methods, results=results, introduction=introduction)
     else:
         open_anwser_raw = db.engine.execute(
             'select question.id as q_id, answer as ans from open_answer, question, chapter where question.chapter_id = chapter.id and question.id = open_answer.question_id and user_id = %s and chapter.id = %s' % (

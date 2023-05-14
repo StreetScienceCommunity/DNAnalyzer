@@ -26,8 +26,6 @@
 							</tr>
 						{% endfor %}
 					</tbody>
-
-
 				</table>
 			</div>
 		</div>
@@ -85,6 +83,13 @@ function add_option_input_field(question, choice, type){
         let chapter = {{chapter| tojson}};
         let myHTML = '';
         myHTML += `<p class="quiz_title"> <span>Level ${chapter.level_id} / Chapter ${chapter.order_id} Quiz result</span>  <span>{{score}} / {{chapter.total_score}} points</span></p>`;
+        if(chapter.id == 9){
+            myHTML +=`<p class="my-4"><a href="https://ift.onlinelibrary.wiley.com/doi/10.1111/1750-3841.14992" class="button is-link is-fullwidth start_tbn"><strong>Paper: Microbial composition of Kombucha ...</strong></a></p>
+                <p class="is-size-5 my-4"> Here are the result of the questions related to the paper:</p>
+            `
+        }
+
+
         for (let i = 0; i < questions.length; i++) {
             myHTML += '<hr>'
             myHTML += '<div class="quiz_text">';

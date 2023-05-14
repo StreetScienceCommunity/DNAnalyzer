@@ -5,6 +5,11 @@
 <div class="quiz_wrapper columns mb-6">
 		{% include 'chapter_menu.html' %}
 		<div class="quiz column is-four-fifths p-6">
+
+            <h1 class="is-size-3 has-text-weight-bold mb-3 quiz_title"><span>Level {{chapter.level_id}} / Chapter {{chapter.order_id}}</span> {% if score %} <span>{{score}} / {{chapter.total_score}} points</span> {% endif %}</h1>
+            <p class="is-size-5 my-4"> Are you filled with anticipation and enthusiasm about embarking on the journey of crafting your very own paper? </p>
+            <p class="is-size-5 my-4"> You've already made significant progress from level 1 to level 3 by composing various sections of the paper. Below, you'll find your insightful previous responses, accompanied by transitional sentences. </p>
+            <p class="is-size-5 my-4"> Feel free to modify them as you see fit, and most importantly, remember to complete the paper with confidence and flair! </p>
             {% for question in questions %}
                 <div class="quiz_text">
                     <h1 class="q_title">{{question.title}}</h1>
@@ -15,7 +20,7 @@
                 </div>
                 <div class="field" id="answer${questions[i].id}">
                   <div class="control">
-                    <textarea class="textarea is-large" name="${questions[i].id}" {% if question.ans %} readonly {% endif %} > {% if question.ans %} {{ question.ans }} {% else %}  {% if question.title == 'Methods' %} {{ methods }}  {% elif question.title == 'Results' %}  {{ results }}   {% endif %} {% endif %} </textarea>
+                    <textarea class="textarea is-large" name="${questions[i].id}" {% if question.ans %} readonly {% endif %} > {% if question.ans %} {{ question.ans }} {% else %}  {% if question.title == 'Methods' %} {{ methods }}  {% elif question.title == 'Results' %}  {{ results }} {% elif question.title == 'Introduction' %} {{ introduction }}  {% endif %} {% endif %} </textarea>
                   </div>
                 </div>
                 <hr>
