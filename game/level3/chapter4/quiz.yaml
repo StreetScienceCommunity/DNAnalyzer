@@ -1,0 +1,34 @@
+chapter_name: Paper writing
+
+video_url:
+
+total_score: 12
+
+questions:
+
+# 1
+- title: Introduction
+  type: open
+  description:
+  hint:
+  explanation:
+  point: 4
+  transition_sentence:
+
+# 2
+- title: Methods
+  type: open
+  description:
+  hint:
+  explanation:
+  point: 4
+  transition_sentence:
+
+# 3
+- title: Results
+  type: open
+  description:
+  hint:
+  explanation:
+  point: 4
+  transition_sentence:

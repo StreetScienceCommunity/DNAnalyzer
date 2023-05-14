@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="quiz_wrapper columns mb-6">
+		{% include 'chapter_menu.html' %}
+		<div class="quiz column is-four-fifths p-6">
+            {% for question in questions %}
+                <div class="quiz_text">
+                    <h1 class="q_title">{{question.title}}</h1>
+                    <p class="q_points">{{question.point}}Pts</p>
+                {% if question.missed %}
+                    <p class="has-text-danger">You didn\'t answer this question</p>
+                {% endif %}
+                </div>
+                <div class="field" id="answer${questions[i].id}">
+                  <div class="control">
+                    <textarea class="textarea is-large" name="${questions[i].id}" {% if question.ans %} readonly {% endif %} > {% if question.ans %} {{ question.ans }} {% else %}  {% if question.title == 'Methods' %} {{ methods }}  {% elif question.title == 'Results' %}  {{ results }}   {% endif %} {% endif %} </textarea>
+                  </div>
+                </div>
+                <hr>
+            {% endfor %}
+		</div>
+</div>
+<script>
+
+    $(document).ready(function () {
+        let questions = {{questions | tojson}};
+        let chapter = {{chapter| tojson}};
+        let myHTML = 'asdddddddddddddddddddd';
+        myHTML += `<p class="quiz_title"> <span>Level ${chapter.level_id} / Chapter ${chapter.order_id} Quiz result</span>  <span>{{score}} / {{chapter.total_score}} points</span></p>`;
+        for (let i = 0; i < questions.length; i++) {
+            myHTML += '<hr>'
+            myHTML += '<div class="quiz_text">';
+            myHTML += `<h1 class="q_title">${questions[i].title}</h1>`;
+            myHTML += `<p class="q_points">${questions[i].point}Pts</p>`;
+            myHTML += '</div>'
+            myHTML += `
+                <div class="field" id="answer${questions[i].id}">
+                  <div class="control">
+                    <textarea class="textarea" name="${questions[i].id}" readonly> ${questions[i].ans ? questions[i].ans : ""}</textarea>
+                  </div>
+                </div>`
+
+        }
+		myHTML += `<a href="/level/{{cur_lvl}}/chapter/${chapter.order_id}" style="text-decoration:none;"><button type="button" class="button is-fullwidth start_tbn mt-3 "> Retry </button></a>`
+        $('#quiz').html(myHTML);
+    });
+</script>
+
+
+{% endblock %}
