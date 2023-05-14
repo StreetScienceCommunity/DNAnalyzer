@@ -3,12 +3,10 @@ import json
 import os
 from pathlib import Path
 
-from flask import Blueprint, flash, g, redirect, request, session, url_for, jsonify, send_file, make_response, \
-    render_template
+from flask import Blueprint, flash, redirect, request, url_for, render_template
 from models.all_models import *
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
-from werkzeug.datastructures import ImmutableMultiDict
 
 bp = Blueprint('dnapi', __name__, url_prefix='/')
 
@@ -100,7 +98,11 @@ def chapter(level_id, chapter_id):
     """
 
     if level_id == "3" and chapter_id == "4":
-        return redirect(url_for('dnapi.paper_writing', ifFinished=False))
+        if current_user.is_authenticated:
+            return redirect(url_for('dnapi.paper_writing', ifFinished=False))
+        else:
+            return redirect(url_for('dnapi.login'))
+
     cur_chapter_raw = db.engine.execute(
         'select * from chapter where level_id = %s and order_id = %s' % (level_id, chapter_id))
     cur_chapter = [dict(row) for row in cur_chapter_raw]
@@ -331,8 +333,7 @@ def progress():
     """
     # get raw query result
     chapters_raw = db.engine.execute(
-        'select chapter.id, order_id, name, score, add_time, level_id from chapter left join score on score.chapter_id = chapter.id and score.user_id = %s and chapter.level_id = %s order by chapter.id' % (
-            current_user.id, 1))
+        'select chapter.id, order_id, name, score, add_time, level_id from chapter left join score on score.chapter_id = chapter.id and score.user_id = %s order by chapter.id' % (current_user.id))
 
     # process time format and make the result a dictionary
     chapters_processed = handle_addtime(chapters_raw)
@@ -572,12 +573,12 @@ def paper_writing():
                     question['ans'] = oa['ans']
         return render_template("games/level3/paper_writing.html", chapter=chapter_dump, questions=questions_dump)
 
+
 @bp.route('/paper_writing/submit', methods=['POST'])
+@login_required
 def paper_writing_submit():
     """
-        function for receiving quiz answers, checking them, store the score and return to the result page
-        @param chapter_id: the chapter id for showing related quiz questions
-        @type chapter_id: integer
+        function for handling level 3 chapter 4 paper writing
         @return: return the quiz result page
         @rtype: flask template
     """
