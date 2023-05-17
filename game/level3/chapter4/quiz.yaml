@@ -2,7 +2,7 @@ chapter_name: Paper writing
 
 video_url:
 
-total_score: 12
+total_score: 16
 
 questions:
 
@@ -26,6 +26,15 @@ questions:
 
 # 3
 - title: Results
+  type: open
+  description:
+  hint:
+  explanation:
+  point: 4
+  transition_sentence:
+
+# 4
+- title: Conclusion
   type: open
   description:
   hint:
