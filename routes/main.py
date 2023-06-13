@@ -2,15 +2,21 @@ import collections
 import json
 import os
 from pathlib import Path
-
+import ghevaluator
+import uuid
+import shutil
+import subprocess
+import re
 from flask import Blueprint, flash, g, redirect, request, session, url_for, jsonify, send_file, make_response, \
     render_template
+from flask import Markup
 from models.all_models import *
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
 
 bp = Blueprint('dnapi', __name__, url_prefix='/')
 
+WORKFLOW_URL = " https://usegalaxy.eu/training-material/topics/assembly/tutorials/general-introduction/workflows/assembly-general-introduction.ga"
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
@@ -97,10 +103,8 @@ def chapter(level_id, chapter_id):
     @return: flask template for quiz
     @rtype: flask template
     """
-    cur_chapter_raw = db.engine.execute(
-        'select * from chapter where level_id = %s and order_id = %s' % (level_id, chapter_id))
-    cur_chapter = [dict(row) for row in cur_chapter_raw]
-    chapter_dump, questions_dump = quiz_questions_helper(cur_chapter[0]['id'])
+    cur_chapter = Chapter.query.filter_by(level_id=int(level_id), order_id=int(chapter_id)).first()
+    chapter_dump, questions_dump = quiz_questions_helper(cur_chapter.id)
     return render_template("games/chapter.html", questions=questions_dump, chapter=chapter_dump)
 
 
@@ -335,6 +339,10 @@ def chapter_result(level_id, chapter_id):
             current_user.id, cur_chapter[0]['id']))
     ranking = get_ranking(cur_chapter[0]['id'])
 
+    if level_id == "2" and chapter_id == "3" and current_user.is_authenticated:
+        history_link = GalaxyHistoryLinks.query.filter_by(user_id=current_user.id, chapter_id=cur_chapter[0]['id']).first()
+        return render_template("games/chapter.html", questions=questions_dump, chapter=chapter_dump, history_link=history_link)
+
     selected_choices = {}
     for row in selected_choices_raw:
         if str(row[0]) not in selected_choices:
@@ -359,36 +367,92 @@ def chapter_result(level_id, chapter_id):
                            chapter=chapter_dump, score=score.score, ranking=ranking)
 
 
-@bp.route('/galaxy_history')
+@bp.route('/galaxy_history', methods=['POST'])
 def galaxy_history():
     """
     view function for galaxy history result
     @return: return galaxy history result page
     @rtype: flask template
     """
-    SITE_ROOT = Path(__file__).parent.parent
-    filename = os.path.join(SITE_ROOT, 'game', 'dummy_result.json')
-    with open(filename) as test_file:
+
+    # Check if the Galaxy API KEY is set correctly
+    if 'GALAXY_API_KEY' in os.environ:
+        api_key = os.environ['GALAXY_API_KEY']
+    else:
+        flash(Markup(
+            'The Galaxy API KEY is not set correctly. Please contact the developer'), category='warning')
+        return redirect(request.referrer)
+    history_url = request.form.get('history_url')
+    TMP_DIR = '/tmp/dnapi'
+    folder_name = str(uuid.uuid4())
+    output_path = os.path.join(TMP_DIR, folder_name)
+    output_report_path = os.path.join(output_path, 'report.json')
+
+    # check if the submitted galaxy history url is valid
+    pattern = r'^https://usegalaxy\.eu/u/.+/h/.+$'
+    if not re.match(pattern, history_url):
+        flash(Markup('Invalid Galaxy history url, It should follow the pattern: https://usegalaxy.eu/u/.../h/... <br/> Learn how to share history <a href="https://training.galaxyproject.org/training-material/faqs/galaxy/histories_sharing.html"> HERE </a>.'), category='warning')
+        return redirect(request.referrer)
+
+    # execute the ghevaluator command
+    command = f"ghevaluator -u {history_url} -w {WORKFLOW_URL} -a {api_key} -o {output_path}"
+    print(f"Executing command: {command}")
+    process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
+    output, error = process.communicate()
+    print(output)
+    print(error)
+
+    # read the output report json file
+    with open(output_report_path) as test_file:
         json_result = json.load(test_file)
     chapter = Chapter.query.get(8)
 
     # calculate score
     num_step = 0  # total number of steps
     score = 0  # user score
-    for step_num, step_res in json_result['steps'].items():
-        num_step += 1
-        # check if using the same tool
-        if step_res['tool_id'] and step_res['tool_id']['status']:
-            score += 5
-            # if using the same tool, then check tool version
-            if step_res['tool_version'] and step_res['tool_version']['status']:
-                score += 1
-            # if using the same tool, then check parameters
-            if step_res['parameters'] and step_res['parameters']['number_of_mismatches'] and step_res['parameters'][
-                'total_number_of_param']:
-                score += (step_res['parameters']['number_of_mismatches'] / step_res['parameters'][
-                    'total_number_of_param']) * 2
+    for tool, tool_res in json_result['comparison_by_reference_workflow_tools'].items():
+        for step_num, step_res in tool_res['details'].items():
+            num_step += 1
+            # check if using the same tool
+            if step_res['id'] and step_res['id']['same']:
+                score += 5
+                # if using the same tool, then check tool version
+                if step_res['version'] and step_res['version']['same']:
+                    score += 1
+                # if using the same tool, then check parameters
+                if step_res['parameters'] and step_res['parameters']['wrong'] and step_res['parameters']['number'] and \
+                        step_res['parameters']['number']['workflow']:
+                    score += (max(step_res['parameters']['wrong'] / step_res['parameters']['number']['workflow'], 1)) * 2
     normalized_score = round(score / (num_step * 8) * 100, 2)
+
+    # remove move the tmp folder
+    shutil.rmtree(output_path)
+
+    # if the user is authenticated, update final score to the database
+    if current_user.is_authenticated:
+
+        cur_chapter = Chapter.query.filter_by(level_id=2, order_id=3).first()
+        old_score = Score.query.filter_by(user_id=current_user.id, chapter_id=cur_chapter.id).first()
+        old_history_link = GalaxyHistoryLinks.query.filter_by(user_id=current_user.id, chapter_id=cur_chapter.id).first()
+
+        if not old_history_link or old_history_link.url != history_url:
+            new_history = GalaxyHistoryLinks(
+                user_id=current_user.id,
+                chapter_id=cur_chapter.id,
+                url=history_url
+            )
+            db.session.add(new_history)
+            db.session.commit()
+
+        if not old_score or old_score.score != normalized_score:
+            new_score = Score(
+                score=normalized_score,
+                user_id=current_user.id,
+                chapter_id=cur_chapter.id
+            )
+            db.session.add(new_score)
+            db.session.commit()
+
     return render_template("games/level2/galaxy_result.html", result=json_result, chapter=chapter,
                            score=normalized_score)
 
