@@ -160,3 +160,24 @@ class Score(db.Model):
     user = db.relationship('Users', backref=db.backref('scores', lazy=True))
     chapter_id = db.Column(db.BigInteger, nullable=False)
     add_time = db.Column(db.DateTime(), nullable=False, default=datetime.utcnow)
+
+
+class GalaxyHistoryLinks(db.Model):
+    id = db.Column(db.BigInteger, primary_key=True)
+    chapter_id = db.Column(db.BigInteger, nullable=False)
+    url = db.Column(db.String(), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user = db.relationship('Users', backref=db.backref('galaxy_history_links', lazy=True))
+
+
+class GalaxyHistoryLinkSchema(ma.SQLAlchemySchema):
+    class Meta:
+        model = GalaxyHistoryLinks
+
+    chapter_id = auto_field()
+    url = auto_field()
+    user = auto_field()
+
+
+galaxyHistoryLink_schema = GalaxyHistoryLinkSchema()
+galaxyHistoryLinks_schema = GalaxyHistoryLinkSchema(many=True)
