@@ -407,12 +407,12 @@ def galaxy_history():
         json_result = json.load(test_file)
     chapter = Chapter.query.get(8)
 
-    # calculate score
-    num_step = 0  # total number of steps
+    # calculate score based on tools used
+    num_of_tools = 0  # total number of tools
     score = 0  # user score
     for tool, tool_res in json_result['comparison_by_reference_workflow_tools'].items():
         for step_num, step_res in tool_res['details'].items():
-            num_step += 1
+            num_of_tools += 1
             # check if using the same tool
             if step_res['id'] and step_res['id']['same']:
                 score += 5
@@ -422,8 +422,9 @@ def galaxy_history():
                 # if using the same tool, then check parameters
                 if step_res['parameters'] and step_res['parameters']['wrong'] and step_res['parameters']['number'] and \
                         step_res['parameters']['number']['workflow']:
-                    score += (max(step_res['parameters']['wrong'] / step_res['parameters']['number']['workflow'], 1)) * 2
-    normalized_score = round(score / (num_step * 8) * 100, 2)
+                    percentage_of_correct_params = (step_res['parameters']['number']['workflow'] - step_res['parameters']['wrong']) / step_res['parameters']['number']['workflow']
+                    score += (max(percentage_of_correct_params, 0)) * 2
+    normalized_score = round(score / (num_of_tools * 8) * 100, 2)
 
     # remove move the tmp folder
     shutil.rmtree(output_path)
