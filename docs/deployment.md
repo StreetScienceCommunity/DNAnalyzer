@@ -5,6 +5,7 @@ This document contains 3 instructions:
 1. [to deploy locally on a linux PC](#part-1-instructions-for-deploying-the-project-locally-on-linux)
 2. [to deploy on a linux server](#part-2-instructions-for-deploying-the-project-on-a-linux-server)
 3. [to deploy using Dokku on a linux server](#part-3-instructions-for-deploying-the-project-on-a-linux-server-with-dokku)
+4. [Environment variables](#part-4-environment-variables) 
 
 ## Part 1: Instructions for deploying the project locally on Linux
 
@@ -336,3 +337,13 @@ git push dokku main:master
 ```
 
 Once the deployment is finished, you should have output indicting that ```Application deployed```.
+
+## Part 4: Environment variables
+
+There are 2 system environment variables needed to set:
+
+- DATABASE_URL
+   - DATABASE_URL is the url for the postgres database
+- GALAXY_API_KEY
+  - GALAXY_API_KEY is the API key for Galaxy in order to use ghevaluator to compare user history with the reference workflow.
+
