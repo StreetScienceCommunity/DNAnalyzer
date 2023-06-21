@@ -3,8 +3,7 @@ import json
 import os
 from pathlib import Path
 
-from flask import Blueprint, flash, g, redirect, request, session, url_for, jsonify, send_file, make_response, \
-    render_template
+from flask import Blueprint, flash, redirect, request, url_for, render_template
 from models.all_models import *
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
@@ -97,50 +96,87 @@ def chapter(level_id, chapter_id):
     @return: flask template for quiz
     @rtype: flask template
     """
+
+    if level_id == "3" and chapter_id == "4":
+        if current_user.is_authenticated:
+            return redirect(url_for('dnapi.paper_writing', ifFinished=False))
+        else:
+            return redirect(url_for('dnapi.login'))
+
     cur_chapter_raw = db.engine.execute(
         'select * from chapter where level_id = %s and order_id = %s' % (level_id, chapter_id))
     cur_chapter = [dict(row) for row in cur_chapter_raw]
+
     chapter_dump, questions_dump = quiz_questions_helper(cur_chapter[0]['id'])
     return render_template("games/chapter.html", questions=questions_dump, chapter=chapter_dump)
 
 
-@bp.route('/quiz/<chapter_id>/submit', methods=['POST'])
-def quiz_submit(chapter_id):
+def delete_previous_result(chapter_id):
     """
-    function for receiving quiz answers, checking them, store the score and return to the result page
-    @param chapter_id: the chapter id for showing related quiz questions
-    @type chapter_id: integer
-    @return: return the quiz result page
-    @rtype: flask template
+        function deleting previous results with given chapter_id and logged_in user
+        @param chapter_id: the chapter id for showing related quiz questions
+        @type chapter_id: integer
+        @return: return the quiz result page
+        @rtype: flask template
     """
-    form = request.form
-    chapter_dump, questions_dump = quiz_questions_helper(chapter_id)
-    cur_score = 0
-
-    # delete old results if the user is authenticated
     if current_user.is_authenticated:
         db.engine.execute(
             "delete from answer where answer.choice_id in  ( select answer.choice_id from answer, choice, chapter, users, question where answer.choice_id = choice.id and choice.question_id = question.id and question.chapter_id = chapter.id and chapter.id = %s and users.id = %s )" % (
                 chapter_id, current_user.id))
+        db.engine.execute(
+            "delete from open_answer where open_answer.id in  ( select open_answer.id from open_answer, question where open_answer.question_id = question.id and question.chapter_id = %s and open_answer.user_id = %s )" % (
+                chapter_id, current_user.id))
         db.engine.execute("delete from score where chapter_id = %s and user_id=%s" % (chapter_id, current_user.id))
+
+
+def store_quiz_results(chapter_id, form):
+    """
+        function for storing quiz results
+        @param chapter_id: the chapter id for showing related quiz questions
+        @type chapter_id: integer
+        @param form: user submitted form
+        @type form: dict
+        @return: return the quiz result page
+        @rtype: flask template
+    """
+    chapter_dump, questions_dump = quiz_questions_helper(chapter_id)
+    cur_score = 0
+
+    # delete old results if the user is authenticated
+    delete_previous_result(chapter_id)
 
     # check score for each question
     i = 0
     while i < len(questions_dump):
         j = i
-
-        submitted_answers = set(form.getlist(questions_dump[i]['id']))
-
-        # if the user is_authenticated, update answer to the database for each choice selected
-        if current_user.is_authenticated:
-            for aws_id in submitted_answers:
-                new_answer = Answer(
+        if questions_dump[i]['type'] in ['choose_one', 'grid', 'choose_many', 'grid_checkbox']:
+            submitted_answers = set(form.getlist(questions_dump[i]['id']))
+            # if the user is_authenticated, update answer to the database for each choice selected
+            if current_user.is_authenticated:
+                for aws_id in submitted_answers:
+                    new_answer = Answer(
+                        user_id=current_user.id,
+                        choice_id=aws_id
+                    )
+                    db.session.add(new_answer)
+                    db.session.commit()
+        elif questions_dump[i]['type'] in ['open']:
+            submitted_answer = form[questions_dump[i]['id']]
+            # if the user is_authenticated, update answer to the database for each choice selected
+            if not submitted_answer:
+                questions_dump[i]['missed'] = True
+            else:
+                questions_dump[i]['score'] = questions_dump[i]['point']
+                questions_dump[i]['ans'] = submitted_answer
+                cur_score += questions_dump[i]['point']
+            if current_user.is_authenticated:
+                new_answer = OpenAnswer(
                     user_id=current_user.id,
-                    choice_id=aws_id
+                    answer=submitted_answer,
+                    question_id=questions_dump[i]['id'],
                 )
                 db.session.add(new_answer)
                 db.session.commit()
-
         # start counting selected correct choices and wrong choices that user didn't select
         selected_correct = 0
         missed_wrong = 0
@@ -164,7 +200,7 @@ def quiz_submit(chapter_id):
                 cur_score += questions_dump[i]['point']
             else:
                 questions_dump[i]['score'] = 0
-        else:
+        elif questions_dump[i]['type'] in ['choose_many', 'grid_checkbox']:
             total_choice_num = 0
             while j < len(questions_dump):
                 if questions_dump[j]['title'] != questions_dump[i]['title']:
@@ -195,6 +231,8 @@ def quiz_submit(chapter_id):
             for k in range(i, j):
                 questions_dump[k]['score'] = question_score
             i = j - 1
+        else:
+            pass
         i += 1
 
     # if the user is authenticated, update final score to the database
@@ -208,6 +246,21 @@ def quiz_submit(chapter_id):
         db.session.commit()
 
     ranking = get_ranking(chapter_id)
+    return questions_dump, chapter_dump, cur_score, ranking
+
+
+@bp.route('/quiz/<chapter_id>/submit', methods=['POST'])
+def quiz_submit(chapter_id):
+    """
+    function for receiving quiz answers, checking them, store the score and return to the result page
+    @param chapter_id: the chapter id for showing related quiz questions
+    @type chapter_id: integer
+    @return: return the quiz result page
+    @rtype: flask template
+    """
+
+    questions_dump, chapter_dump, cur_score, ranking = store_quiz_results(chapter_id, request.form)
+
     return render_template("games/quiz_result.html", questions=questions_dump, cur_lvl=chapter_dump['level_id'],
                            chapter=chapter_dump, score=cur_score, ranking=ranking)
 
@@ -280,8 +333,7 @@ def progress():
     """
     # get raw query result
     chapters_raw = db.engine.execute(
-        'select chapter.id, order_id, name, score, add_time, level_id from chapter left join score on score.chapter_id = chapter.id and score.user_id = %s and chapter.level_id = %s order by chapter.id' % (
-            current_user.id, 1))
+        'select chapter.id, order_id, name, score, add_time, level_id from chapter left join score on score.chapter_id = chapter.id and score.user_id = %s order by chapter.id' % (current_user.id))
 
     # process time format and make the result a dictionary
     chapters_processed = handle_addtime(chapters_raw)
@@ -326,6 +378,8 @@ def chapter_result(level_id, chapter_id):
     @return: return result page
     @rtype: flask template
     """
+    if level_id == "3" and chapter_id == "4":
+        return redirect(url_for('dnapi.paper_writing', ifFinished=True))
     cur_chapter_raw = db.engine.execute(
         'select * from chapter where level_id = %s and order_id = %s' % (level_id, chapter_id))
     cur_chapter = [dict(row) for row in cur_chapter_raw]
@@ -334,6 +388,10 @@ def chapter_result(level_id, chapter_id):
         "select question.id as q_id,  choice.id as c_id from answer, chapter, choice, question where choice.question_id = question.id and question.chapter_id = chapter.id and choice.id = answer.choice_id and user_id = %s and chapter.id = %s order by question.id, choice.id" % (
             current_user.id, cur_chapter[0]['id']))
     ranking = get_ranking(cur_chapter[0]['id'])
+
+    open_anwser_raw = db.engine.execute(
+        'select question.id as q_id, answer as ans from open_answer, question, chapter where question.chapter_id = chapter.id and question.id = open_answer.question_id and user_id = %s and chapter.id = %s' % (current_user.id, cur_chapter[0]['id']))
+    open_anwers = [dict(row) for row in open_anwser_raw]
 
     selected_choices = {}
     for row in selected_choices_raw:
@@ -344,17 +402,23 @@ def chapter_result(level_id, chapter_id):
     score = Score.query.filter_by(user_id=current_user.id, chapter_id=cur_chapter[0]['id']).first()
 
     for question in questions_dump:
-        if question['id'] not in selected_choices:
-            question['missed'] = True
-        for choice in question['choices']:
-            if choice['correctness']:
-                if question['id'] in selected_choices and choice['id'] in selected_choices[question['id']]:
-                    choice['state'] = 'correct'
+        if question['type'] in ['choose_one', 'grid', 'choose_many', 'grid_checkbox']:
+            if question['id'] not in selected_choices:
+                question['missed'] = True
+            for choice in question['choices']:
+                if choice['correctness']:
+                    if question['id'] in selected_choices and choice['id'] in selected_choices[question['id']]:
+                        choice['state'] = 'correct'
+                    else:
+                        choice['state'] = 'missed'
                 else:
-                    choice['state'] = 'missed'
-            else:
-                if question['id'] in selected_choices and choice['id'] in selected_choices[question['id']]:
-                    choice['state'] = 'wrong'
+                    if question['id'] in selected_choices and choice['id'] in selected_choices[question['id']]:
+                        choice['state'] = 'wrong'
+        elif question['type'] in ['open']:
+            for oa in open_anwers:
+                if str(oa['q_id']) == str(question['id']):
+                    question['ans'] = oa['ans']
+
     return render_template("games/quiz_result.html", questions=questions_dump, cur_lvl=level_id,
                            chapter=chapter_dump, score=score.score, ranking=ranking)
 
@@ -402,3 +466,122 @@ def provide_menu():
     """
     level_dict = left_chapter_menu_helper()
     return {'level_dict': level_dict}
+
+
+def open_question_handler(form_data, chapter_id):
+    """
+    function for receiving paper answers, store the answers & scores and return to the result page
+    @return: return the quiz result page
+    @rtype: flask template
+    """
+    open_questions = {}
+    left_data = {}
+    for key, value in form_data.items():
+        if key.startswith('open'):
+            open_questions[key] = value
+            q_key = key[4:]
+            if q_key in form_data:
+                open_questions[q_key] = form_data[q_key]
+
+    for key, value in form_data.items():
+        if key not in open_questions:
+            left_data[key] = value
+
+    questions = Question.query.filter_by(chapter_id=chapter_id, type="open").order_by(Question.id).all()
+    # questions_dump = questionswithanswers_schema.dump(questions)
+    # cur_chapter = Chapter.query.get(chapter_id)
+    # chapter_dump = chapter_schema.dump(cur_chapter)
+    #
+    # if current_user.is_authenticated:
+    #     for aws_id in submitted_answers:
+    #         new_answer = Answer(
+    #             user_id=current_user.id,
+    #             choice_id=aws_id
+    #         )
+    #         db.session.add(new_answer)
+    #         db.session.commit()
+    #
+    # # if the user is authenticated, update final score to the database
+    # if current_user.is_authenticated:
+    #     new_score = Score(
+    #         score=cur_score,
+    #         user_id=current_user.id,
+    #         chapter_id=chapter_id
+    #     )
+    #     db.session.add(new_score)
+    #     db.session.commit()
+    return left_data
+
+
+@bp.route('/paper_writing')
+def paper_writing():
+    """
+    view function for paper writing page, getting value from previous chapters and showing them here.
+    @return: return paper writing page
+    @rtype: flask template
+    """
+    ifFinished = request.args.get("ifFinished")
+    chapter = Chapter.query.filter_by(level_id=3, order_id=4).first()
+    chapter_dump, questions_dump = quiz_questions_helper(chapter.id)
+    if ifFinished == "False":
+        introduction = 'Kombucha, a fermented beverage with roots tracing back over 2000 years to China, ' \
+                'has gained worldwide popularity due to its purported health benefits (Jayabalan, ' \
+                'Malbaša, Lončar, Vitas, & Sathishkumar, 2014). Over the years, extensive research ' \
+                'has been conducted to understand its biochemical properties, microbiology, toxicity, ' \
+                'cellulose production, and fermentation dynamics (Greenwalt, Steinkraus, & Ledford, 2000; ' \
+                'Jayabalan et al., 2014; Rosma, Karim, & Bhat, 2012; Sreeramulu, Zhu, & Knol, 2000). ' \
+                'The microbial diversity of Kombucha has been extensively studied using culture-based methods ' \
+                'and sequencing of phylogenetic marker genes (Chakravorty et al., 2016; Coton et al., 2017; ' \
+                'De Filippis, Troise, Vitaglione, & Ercolini, 2018; Marsh, O\'Sullivan, Hill, Ross, & Cotter, 2014; ' \
+                'Reva et al., 2015). To build upon these findings, our study will leverage the Galaxy bioinformatics ' \
+                'platform, a powerful, user-friendly, and open-source tool for the analysis and interpretation of ' \
+                'genomic data. Our objective is to reanalyze the metagenomic data from two Turkish Kombucha samples, ' \
+                'harvested at different stages of the fermentation process. We will employ WMS sequencing and ' \
+                'NGS-based amplicon sequencing (16S rRNA gene and Internal Transcribed Spacer 1 [ITS1]) to derive ' \
+                'detailed taxonomic and functional characteristics of the Kombucha samples. Through the Galaxy ' \
+                'platform\'s robust suite of tools for genomic analysis, we aim to reaffirm the findings of the ' \
+                'original study and potentially uncover additional insights into the microbial composition and ' \
+                'functional dynamics of Kombucha. Our work illustrates the potent synergy of traditional microbiological ' \
+                'studies and modern bioinformatics, paving the way for future explorations in this fascinating field.'
+        results_answers_raw = db.engine.execute(
+            'select question.transition_sentence as ts, answer as ans from open_answer, question where question.id = open_answer.question_id and user_id = %s and question.chapter_id = %s' % (
+            current_user.id, chapter.id-1))
+        results_answers = [dict(row) for row in results_answers_raw]
+        results = ""
+        for r in results_answers:
+            results = results + r['ts'] + " "
+            results = results + r['ans'] + " "
+        methods_answers_raw = db.engine.execute(
+            'select question.transition_sentence as ts, answer as ans from open_answer, question where question.id = open_answer.question_id and user_id = %s and question.chapter_id = %s' % (
+            current_user.id, chapter.id-2))
+        methods_answers = [dict(row) for row in methods_answers_raw]
+        methods = ""
+        for r in methods_answers:
+            methods = methods + r['ts'] + " "
+            methods = methods + r['ans'] + " "
+        print(questions_dump)
+        return render_template("games/level3/paper_writing.html", chapter=chapter_dump, questions=questions_dump,
+                               methods=methods, results=results, introduction=introduction)
+    else:
+        open_anwser_raw = db.engine.execute(
+            'select question.id as q_id, answer as ans from open_answer, question, chapter where question.chapter_id = chapter.id and question.id = open_answer.question_id and user_id = %s and chapter.id = %s' % (
+            current_user.id, chapter.id))
+        open_anwers = [dict(row) for row in open_anwser_raw]
+        for question in questions_dump:
+            for oa in open_anwers:
+                if str(oa['q_id']) == str(question['id']):
+                    question['ans'] = oa['ans']
+        return render_template("games/level3/paper_writing.html", chapter=chapter_dump, questions=questions_dump)
+
+
+@bp.route('/paper_writing/submit', methods=['POST'])
+@login_required
+def paper_writing_submit():
+    """
+        function for handling level 3 chapter 4 paper writing
+        @return: return the quiz result page
+        @rtype: flask template
+    """
+    store_quiz_results(12, request.form)
+    return redirect(url_for('dnapi.paper_writing', ifFinished=True))
+

@@ -45,6 +45,29 @@ choicewithanswers_schema = ChoicewithanwersSchema()
 choiceswithanswers_schema = ChoicewithanwersSchema(many=True)
 
 
+class OpenAnswer(db.Model):
+    id = db.Column(db.BigInteger, primary_key=True)
+    answer = db.Column(db.String(), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user = db.relationship('Users', backref=db.backref('openanswers', lazy=True))
+    question_id = db.Column(db.Integer, db.ForeignKey('question.id'), nullable=False)
+    __table_args__ = (
+        # this can be db.PrimaryKeyConstraint if you want it to be a primary key
+        db.UniqueConstraint('user_id', 'question_id'),
+    )
+
+
+class OpenAnswerSchema(ma.SQLAlchemySchema):
+    class Meta:
+        model = OpenAnswer
+
+    answer = auto_field()
+
+
+openAnswer_schema = OpenAnswerSchema()
+OpenAnswers_schema = OpenAnswerSchema(many=True)
+
+
 class Question(db.Model):
     id = db.Column(db.BigInteger, primary_key=True)
     title = db.Column(db.String(), nullable=False)
@@ -54,6 +77,7 @@ class Question(db.Model):
     explanation = db.Column(db.String())
     image_name = db.Column(db.String())
     point = db.Column(db.Integer, nullable=False)
+    transition_sentence = db.Column(db.String())
     chapter_id = db.Column(db.Integer, db.ForeignKey('chapter.id'), nullable=False)
     choices = db.relationship('Choice', backref='question', order_by=Choice.id)
 
@@ -70,6 +94,7 @@ class QuestionSchema(ma.SQLAlchemySchema):
     image_name = auto_field()
     point = auto_field()
     explanation = auto_field()
+    transition_sentence = auto_field()
     choices = Nested(ChoiceSchema, many=True)
 
 
@@ -90,6 +115,7 @@ class QuestionwithanswersSchema(ma.SQLAlchemySchema):
     point = auto_field()
     explanation = auto_field()
     chapter_id = auto_field()
+    transition_sentence = auto_field()
     choices = Nested(ChoicewithanwersSchema, many=True)
 
 

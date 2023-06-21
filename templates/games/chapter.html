@@ -13,10 +13,6 @@
 				</figure>
 				{% endif %}
 			</div>
-			<hr>
-			{% if questions %}
-				<div id="quiz"></div>
-			{% endif %}
 			{% if chapter.id == 6 %}
 				<p class="is-size-5 my-4"> Starting from a beer bottle the cellwals of living organisms in the liquid are destroyed.
 				In several washing and cleaning steps the DNA is isolated until finally the liquid is tested for if it contains engah amount of DNA. </p>
@@ -71,6 +67,39 @@
 						</div>
 					</form>
 				</div>
+			{% endif %}
+            {% if chapter.id == 9 %}
+				<p class="is-size-5 my-4"> Kombucha is a fermented tea that has gained popularity in recent years due to its potential health benefits, but the microbial composition of Kombucha remains poorly understood.</p>
+                <p class="my-4"><a href="https://ift.onlinelibrary.wiley.com/doi/10.1111/1750-3841.14992" class="button is-link is-fullwidth start_tbn"><strong>Paper: Microbial composition of Kombucha ...</strong></a></p>
+                <p class="is-size-5 my-4"> In this paper, the authors aimed to investigate the microbial communities of homemade Kombucha fermentations using both amplicon sequencing and shotgun metagenomics.</p>
+                <p class="is-size-5 my-4"> Please read this paper, and here is a set of quiz questions that can help you understand the paper more:</p>
+			{% endif %}
+            {% if chapter.id == 10 %}
+				<div class="m-3">
+                    <p class="is-size-4 my-4">Now that you have read the paper, it's time to jump on <a href="https://galaxyproject.org/">Galaxy</a> to do an analysis by yourself!</p>
+                    <p class="is-size-5">From the paper and the work done in level2, you should know that some common steps are:</p>
+                    <div class="content">
+                        <ul>
+                            <li>Create a new history.</li>
+                            <li>Upload datasets: The datasets in this paper are available on <a href="https://www.ebi.ac.uk/ena/browser/view/PRJEB22200">ENA (Project number: PRJEB22200)</a>. Upload them to galaxy using urls.</li>
+                            <li>Quality control: Assessment of the sequencing quality is crucial to eliminate low-quality reads, adapter contamination, and other sources of errors.</li>
+                            <li>Read pre-processing: This involves trimming adapters, removing low-quality reads, filtering out reads with low complexity, and correcting sequencing errors if needed.</li>
+                            <li>Taxonomic profiling: This step involves assigning taxonomy to reads, either by aligning reads to a reference database or by using marker genes to classify reads.</li>
+                            <li>Statistical analysis: This step involves data normalization, differential abundance analysis, and other statistical methods to identify differences in taxonomic and functional profiles between samples.</li>
+                            <li>Data visualization: Visualization of the results can be done using various tools such as heatmaps, bar charts, and network graphs to better understand the microbial community structure and function.</li>
+                        </ul>
+                    </div>
+					<hr>
+				</div>
+			{% endif %}
+            {% if chapter.id == 11 %}
+				<div class="m-3">
+                    <p class="is-size-4 mt-4">Congratulations on finishing the data analysis!</p>
+                    <p class="is-size-4 mt-2 mb-6">Now let's rewind your methods and do a comparison with the original results.</p>
+                </div>
+			{% endif %}
+			{% if questions %}
+				<div id="quiz"></div>
 			{% endif %}
 		</div>
 </div>
@@ -132,7 +161,7 @@
 				}
                 myHTML += '</div>';
                 i = k -1;
-            } else {
+            } else if(questions[i].type === "choose_one" || questions[i].type === "choose_many"){
                 myHTML += '<div id="q_choices" class="q_choices">';
                 if(questions[i].type.trim() == "choose_one"){
                     for (let j = 0; j < choices.length; j++) {
@@ -163,6 +192,14 @@
 							</div>`
 				}
                 myHTML += '</div>';
+            }else if(questions[i].type === "open"){
+                myHTML += `
+                        <div class="field" id="answer${questions[i].id}">
+                          <div class="control">
+                            <textarea class="textarea" name="${questions[i].id}" placeholder="Write your answer here"></textarea>
+                          </div>
+                        </div>
+                      `
             }
         }
         myHTML += `<button type="submit" class="button is-fullwidth start_tbn mt-3 "> Submit my anwers</button></form>`

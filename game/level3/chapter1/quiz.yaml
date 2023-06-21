@@ -1,0 +1,57 @@
+chapter_name: Paper reading
+
+video_url:
+
+total_score: 16
+
+questions:
+# 1
+- title: What is an advantage of whole metagenome shotgun (WMS) sequencing compared to amplicon-based microbiome studies?
+  type: choose_one
+  hint: Please read carefully the third paragraph in the introduction
+  explanation: Although the aforementioned amplicon-based microbiome studies have provided important knowledge about the microbial dynamics of Kombucha, they do not allow functional characterization. Whole metagenome shotgun (WMS) sequencing offers important advantages, such as elimination of PCR bias and recovery of microbial genomes
+  image_name:
+  point: 4
+  choices:
+    - 1: Elimination of PCR bias
+      correct: false
+    - 2: Functional characterization
+      correct: false
+    - 3: Recovery of microbial genomes
+      correct: false
+    - 4: All of the above
+      correct: true
+
+# 2
+- title: What is the dominant bacterial phylum in both Kombucha samples?
+  type: choose_one
+  hint: Please read carefully the part 3.2 Microbial composition of Kombucha samples
+  explanation: rRNA gene-based results showed that there are eight different bacterial phyla (minimum of 50 reads in at least one sample) in the two Kombucha samples, they are Acidobacteria, Actinobacteria, Armatimonadetes, Bacteroidetes, Deinococcus-Thermus, Firmicutes, Proteobacteria, and Verrucomicrobia. Among these phyla, Proteobacteria was dominant (>99%) in all pellicle and liquid phase samples throughout the fermentation process.
+  image_name:
+  point: 4
+  choices:
+    - 1: Bacteroidetes
+      correct: false
+    - 2: Proteobacteria
+      correct: true
+    - 3: Acidobacteria
+      correct: false
+    - 4: Firmicutes
+      correct: false
+
+# 4
+- title: Why does the number of bacterial and yeast cells start to decrease after day 10?
+  type: choose_many
+  hint: Please read carefully the part 3.2 Microbial composition of Kombucha samples
+  explanation: the number of bacterial and yeast cells increase until day 6 TO 10 of Kombucha fermentation and then start to decrease due to the lack of nutrients and increase in acidity of the environment (Chen & Liu, 2000; Coton et al., 2017; Teoh, Heard, & Cox, 2004).
+  image_name:
+  point: 4
+  choices:
+    - 1: the lack of nutrients of the environment
+      correct: true
+    - 2: the contamination of the environment
+      correct: false
+    - 3: the increase in acidity of the environment
+      correct: true
+    - 4: the temperature of the environment
+      correct: false
