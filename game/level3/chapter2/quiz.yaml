@@ -1,0 +1,51 @@
+chapter_name: Data analysis
+
+video_url:
+
+total_score: 20
+
+questions:
+# 1
+- title: Where have you gotten the raw data and what tools have you applied to preprocess them?
+  type: open
+  description:
+  hint:
+  explanation:
+  point: 4
+  transition_sentence: The process began by uploading and preprocessing the raw data to ensure that it was in the appropriate format for subsequent analyses.
+
+# 2
+- title: What tools have you applied to perform quality control checks on the data to ensure it is suitable for analysis?
+  type: open
+  description:
+  hint:
+  explanation:
+  point: 4
+  transition_sentence: With the preprocessed data in hand, the focus then shifted to performing quality control checks, allowing for the identification and addressing of any issues related to sequencing errors, contamination, or biases in the dataset.
+
+# 3
+- title: What tools have you chosen for taxonomic classification?
+  type: open
+  description:
+  hint:
+  explanation:
+  point: 4
+  transition_sentence: Having established the integrity of the data, the next step involved taxonomic classification, where each sequence was assigned to its corresponding organism, thus facilitating a deeper understanding of the microbial community composition.
+
+# 4
+- title: What tools have you chosen for Operational Taxonomic Units (OTUs) / Amplicon Sequence Variants (ASVs) clustering?
+  type: open
+  description:
+  hint:
+  explanation:
+  point: 4
+  transition_sentence: Once taxonomic classification was completed, clustering techniques were employed to group similar sequences together, reducing the complexity of the dataset and enabling more accurate comparisons between samples.
+
+# 5
+- title: What kind of Diversity analysis have you done and what tools have been used?
+  type: open
+  description:
+  hint:
+  explanation:
+  point: 4
+  transition_sentence: Building upon the clustered results, a comprehensive diversity analysis was conducted to assess and compare the richness, evenness, and overall biodiversity of the microbial communities across different samples.
