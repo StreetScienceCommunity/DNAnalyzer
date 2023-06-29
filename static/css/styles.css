@@ -371,3 +371,7 @@ body > footer {
 .step_num p{
 	color: white;
 }
+
+.block_margin{
+	margin-left: 2rem;
+}
