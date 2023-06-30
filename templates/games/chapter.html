@@ -54,12 +54,23 @@
 						</li>
 						<li class="ml-6">Anybody who has this link can view and copy your history</li>
 					</ol>-->
-					<form action="/galaxy_history">
+					<form action="/galaxy_history" method="post">
 						<div class="field mb-4">
 						  <p class="control has-icons-left">
-							<input class="input" type="url" placeholder="History Link">
+                              <input class="input" type="url" name="history_url" placeholder="History Link"
+                              {% if history_link %}  value="{{ history_link['url'] }}"  {% endif %}
+                              >
 						  </p>
 						</div>
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                          {% if messages %}
+                              {% for category, message in messages %}
+                                  <div class="notification is-{{category}}">
+                                      {{ message }}
+                                  </div>
+                              {% endfor %}
+                          {% endif %}
+                       {% endwith %}
 						<div class="field">
 						  <p class="control">
 							  <button type="submit" class="button is-fullwidth start_tbn mt-3 "> Submit Your URL</button>
