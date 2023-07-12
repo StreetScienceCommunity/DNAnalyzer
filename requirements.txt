@@ -10,4 +10,5 @@ psycopg2-binary
 psycopg2
 pyyaml
 gunicorn
+flask_migrate
 ghevaluator
