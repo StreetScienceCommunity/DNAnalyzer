@@ -1,49 +1,81 @@
 <!doctype html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
 
-		<title>reveal.js</title>
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/simple.css" id="theme">
 
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
+        <!-- Code syntax highlighting -->
+        <link rel="stylesheet" href="css/zenburn.css">
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+        <!-- Printing and PDF exports -->
+        <script>
+          if( window.location.search.match( /print-pdf/gi ) ) {
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = 'css/print/pdf.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+          }
+        </script>
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
-		</div>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section id="section" data-separator="^---\n"
+                    data-separator-vertical="^----\n"
+                    data-separator-notes="^\?\?\?"
+                >
+                </section>
+            </div>
+        </div>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.js"></script>
+        <script type="text/javascript" src="lib/js/head.min.js"></script>
+        <script type="text/javascript" src="js/reveal.js"></script>
+        <script type="text/javascript">
+    // Get the slide path from URL parameters
+    var urlParams = new URLSearchParams(window.location.search);
+    var slidePath = urlParams.get('slides');
 
-		<script>
-			// More info about config & dependencies:
-			// - https://github.com/hakimel/reveal.js#configuration
-			// - https://github.com/hakimel/reveal.js#dependencies
-			Reveal.initialize({
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-				]
-			});
-		</script>
-	</body>
+    // Extract the directory path from the slide path
+    var directoryPath = slidePath.substring(0, slidePath.lastIndexOf("/"));
+
+    // Fetch the slide markdown file
+    fetch(slidePath)
+    .then(response => response.text())
+    .then(text => {
+        // Replace the image paths
+        var updatedText = text.replace(/!\[(.*?)\]\((images\/.*?)\)/g, '![$1](' + directoryPath + '/$2)');
+
+        // Create a blob URL from the updated markdown text
+        var blob = new Blob([updatedText], {type: "text/plain"});
+        var blobURL = URL.createObjectURL(blob);
+
+        // Set the markdown data attribute
+        document.getElementById('section').setAttribute('data-markdown', blobURL);
+
+        Reveal.initialize({
+            slideNumber: !window.location.search.match(/print-pdf/gi),
+            history: true,
+
+            theme: Reveal.getQueryHash().theme,
+            transition: Reveal.getQueryHash().transition || 'concave',
+
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/math/math.js', async: true },
+                { src: 'plugin/notes/notes.js', async: true },
+            ]
+        });
+    });
+</script>
+    </body>
 </html>
