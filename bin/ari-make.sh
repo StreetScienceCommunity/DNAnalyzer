@@ -11,19 +11,18 @@ function cleanup(){
 
 trap cleanup EXIT
 
-slides=$1
+slides_md=$1
 echo "====== $slides ======"
-dir="$(dirname "$slides")"
-pdf="videos/$dir/$(basename "$slides" .html).pdf"
-mp4="videos/$dir/$(basename "$slides" .html).mp4"
-slides_md="$dir/slides.md"
+dir="$(dirname "$slides_md")"
+pdf="videos/$dir/$(basename "$slides_md" .md).pdf"
+mp4="videos/$dir/$(basename "$slides_md" .md).mp4"
 
 # Launch small server
 $(which python3) -m http.server 9876 &
 
 # Process the slides
 # Pass the slide file name as a URL parameter
-docker run --network host -v $(pwd):/slides astefanutti/decktape automatic -s 1920x1080 ttp://0.0.0.0:9876/assets/reveal.js/index.html?slides=$slides $pdf; \
+docker run --network host -v $(pwd):/slides astefanutti/decktape automatic -s 1920x1080 http://0.0.0.0:9876/assets/reveal.js/index.html?slides=/$slides_md $pdf; \
 
 # Build the slides
 echo ari.sh "$pdf" "$slides_md" "$mp4"
