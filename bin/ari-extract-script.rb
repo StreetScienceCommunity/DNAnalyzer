@@ -7,7 +7,8 @@ require 'shellwords'
 require 'json'
 
 fn = ARGV[0]
-metadata = YAML.load_file(fn)
+fn_metadata = File.join(File.dirname(fn) , 'metadata.md')
+metadata = YAML.load_file(fn_metadata)
 
 ARI_MAP = File.expand_path(File.join(__dir__, 'ari-map.yml'))
 WORD_MAP = {}
@@ -54,10 +55,10 @@ lines = file.readlines.map(&:chomp)
 # contents
 
 # +1 because we skipped the 0th entry, +1 again to not include the `---`
-end_meta = lines[1..-1].index("---") + 2
+# end_meta = lines[1..-1].index("---") + 1
 
 # Strip off the metadata
-contents = lines[end_meta..-1]
+contents = lines
 
 # This will be our final script
 blocks = [[metadata['title']]]

@@ -89,7 +89,6 @@ $ sudo apt-get install libsox-fmt-mp3
 
 In different terminals:
 
-1. Run website
 1. Launch MozillaTTS for speech
 
    ```
@@ -103,6 +102,8 @@ In different terminals:
    $ ./bin/ari-make.sh <path to slide>
    ```
 
+You need to modify `<path to slide>`, e.g `./bin/ari-make.sh game/level1/intro/slides.md`
+
 
 ## Update quiz questions
 If changes are made to the quiz questions in yaml files under the folder `game`
@@ -111,4 +112,3 @@ The following script needs to be run before starting the app to update the datab
    ```
    $ python init_yaml_to_db.py
    ```
-
