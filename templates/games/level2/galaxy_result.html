@@ -18,11 +18,11 @@
 						<th>User number of inputs</th>
 						<th>Status</th>
 					</tr>
-						<tr {% if result.data_inputs.status %} class="correct" {% else %} class="wrong" {% endif %}>
-							<td class="has-text-left">{{result.data_inputs.expected_number_of_inputs}}</td>
-							<td class="has-text-left">{{result.data_inputs.user_number_of_inputs}}</td>
+						<tr {% if result.data_inputs.same %} class="correct" {% else %} class="wrong" {% endif %}>
+							<td class="has-text-left">{{result.data_inputs.workflow}}</td>
+							<td class="has-text-left">{{result.data_inputs.history}}</td>
 							<td class="has-text-left">
-								{% if result.data_inputs.status %}
+								{% if result.data_inputs.same %}
 									<span class="icon has-text-success"><i class="fas fa-check-square"></i></span>
 								{% else %}
 									<span class="icon has-text-warning"><i class="fas fa-exclamation-triangle"></i></span>
@@ -33,81 +33,88 @@
 			</div>
 			<hr>
 		</div>
-		{% for step_num, step_res in result.steps.items() %}
-			<div>
-				<div id="step_{{step_num}}" class="step_num mb-3">
-					<p class="title"> Step {{step_num}} </p>
-				</div>
-				<div id="table_step_{{step_num}}" class="ml-6 mb-3 p-2">
-					<table class="table is-fullwidth">
-						<tr class="th">
-							<th></th>
-							<th>Expected value</th>
-							<th>User value</th>
-							<th>Status</th>
-						</tr>
-							<tr {% if step_res.tool_used.status %} class="correct" {% else %} class="wrong" {% endif %}>
-								<td class="has-text-left">tool used</td>
-								<td class="has-text-left">{{step_res.tool_used.expected_value}}</td>
-								<td class="has-text-left">{{step_res.tool_used.user_value}}</td>
-								<td class="has-text-left">
-									{% if step_res.tool_used.status %}
-										<span class="icon has-text-success"><i class="fas fa-check-square"></i></span>
-									{% else %}
-										<span class="icon has-text-danger"><i class="fas fa-ban"></i></span>
-									{% endif %}
-								</td>
-							</tr>
-							<tr {% if step_res.tool_version.status %} class="correct" {% else %} class="missed" {% endif %}>
-								<td class="has-text-left">tool version</td>
-								<td class="has-text-left">{{step_res.tool_version.expected_version}}</td>
-								<td class="has-text-left">{{step_res.tool_version.user_version}}</td>
-								<td class="has-text-left">
-									{% if step_res.tool_version.status %}
-										<span class="icon has-text-success"><i class="fas fa-check-square"></i></span>
-									{% else %}
-										<span class="icon has-text-warning"><i class="fas fa-exclamation-triangle"></i></span>
-									{% endif %}
-								</td>
-							</tr>
-					</table>
-					{% if step_res.parameters %}
-						{% if step_res.parameters %}
-							{% if step_res.parameters.param_values %}
-								<div id="step_{{step_num}}_params" class="step_num mb-3">
-									<p class="title"> Parameters </p>
-								</div>
-								<div id="table_step_{{step_num}}_params" class="ml-6 mb-3 p-2">
-									<table class="table is-fullwidth">
-										<tr class="th">
-											<th>Parameter name</th>
-											<th>Expected input</th>
-											<th>User input</th>
-											<th>Status</th>
-										</tr>
-										{% for key, value in step_res.parameters.param_values.items() %}
-											<tr {% if value.status %} class="correct" {% else %} class="wrong" {% endif %}>
-												<td class="has-text-left">{{key}}</td>
-												<td class="has-text-left">{{value.expected_input}}</td>
-												<td class="has-text-left">{{value.user_input}}</td>
-												<td class="has-text-left">
-													{% if value.status %}
-														<span class="icon has-text-success"><i class="fas fa-check-square"></i></span>
-													{% else %}
-														<span class="icon has-text-danger"><i class="fas fa-ban"></i></span>
-													{% endif %}
-												</td>
-											</tr>
-										{% endfor %}
-									</table>
-								</div>
-							{% endif %}
-						{% endif %}
-					{% endif %}
-				</div>
-				<hr>
-			</div>
-		{% endfor %}
+        {% set overall_step_id = namespace(value=1) %}
+        {% for tool, tool_res in result.comparison_by_reference_workflow_tools.items() %}
+            <div id="tool_{{tool}}" class="step_num mb-3">
+                <p class="title"> {{tool}} </p>
+            </div>
+                {% for step_num, step_res in tool_res.details.items() %}
+                    <div>
+                        <div id="step_{{overall_step_id.value}}" class="step_num block_margin mb-3">
+                            <p class="subtitle"> {{tool}} #{{step_num}} </p>
+                        </div>
+                        <div id="table_step_{{overall_step_id.value}}" class="block_margin mb-3 p-2">
+                            <table class="table is-fullwidth">
+                                <tr class="th">
+                                    <th></th>
+                                    <th>Expected value</th>
+                                    <th>User value</th>
+                                    <th>Status</th>
+                                </tr>
+                                    <tr {% if step_res.tool.same %} class="correct" {% else %} class="wrong" {% endif %}>
+                                        <td class="has-text-left">tool used</td>
+                                        <td class="has-text-left">{{step_res.tool.workflow}}</td>
+                                        <td class="has-text-left">{{step_res.tool.history}}</td>
+                                        <td class="has-text-left">
+                                            {% if step_res.tool.same %}
+                                                <span class="icon has-text-success"><i class="fas fa-check-square"></i></span>
+                                            {% else %}
+                                                <span class="icon has-text-danger"><i class="fas fa-ban"></i></span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    <tr {% if step_res.version.same %} class="correct" {% else %} class="missed" {% endif %}>
+                                        <td class="has-text-left">tool version</td>
+                                        <td class="has-text-left">{{step_res.version.workflow}}</td>
+                                        <td class="has-text-left">{{step_res.version.history}}</td>
+                                        <td class="has-text-left">
+                                            {% if step_res.version.same %}
+                                                <span class="icon has-text-success"><i class="fas fa-check-square"></i></span>
+                                            {% else %}
+                                                <span class="icon has-text-warning"><i class="fas fa-exclamation-triangle"></i></span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                            </table>
+                            {% if step_res.parameters %}
+                                {% if step_res.parameters %}
+                                    {% if step_res.parameters.details %}
+                                        <div id="step_{{overall_step_id.value}}_params" class="step_num mb-3">
+                                            <p class="subtitle"> Parameters </p>
+                                        </div>
+                                        <div id="table_step_{{overall_step_id.value}}_params" class="ml-6 mb-3 p-2">
+                                            <table class="table is-fullwidth">
+                                                <tr class="th">
+                                                    <th>Parameter name</th>
+                                                    <th>Expected input</th>
+                                                    <th>User input</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                                {% for key, value in step_res.parameters.details.items() %}
+                                                    <tr {% if value.same %} class="correct" {% else %} class="wrong" {% endif %}>
+                                                        <td class="has-text-left">{{key}}</td>
+                                                        <td class="has-text-left">{{value.workflow}}</td>
+                                                        <td class="has-text-left">{{value.history}}</td>
+                                                        <td class="has-text-left">
+                                                            {% if value.same %}
+                                                                <span class="icon has-text-success"><i class="fas fa-check-square"></i></span>
+                                                            {% else %}
+                                                                <span class="icon has-text-danger"><i class="fas fa-ban"></i></span>
+                                                            {% endif %}
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </table>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% set overall_step_id.value = overall_step_id.value + 1 %}
+                {% endfor %}
+                <hr>
+        {% endfor %}
 	</div>
 </div>
 

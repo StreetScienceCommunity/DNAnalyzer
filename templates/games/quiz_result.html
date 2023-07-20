@@ -8,7 +8,7 @@
 			<div id="quiz"></div>
 			<hr>
 			<div>
-				<p class="quiz_title mb-3">Top 5 rankings on Chapter {{chapter.id}} </p>
+				<p class="quiz_title mb-3">Top 5 rankings on Chapter {{chapter.order_id}} </p>
 				<table class="table is-striped is-fullwidth">
 					  <thead>
 						<tr>
@@ -26,8 +26,6 @@
 							</tr>
 						{% endfor %}
 					</tbody>
-
-
 				</table>
 			</div>
 		</div>
@@ -84,7 +82,14 @@ function add_option_input_field(question, choice, type){
         let questions = {{questions | tojson}};
         let chapter = {{chapter| tojson}};
         let myHTML = '';
-        myHTML += `<p class="quiz_title"> <span>Level ${chapter.level_id} / Chapter ${chapter.id} Quiz result</span>  <span>{{score}} / {{chapter.total_score}} points</span></p>`;
+        myHTML += `<p class="quiz_title"> <span>Level ${chapter.level_id} / Chapter ${chapter.order_id} Quiz result</span>  <span>{{score}} / {{chapter.total_score}} points</span></p>`;
+        if(chapter.id == 9){
+            myHTML +=`<p class="my-4"><a href="https://ift.onlinelibrary.wiley.com/doi/10.1111/1750-3841.14992" class="button is-link is-fullwidth start_tbn"><strong>Paper: Microbial composition of Kombucha ...</strong></a></p>
+                <p class="is-size-5 my-4"> Here are the result of the questions related to the paper:</p>
+            `
+        }
+
+
         for (let i = 0; i < questions.length; i++) {
             myHTML += '<hr>'
             myHTML += '<div class="quiz_text">';
@@ -128,7 +133,8 @@ function add_option_input_field(question, choice, type){
                 }
                 myHTML += '  </tbody></table>';
                 i = k -1;
-            } else {
+            }
+            else if(questions[i].type === "choose_one" || questions[i].type === "choose_many") {
                 myHTML += '<div id="q_choices" class="q_choices">';
                 if(questions[i].type=="choose_one"){
                     for (let j = 0; j < choices.length; j++) {
@@ -155,8 +161,16 @@ function add_option_input_field(question, choice, type){
                 }
                 myHTML += '</div>';
             }
+            else if(questions[i].type === "open") {
+                myHTML += `
+                    <div class="field" id="answer${questions[i].id}">
+                      <div class="control">
+                        <textarea class="textarea" name="${questions[i].id}" readonly> ${questions[i].ans ? questions[i].ans : ""}</textarea>
+                      </div>
+                    </div>`
+            }
         }
-		myHTML += `<a href="/level/{{cur_lvl}}/chapter/${chapter.id}" style="text-decoration:none;"><button type="button" class="button is-fullwidth start_tbn mt-3 "> Retry </button></a>`
+		myHTML += `<a href="/level/{{cur_lvl}}/chapter/${chapter.order_id}" style="text-decoration:none;"><button type="button" class="button is-fullwidth start_tbn mt-3 "> Retry </button></a>`
         $('#quiz').html(myHTML);
     });
 </script>

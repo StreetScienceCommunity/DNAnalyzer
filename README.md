@@ -101,5 +101,14 @@ In different terminals:
    $ conda activate dnanalyzer
    $ ./bin/ari-make.sh <path to slide>
    ```
-   
+
 You need to modify `<path to slide>`, e.g `./bin/ari-make.sh game/level1/intro/slides.md`
+
+
+## Update quiz questions
+If changes are made to the quiz questions in yaml files under the folder `game`
+
+The following script needs to be run before starting the app to update the database
+   ```
+   $ python init_yaml_to_db.py
+   ```
