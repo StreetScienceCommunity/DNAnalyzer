@@ -99,6 +99,7 @@ In different terminals:
 
    ```
    $ conda activate dnanalyzer
-   $ ./bin/ari-make.sh <path to slide> 
-   # for exmaple: ./bin/ari-make.sh game/level1/intro/slides.html
+   $ ./bin/ari-make.sh <path to slide>
    ```
+   
+You need to modify `<path to slide>`, e.g `./bin/ari-make.sh game/level1/intro/slides.md`
