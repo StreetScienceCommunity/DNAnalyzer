@@ -15,6 +15,15 @@ bp = Blueprint('dnapi', __name__, url_prefix='/')
 
 WORKFLOW_URL = " https://usegalaxy.eu/training-material/topics/assembly/tutorials/general-introduction/workflows/assembly-general-introduction.ga"
 
+@bp.route('/coming_soon', methods=['GET'])
+def coming_soon():
+    """
+    Function to return coming soon page
+    @return: return to the coming soon page
+    @rtype: flask template
+    """
+    return render_template("coming_soon.html")
+
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
     """
