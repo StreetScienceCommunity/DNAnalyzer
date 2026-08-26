@@ -68,42 +68,13 @@ If you want to report a problem or suggest an enhancement we'd love for you to [
 
 Thank you very much for visiting our project repository. We hope you feel inspired and welcomed to test or even contribute to our online microbiome data analysis.
 
-
-## How can I generate the website locally?
+## How can I run the website?
 
 The Project relies on Flask and Postgres. The detailed installation instructions are available [here](docs/deployment.md)
 
+## How can I generate videos from slides?
 
-## Generate videos
-
-### Requirements
-
-Ubuntu
-
-```
-$ sudo apt-get install sox
-$ sudo apt-get install libsox-fmt-mp3
-```
-
-#### Steps
-
-In different terminals:
-
-1. Launch MozillaTTS for speech
-
-   ```
-   $ docker run -it -p 5002:5002 synesthesiam/mozillatts
-   ```
-
-2. Launch scripts
-
-   ```
-   $ conda activate dnanalyzer
-   $ ./bin/ari-make.sh <path to slide>
-   ```
-
-You need to modify `<path to slide>`, e.g `./bin/ari-make.sh game/level1/intro/slides.md`
-
+The video generation relies on scripts in the folder `\bin`. The detailed installation instructions are available [here](docs/video_generation.md)
 
 ## Update quiz questions
 If changes are made to the quiz questions in yaml files under the folder `game`
