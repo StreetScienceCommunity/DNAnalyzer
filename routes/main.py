@@ -55,7 +55,7 @@ def register():
         elif password != repeat_password:
             flash('Passwords are not identical', category='warning')
         else:
-            new_user = Users(username=username, password=generate_password_hash(password, method='sha256'))
+            new_user = Users(username=username, password=generate_password_hash(password, method='pbkdf2:sha256'))
             db.session.add(new_user)
             db.session.commit()
             flash('Account created', category='success')
